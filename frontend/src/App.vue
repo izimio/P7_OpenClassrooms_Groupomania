@@ -6,6 +6,17 @@
   <router-view/>
 </template>
 
+
+<script>
+export default {
+  methods: {
+    lol() {
+      this.$store.commit("INCREMENT_DAY")
+    }
+  },
+}
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
