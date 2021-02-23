@@ -1,13 +1,10 @@
 
 // IMPORTS // 
 const express = require('express')
-const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require("helmet")
 const apiLimiter = require("./middleware/limits-rate")
 const path = require('path')
-const test = require('./routes/test');
 
 const app = express() // Creating the API
 
@@ -19,7 +16,6 @@ app.use((req, res, next) => { // adding headers
 })
 
 app.use(bodyParser.json({ limit: "1kb" })) // parsing the request and limiting its size 
-app.use(mongoSanitize()) // sanitizing the request to prevent injection attacks 
 app.use(helmet()) // setting various HTTP headers to protect the connections
 
 //part for the files with multer

@@ -26,7 +26,7 @@
     "mysql2": "^2.2.5",
     "node": "^15.8.0",
     "nodemon": "^2.0.7",
-    "sequelize": "^6.5.0",
-    "sequelize-auto": "^0.7.11"
+    "pg": "^8.5.1",
+    "sequelize": "^6.5.0"
   }
 }
