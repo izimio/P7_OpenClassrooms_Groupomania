@@ -6,17 +6,15 @@ const sequelize = new Sequelize('groupomania', 'root', 'jojo69610', {
     dialect: 'mysql'
 });
 
-async function testConnection() {
-  try {
+  async function test() {
+    try {
       await sequelize.authenticate();
       console.log('Connection has been established successfully.');
-      let [results, metadata] = await sequelize.query('SELECT * FROM test');
-      console.log(results);
-      let [results2, metadata2] = await sequelize.query("UPDATE test SET nom = 'marc' WHERE nom = 'bob' AND id % 2 = 0 ");
-      console.log(results2);
+      const [results, metadata] = await sequelize.query('SELECT * FROM test');
+        console.log(results);
       } catch (error) {
       console.error('Unable to connect to the database:', error);
+    }
   }
-}
 
-testConnection();
+  test();

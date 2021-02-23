@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require("helmet")
 const apiLimiter = require("./middleware/limits-rate")
 const path = require('path')
+const test = require('./routes/test');
 
 const app = express() // Creating the API
 
@@ -16,6 +17,7 @@ app.use((req, res, next) => { // adding headers
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS') // allowing those types of request
   next()
 })
+
 app.use(bodyParser.json({ limit: "1kb" })) // parsing the request and limiting its size 
 app.use(mongoSanitize()) // sanitizing the request to prevent injection attacks 
 app.use(helmet()) // setting various HTTP headers to protect the connections
@@ -24,6 +26,6 @@ app.use(helmet()) // setting various HTTP headers to protect the connections
 app.use('/images', express.static(path.join(__dirname, 'images')));// telling to express where to find and stock the files that will be sent and get 
 
 // all the routes
-
+app.use('/api/post', test);
 // exporting app
 module.exports = app
