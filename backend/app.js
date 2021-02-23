@@ -5,10 +5,8 @@ const bodyParser = require('body-parser')
 const helmet = require("helmet")
 const apiLimiter = require("./middleware/limits-rate")
 const path = require('path')
-const { sequelize, User } = require('./models')
-
 const app = express() // Creating the API
-
+const {sequelize, User} = require('./models')
 app.use((req, res, next) => { // adding headers
   res.setHeader('Access-Control-Allow-Origin', '*') // allow request from any port
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization') // alow to had those headers for a request
@@ -23,20 +21,34 @@ app.use('/images', express.static(path.join(__dirname, 'images')));// telling to
 
 app.use(express.json())
 // all the routes
-app.post('/users', async(req,res) => {
-  const {firstname, lastname, email, password, role } = req.body
 
-  try{
-    const user = await User.create({firstname, lastname, email, password, role })
-    return res.json(user);
-  } catch(err){
+app.get('/users', async (req, res) => {
+
+  try {
+    const users = await User.findAll()
+    return res.json(users)
+  }catch(err){
     console.log(err)
-    return res.status(500).json(err)
+    return res.status(500).json({error: 'lol'})
   }
-}) 
+});
+
+app.get('/users/:uuid', async (req, res) => {
+
+  const uuid = req.params.uuid;
+  try {
+    const users = await User.findOne({
+      where: {uuid}
+    })
+    return res.json(users)
+  }catch(err){
+    console.log(err)
+    return res.status(500).json({error: 'lol'})
+  }
+})
 
 app.listen({port: 5000}, async() => {
-  console.log('serveur up on http://localhost:3000')
+  console.log('serveur up on http://localhost:5000')
   await sequelize.authenticate()
   console.log('Databse connected !')
 })
