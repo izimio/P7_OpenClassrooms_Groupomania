@@ -37,8 +37,8 @@ app.post('/users', async(req,res) => {
 
 app.listen({port: 5000}, async() => {
   console.log('serveur up on http://localhost:3000')
-  await sequelize.sync({force: true})
-  console.log('Databse synced !')
+  await sequelize.authenticate()
+  console.log('Databse connected !')
 })
 
 // exporting app
