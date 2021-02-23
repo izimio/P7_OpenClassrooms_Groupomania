@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const helmet = require("helmet")
 const apiLimiter = require("./middleware/limits-rate")
 const path = require('path')
+const { sequelize, User } = require('./models')
 
 const app = express() // Creating the API
 
@@ -17,11 +18,28 @@ app.use((req, res, next) => { // adding headers
 
 app.use(bodyParser.json({ limit: "1kb" })) // parsing the request and limiting its size 
 app.use(helmet()) // setting various HTTP headers to protect the connections
-
-//part for the files with multer
 app.use('/images', express.static(path.join(__dirname, 'images')));// telling to express where to find and stock the files that will be sent and get 
 
+
+app.use(express.json())
 // all the routes
-app.use('/api/post', test);
+app.post('/users', async(req,res) => {
+  const {firstname, lastname, email, password, role } = req.body
+
+  try{
+    const user = await User.create({firstname, lastname, email, password, role })
+    return res.json(user);
+  } catch(err){
+    console.log(err)
+    return res.status(500).json(err)
+  }
+}) 
+
+app.listen({port: 5000}, async() => {
+  console.log('serveur up on http://localhost:3000')
+  await sequelize.sync({force: true})
+  console.log('Databse synced !')
+})
+
 // exporting app
 module.exports = app
