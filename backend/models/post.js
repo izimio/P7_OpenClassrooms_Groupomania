@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         media: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        userID: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
         }
     });
     return post;

@@ -27,6 +27,7 @@ exports.createPost = (req, res, next) => {
                  model: models.User,
                  where: { id: userId }, 
             }],
+            userID: userId,
             username: user.username,
             title: title,
             body: body,
@@ -39,4 +40,32 @@ exports.createPost = (req, res, next) => {
             .catch(error => res.status(500).json({ error })) 
     })
      .catch(error => res.status(400).json({ error: 'Utilisateur inconnu !' }))
+}
+
+exports.getOnePost = (req, res, next) => {
+    models.Post.findOne({ //On récupère un post
+         attributes: ['id', 'UserId', 'userName', 'title', 'link', 'message', 'like', 'comment', 'commentCount', 'createdAt', 'updatedAt'],
+         where: { id: req.params.id } //On récupère notre id post
+    })
+         .then(post => {
+              if (post == null) { //Si null
+                   return res.status(404).json({ error: 'Ce post n\'existe pas !' })
+              }
+              models.Comment.findAll({ //On récupère nos commentaires
+                   attributes: ['id', 'PostId', 'UserId', 'userName', 'comment', 'like', 'createdAt', 'updatedAt'],
+                   where: { PostId: post.id } //On récupère notre id post
+              })
+                   .then(comment => {
+                        if (comment.length === 0) { //Si pas de commentaire
+                             return res.status(200).json({ message: 'Pas de commentaires', post })
+                        }
+                        post.update(post.comment = comment) //Sinon, on met à jour
+                             .then(post => {
+                                  res.status(200).json({ message: 'Commentaire du post', post }) //On affiche le pots et ses commentaires
+                             })
+                             .catch(error => res.status(400).json({ error: 'Impossible d\'afficher les commentaires !' })); //Erreur Bad Request           
+                   })
+                   .catch(error => res.status(403).json({ error: 'Id incorrect' }))//Erreur server
+         })
+         .catch(error => res.status(403).json({ error: 'Id incorrect' }))//Erreur server
 }
