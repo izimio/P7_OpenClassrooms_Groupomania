@@ -43,3 +43,18 @@ exports.createComment = (req, res, next) => {
          })
          .catch(error => res.status(403).json({ error: 'Post incorrect' }))//Erreur server
 }
+
+exports.getAllComment = (req, res, next) => {
+    models.Comment.findAll({
+         attributes: ['id', 'PostId', 'UserID', 'username', 'body', 'createdAt', 'updatedAt'],
+         where: { PostId: req.params.id } //On récupère notre id comment
+    })
+         .then(comment => {
+              console.log("comment", comment)
+              if (comment.length === 0) {
+                   return res.status(200).json({ message: 'Cette publication ne contient aucun commentaire' })
+              }
+              res.status(200).json({ comment })
+         })  //Renvoi nos comments
+         .catch(error => { res.status(400).json({ error: error }) }) //Erreur Bad Request
+}
