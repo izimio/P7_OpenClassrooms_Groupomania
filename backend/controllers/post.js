@@ -83,14 +83,14 @@ exports.updatePost = (req, res, next) => {
                    where: { id: userId }
               })
                    .then(userAdmin => {
-                        if (userAdmin.role != true) { //Si non admin
+                        if (userAdmin.role != true) { 
                              return res.status(406).json({ error: 'Impossible de modifier ce post.' })
                         }
-                        post.update({ title: title, body: body, media: media, }) //On met à jour
+                        post.update({ title: title, body: body, media: media, }) 
                              .then(() => res.status(200).json({ message: 'Post modifié !' }))
                              .catch(error => res.status(400).json({ error: 'Une erreur est survenue lors de la modification du post ' })); //Erreur Bad Request
                    })
-                   .catch(error => res.status(404).json({ error: 'Post non trouvé !' })) //Erreur Not Found
+                   .catch(error => res.status(404).json({ error: 'Post non trouvé !' })) 
          })
-         .catch(error => { res.status(404).json({ error: 'Post non trouvé !' }) }); //Erreur Not Found
+         .catch(error => { res.status(404).json({ error: 'Post non trouvé !' }) });
 }

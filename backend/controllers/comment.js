@@ -19,15 +19,15 @@ exports.createComment = (req, res, next) => {
          where: { id: postId }
     })
          .then(post => {
-              if (post == null || post.id != postId) { //On vérifie nos id post
+              if (post == null || post.id != postId) { 
                    return res.status(400).json({ error: 'Une erreur est survenue lors de la ceation du commentaire' })
               }
-              models.User.findOne({ //On cherche notre user
-                   attributes: ['id', 'username'],//Pour récupérer le nom de l'user
+              models.User.findOne({ 
+                   attributes: ['id', 'username'],
                    where: { id: userId }
               })
                    .then(user => {
-                        models.Comment.create({ //On créé notre comment
+                        models.Comment.create({ 
                              userID: userId,
                              postId: postId,
                              username: user.username,
@@ -36,18 +36,18 @@ exports.createComment = (req, res, next) => {
                              .then(comment => {
                                 res.status(201).json({ message: 'commentaire posté ! '})
                             })
-                             .catch(error => res.status(500).json({ error: "un probleme est survenue" })) //Erreur server
+                             .catch(error => res.status(500).json({ error: "un probleme est survenue" })) 
 
                    })
-                   .catch(error => res.status(500).json({ error })) //Erreur server
+                   .catch(error => res.status(500).json({ error })) 
          })
-         .catch(error => res.status(403).json({ error: 'Post incorrect' }))//Erreur server
+         .catch(error => res.status(403).json({ error: 'Post incorrect' }))
 }
 
 exports.getAllComment = (req, res, next) => {
     models.Comment.findAll({
          attributes: ['id', 'PostId', 'UserID', 'username', 'body', 'createdAt', 'updatedAt'],
-         where: { PostId: req.params.id } //On récupère notre id comment
+         where: { PostId: req.params.id } 
     })
          .then(comment => {
               console.log("comment", comment)
@@ -55,6 +55,6 @@ exports.getAllComment = (req, res, next) => {
                    return res.status(200).json({ message: 'Cette publication ne contient aucun commentaire' })
               }
               res.status(200).json({ comment })
-         })  //Renvoi nos comments
-         .catch(error => { res.status(400).json({ error: error }) }) //Erreur Bad Request
+         })  
+         .catch(error => { res.status(400).json({ error: error }) })
 }
