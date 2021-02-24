@@ -51,7 +51,7 @@ exports.getAllComment = (req, res, next) => {
     })
          .then(comment => {
               console.log("comment", comment)
-              if (comment.length === 0) {
+              if (comment.length == 0) {
                    return res.status(200).json({ message: 'Cette publication ne contient aucun commentaire' })
               }
               res.status(200).json({ comment })
