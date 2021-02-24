@@ -37,11 +37,10 @@ const errorHandler = error => {
     }
 }
 db.sequelize.sync().then(() => {
-    app.listen(4000, () => {
-        console.log(`listening on http://localhost:4000`)
+    app.listen(5000, () => {
+        console.log(`listening on http://localhost:5000`)
     })
-})
-
+  })
 const server = http.createServer(app) 
 
 server.on('error', errorHandler) 
