@@ -1,6 +1,7 @@
 const http = require('http') 
 require('dotenv').config() //importing dotenv for the .env
 const app = require('./app') 
+const db = require("./models");
 
 const normalizePort = val => { 
     const port = parseInt(val, 10)
@@ -35,6 +36,11 @@ const errorHandler = error => {
             throw error
     }
 }
+db.sequelize.sync().then(() => {
+    app.listen(4000, () => {
+        console.log(`listening on http://localhost:4000`)
+    })
+})
 
 const server = http.createServer(app) 
 
