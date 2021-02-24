@@ -22,7 +22,7 @@ exports.signup = (req, res, next) => {
     }
 
     models.User.findOne({ 
-         attributes: ['email', 'username'], 
+         attributes: ['email', 'username', 'role'], 
          where: {
             [Op.or]: [
               { email: email },
@@ -44,7 +44,7 @@ exports.signup = (req, res, next) => {
                                        console.log("user créé", user)
                                        res.status(201).json({ 
                                             userId: user.id,
-                                            isAdmin: user.isAdmin,
+                                            role: user.role,
                                             token: jwt.sign( 
                                                  { userId: user.id },
                                                  process.env.JWT_SECRET,
@@ -84,7 +84,7 @@ exports.login = (req, res, next) => {
                              }
                              res.status(200).json({
                                   userId: user.id,
-                                  isAdmin: user.isAdmin,
+                                  role: user.role,
                                   token: jwt.sign( 
                                        { userId: user.id },
                                        process.env.JWT_SECRET,
