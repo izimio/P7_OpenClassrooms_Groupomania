@@ -2,11 +2,7 @@ const {
     Model
   } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    const post = sequelize.define("Post", {
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
+    const comment = sequelize.define("Comment", {
         body: {
             type: DataTypes.STRING,
             allowNull: false
@@ -19,10 +15,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        media: {
-            type: DataTypes.STRING,
-            allowNull: true,
+        postId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
         },
     });
-    return post;
+    return comment;
 };

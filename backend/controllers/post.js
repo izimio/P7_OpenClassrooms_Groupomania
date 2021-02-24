@@ -12,7 +12,6 @@ exports.createPost = (req, res, next) => {
     const body = req.body.body
     const media = req.body.media
     
-
     if (title.length <= 2 || body <= 2) {
          return res.status(400).json({ error: 'Champs manquant ou incorrect' })
     }
@@ -22,7 +21,6 @@ exports.createPost = (req, res, next) => {
    })
     .then(user => {
         models.Post.create({ 
-            UserId: userId,
             include: [{
                  model: models.User,
                  where: { id: userId }, 
