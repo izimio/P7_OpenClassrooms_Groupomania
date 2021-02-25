@@ -3,7 +3,6 @@ const models = require('../models')
 const {
      Op
 } = require("sequelize")
-
 exports.createComment = (req, res, next) => {
      const token = req.headers.authorization.split(' ')[1]
      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
@@ -13,57 +12,42 @@ exports.createComment = (req, res, next) => {
      const postId = req.params.id
 
      if (body.length < 2 || body.length == null) {
-          return res.status(400).json({
-               error: 'Champs manquant ou erroné'
-          })
+          return res.status(400).json({ error: 'Merci de remplir tous les champs.' })
      }
 
      models.Post.findOne({
-               attributes: ['id', 'userID', 'username'],
-               where: {
-                    id: postId
-               }
-          })
+          attributes: ['id', 'userId', 'username', 'body'],
+          where: { id: postId } 
+     })
           .then(post => {
-               if (post == null || post.id != postId) {
-                    return res.status(400).json({
-                         error: 'Une erreur est survenue lors de la ceation du commentaire'
-                    })
+               if (post == null || post.id != postId) { 
+                    return res.status(400).json({ error: 'Une erreur est survenue' })
                }
-               models.User.findOne({
-                         attributes: ['id', 'username'],
-                         where: {
-                              id: userId
-                         }
-                    })
+               models.User.findOne({ 
+                    attributes: ['id', 'username'],
+                    where: { id: userId }
+               })
                     .then(user => {
-                         models.Comment.create({
-                                   userID: userId,
-                                   postId: postId,
-                                   username: user.username,
-                                   body: body,
-                              })
+                         models.Comment.create({ 
+                              UserId: userId,
+                              PostId: post.id,
+                              username: user.username,
+                              body: body,
+                         })
                               .then(comment => {
-                                   res.status(201).json({
-                                        message: 'commentaire posté ! '
-                                   })
+                              res.status(201).json({ message: 'Commentaire ajouté ! '})
                               })
-                              .catch(error => res.status(500).json({
-                                   error: "un probleme est survenue"
-                              }))
+                              .catch(error => res.status(500).json({ error })) 
 
                     })
-                    .catch(error => res.status(500).json({
-                         error
-                    }))
+                    .catch(error => res.status(500).json({ error })) 
           })
-          .catch(error => res.status(403).json({
-               error: 'Post incorrect'
-          }))
+          .catch(error => res.status(403).json({ error: 'saisie incorrect' }))
 }
+
 exports.getOneComment = (req, res, next) => {
      models.Comment.findOne({
-               attributes: ['id', 'PostId', 'UserID', 'username', 'body', 'createdAt', 'updatedAt'],
+               attributes: ['id', 'PostId', 'UserId', 'username', 'body', 'createdAt', 'updatedAt'],
                where: {
                     id: req.params.id
                }
@@ -85,7 +69,7 @@ exports.getOneComment = (req, res, next) => {
 
 exports.getAllComment = (req, res, next) => {
      models.Comment.findAll({
-               attributes: ['id', 'postId', 'UserID', 'username', 'body', 'createdAt', 'updatedAt'],
+               attributes: ['id', 'PostId', 'UserId', 'username', 'body', 'createdAt', 'updatedAt'],
                where: {
                     PostId: req.params.id
                },
@@ -121,10 +105,10 @@ exports.deleteComment = (req, res, next) => {
                } 
           })
           .then(comment => {
-               if (comment.userID === userId) { 
+               if (comment.UserId === userId) { 
                     return models.Post.findOne({
                               where: {
-                                   id: comment.postId
+                                   id: comment.PostId
                               } 
                          })
                          .then(post => {
@@ -154,7 +138,7 @@ exports.deleteComment = (req, res, next) => {
                          }
                          models.Post.findOne({
                                    where: {
-                                        id: comment.postId
+                                        id: comment.PostId
                                    }
                               })
                               .then(post => {
@@ -190,7 +174,7 @@ exports.updateComment = (req, res, next) => {
      const message = req.body.body
 
      models.Comment.findOne({
-               attributes: ['id', 'postId', 'userID', 'body'],
+               attributes: ['id', 'PostId', 'UserId', 'body'],
                where: {
                     id: req.params.id
                }
@@ -201,7 +185,7 @@ exports.updateComment = (req, res, next) => {
                          error: 'Pas de mise à jour à faire ou champs vide.'
                     })
                }
-               if (comment.userID === userId) {
+               if (comment.UserId === userId) {
                     return comment.update({
                               body: message
                          })

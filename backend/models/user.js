@@ -20,5 +20,17 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         }
     });
+    user.associate = models => {
+        models.User.hasMany(models.Post, { 
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
+            hooks: true
+          }), //Une association entre nos User et nos Post
+          models.User.hasMany(models.Comment, { 
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
+            hooks: true
+          })
+    }
     return user;
 };

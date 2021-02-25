@@ -27,13 +27,13 @@ exports.createPost = (req, res, next) => {
           })
           .then(user => {
                models.Post.create({
+                    UserId: userId,
                          include: [{
                               model: models.User,
                               where: {
                                    id: userId
                               },
                          }],
-                         userID: userId,
                          username: user.username,
                          title: title,
                          body: body,
@@ -56,7 +56,7 @@ exports.createPost = (req, res, next) => {
 
 exports.getAllPost = (req, res, next) => {
      models.Post.findAll({
-               attributes: ['id', 'title', 'body', 'username', 'userID', 'media', 'createdAt', 'updatedAt'],
+               attributes: ['id', 'title', 'body', 'username', 'userId', 'media', 'createdAt', 'updatedAt'],
                order: [
                     ['updatedAt', 'DESC']
                ],
@@ -87,7 +87,7 @@ exports.updatePost = (req, res, next) => {
      const body = req.body.body
      const media = req.body.media
      models.Post.findOne({
-               attributes: ['id', 'userID', 'title', 'body', 'media'],
+               attributes: ['id', 'UserId', 'title', 'body', 'media'],
                where: {
                     id: req.params.id
                }
@@ -103,7 +103,7 @@ exports.updatePost = (req, res, next) => {
                          error: 'Le post est déjà à jour'
                     })
                }
-               if (post.userID == userId) {
+               if (post.UserId == userId) {
                     return post.update({
                               title: title,
                               body: body,
@@ -153,7 +153,7 @@ exports.updatePost = (req, res, next) => {
 
 exports.getOnePost = (req, res, next) => {
      models.Post.findOne({
-               attributes: ['id', 'title', 'body', 'username', 'userID', 'media', 'createdAt', 'updatedAt'],
+               attributes: ['id', 'title', 'body', 'username', 'userId', 'media', 'createdAt', 'updatedAt'],
                where: {
                     id: req.params.id
                }
@@ -165,7 +165,7 @@ exports.getOnePost = (req, res, next) => {
                     })
                }
                models.Comment.findAll({
-                         attributes: ['id', 'postId', 'UserID', 'username', 'body', 'createdAt', 'updatedAt'],
+                         attributes: ['id', 'postId', 'UserId', 'username', 'body', 'createdAt', 'updatedAt'],
                          where: {
                               postId: post.id
                          }
@@ -209,7 +209,7 @@ exports.deletePost = (req, res, next) => {
                }
           })
           .then(post => {
-               if (post.userID === userId) {
+               if (post.UserId === userId) {
                     return post.destroy()
                          .then(() => res.status(200).json({
                               message: 'Post supprimé !'

@@ -11,14 +11,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        userID: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        postId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
     });
+    comment.associate = models => {
+        models.Comment.belongsTo(models.User, { 
+            foreignKey: { 
+              allowNull: false
+            }
+          }),
+          models.Comment.belongsTo(models.Post, { 
+            foreignKey: { 
+              allowNull: false
+            }
+          })
+    }
     return comment;
 };
