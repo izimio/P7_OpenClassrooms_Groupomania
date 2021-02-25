@@ -46,7 +46,7 @@ Inside of it copy past this and replace the values with your DB's informations
     }
   }
   ```
- At this point, inside the /backend folder create a file called `.env` and just as before copy poast the followings code inside of it, replacing the variales with your informations
+ At this point, inside the /backend folder create a file called `.env` and just as before copy past the followings code inside of it, replacing the values with your informations
  ---
  
   ```
@@ -57,5 +57,5 @@ Inside of it copy past this and replace the values with your DB's informations
 And that's it ! 
 ===
 
-Now just enter `npm run dev` inside the console and the project's backend'll be on ! 
+Now just enter `npm run dev` inside the console and the project's backend will be on ! 
 --
