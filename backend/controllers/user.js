@@ -251,3 +251,27 @@ exports.updateUser = (req, res, next) => {
                error: 'Utilisateur non trouvé !'
           }))
 }
+
+exports.getUser = (req, res, next) => {
+     models.User.findOne({
+               attributes: ['id', 'username', 'email'],
+               where: {
+                    id: req.params.id
+               }
+          })
+          .then(user => {
+               if (user == null) {
+                    return res.status(404).json({
+                         error: 'Utilisateur introuvable !'
+                    })
+               }
+               res.status(200).json({
+                    user
+               })
+          })
+          .catch(error => {
+               res.status(404).json({
+                    error: 'Utilisateur introuvable !'
+               })
+          })
+}
