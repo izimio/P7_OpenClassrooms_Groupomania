@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const models = require('../models')
+const fs = require('fs')
+
 const {
      Op
 } = require("sequelize")
@@ -12,7 +14,7 @@ exports.createPost = (req, res, next) => {
 
      const title = req.body.title
      const body = req.body.body
-     const media = req.body.media
+     const media = ((req.file) ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: null )
 
      if (title.length <= 2 || body <= 2) {
           return res.status(400).json({
@@ -37,7 +39,7 @@ exports.createPost = (req, res, next) => {
                          username: user.username,
                          title: title,
                          body: body,
-                         media: media,
+                         media: media
                     })
                     .then(post => {
                          console.log("post !!!", post)

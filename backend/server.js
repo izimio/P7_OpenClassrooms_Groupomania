@@ -14,7 +14,7 @@ const normalizePort = val => {
     }
     return false
 }
-const port = normalizePort(process.env.PORT || '3000')
+const port = normalizePort(process.env.PORT || '000')
 app.set('port', port) 
 
 const errorHandler = error => { 
@@ -37,7 +37,7 @@ const errorHandler = error => {
     }
 }
 db.sequelize.sync().then(() => {
-    app.listen(5000, () => {
+    app.listen(4000, () => {
         console.log(`listening on http://localhost:5000`)
     })
   })
