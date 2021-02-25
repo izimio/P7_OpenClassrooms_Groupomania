@@ -49,10 +49,10 @@ exports.getOneComment = (req, res, next) => {
           where: { id: req.params.id }
      })
           .then(comment => {
-               if (comment == null) { //Si nul
+               if (comment == null) { 
                     return res.status(404).json({ error: 'Ce commentaire n\'existe pas !' })
                }
-               res.status(200).json({ comment }) //Renvoi notre commentaire
+               res.status(200).json({ comment }) 
           })
           .catch(error => res.status(403).json({ error: 'Commentaire non trouvé' }))//Erreur server
 }
@@ -83,23 +83,23 @@ exports.updateComment = (req, res, next) => {
           where: { id: req.params.id }
      })
           .then(comment => {
-               if (newBody === comment.body || newBody === null || newBody.length < 2) { //Si pas de mofication
+               if (newBody === comment.body || newBody === null || newBody.length < 2) { 
                     return res.status(400).json({ error: 'Le commentaire est déjà à jour' })
                }
-               if (comment.UserId === userId) {  //On vérifie notre user
-                    return comment.update({ comment: newBody }) //On modifie
+               if (comment.UserId === userId) { 
+                    return comment.update({ comment: newBody }) 
                          .then(() => res.status(200).json({ newBody: 'Commentaire modifié !', PostId: comment.PostId }))
                          .catch(error => res.status(400).json({ error: 'Une erreure est survenue lors de la modification de ce commentaire' })); //Erreur Bad Request
                }
-               models.User.findOne({ //Si id différent
-                    attributes: ['id', 'isAdmin'],
+               models.User.findOne({ 
+                    attributes: ['id', 'role'],
                     where: { id: userId }
                })
                     .then(userAdmin => {
-                         if (userAdmin.isAdmin != true) { //Si non admin
+                         if (userAdmin.role != true) {
                               return res.status(406).json({ error: 'Une erreure est survenue lors de la modification de ce commentaire' })
                          }
-                         comment.update({ comment: newBody }) //On modifie
+                         comment.update({ comment: newBody }) 
                               .then(() => res.status(200).json({ newBody: 'Commentaire modifié !' }))
                               .catch(error => res.status(400).json({ error: 'Une erreure est survenue lors de la modification de ce commentaire' })); //Erreur Bad Request
                     })
