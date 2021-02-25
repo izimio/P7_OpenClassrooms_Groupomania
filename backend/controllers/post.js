@@ -44,7 +44,7 @@ exports.createPost = (req, res, next) => {
                     .then(post => {
                          console.log("post !!!", post)
                          res.status(201).json({
-                              messahe: "Post crée avec succès"
+                              message: "Post crée avec succès"
                          })
                     })
                     .catch(error => res.status(500).json({
@@ -155,48 +155,24 @@ exports.updatePost = (req, res, next) => {
 
 exports.getOnePost = (req, res, next) => {
      models.Post.findOne({
-               attributes: ['id', 'title', 'body', 'username', 'userId', 'media', 'createdAt', 'updatedAt'],
-               where: {
-                    id: req.params.id
-               }
-          })
-          .then(post => {
-               if (post == null) {
+          attributes: ['id', 'title', 'body', 'username', 'userId', 'media', 'createdAt', 'updatedAt'],
+          where: {
+               id: req.params.id
+          }
+     })
+          .then(Post => {
+               if (Post == null) {
                     return res.status(404).json({
-                         error: 'Ce post n\'existe pas !'
+                         error: 'Ce Post n\'existe pas !'
                     })
                }
-               models.Comment.findAll({
-                         attributes: ['id', 'postId', 'UserId', 'username', 'body', 'createdAt', 'updatedAt'],
-                         where: {
-                              postId: post.id
-                         }
-                    })
-                    .then(comment => {
-                         if (comment.length === 0) {
-                              return res.status(200).json({
-                                   message: 'Pas de commentaires',
-                                   post
-                              })
-                         }
-                         post.update(post.body = comment)
-                              .then(post => {
-                                   res.status(200).json({
-                                        message: 'Commentaire du post',
-                                        post
-                                   })
-                              })
-                              .catch(error => res.status(400).json({
-                                   error: 'Impossible d\'afficher les commentaires !'
-                              }));
-                    })
-                    .catch(error => res.status(403).json({
-                         error: 'Id incorrect'
-                    }))
+               res.status(200).json({
+                    Post
+               })
           })
           .catch(error => res.status(403).json({
-               error: 'Id incorrect'
-          }))
+               error: 'Post non trouvé'
+          })) 
 }
 
 

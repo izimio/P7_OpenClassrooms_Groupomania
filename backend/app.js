@@ -21,11 +21,9 @@ app.use(bodyParser.json({ limit: "1kb" }))
 app.use(helmet()) 
 app.use('/images', express.static(path.join(__dirname, 'images'))); 
 
-app.use(express.json())
-
-app.use('/api/users', userRoutes);
-app.use('/api/posts', postRoutes);
-app.use('/api/comments', commentRoutes);
+app.use('/api/users',apiLimiter, userRoutes);
+app.use('/api/posts',apiLimiter, postRoutes);
+app.use('/api/comments',apiLimiter, commentRoutes);
 // all the routes
 
 
