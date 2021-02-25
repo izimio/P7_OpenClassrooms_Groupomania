@@ -70,41 +70,40 @@ exports.getAllComment = (req, res, next) => {
          })  
          .catch(error => { res.status(400).json({ error: error }) })
 }
-
 exports.updateComment = (req, res, next) => {
      const token = req.headers.authorization.split(' ')[1]
-     const decodedToken = jwt.verify(token, process.env.JWT_RAND_SECRET)
+     const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
      const userId = decodedToken.userId
 
-     const newBody = req.body.body
+     const message = req.body.body
 
      models.Comment.findOne({
-          attributes: ['id', 'PostId', 'UserID', 'body'],
-          where: { id: req.params.id }
+          attributes: ['id', 'postId', 'userID', 'body'],
+          where: { id: req.params.id } 
      })
           .then(comment => {
-               if (newBody === comment.body || newBody === null || newBody.length < 2) { 
-                    return res.status(400).json({ error: 'Le commentaire est déjà à jour' })
+               if (message === comment.body || message === null || message.length < 2) {
+                    return res.status(400).json({ error: 'Pas de mise à jour à faire ou champs vide.' })
                }
-               if (comment.UserId === userId) { 
-                    return comment.update({ comment: newBody }) 
-                         .then(() => res.status(200).json({ newBody: 'Commentaire modifié !', PostId: comment.PostId }))
-                         .catch(error => res.status(400).json({ error: 'Une erreure est survenue lors de la modification de ce commentaire' })); //Erreur Bad Request
+               if (comment.userID === userId) {  
+                    return comment.update({ body: message }) 
+                         .then(() => res.status(200).json({ message: 'Commentaire modifié !', postId: comment.postId }))
+                         .catch(error => res.status(400).json({ error: 'Impossible de mettre à jour !' })); 
                }
                models.User.findOne({ 
                     attributes: ['id', 'role'],
-                    where: { id: userId }
+                    where: { id: userID }
                })
                     .then(userAdmin => {
-                         if (userAdmin.role != true) {
-                              return res.status(406).json({ error: 'Une erreure est survenue lors de la modification de ce commentaire' })
+                         if (userAdmin.role != true) { 
+                              return res.status(406).json({ error: 'Impossible de modifier ce commentaire.' })
                          }
-                         comment.update({ comment: newBody }) 
-                              .then(() => res.status(200).json({ newBody: 'Commentaire modifié !' }))
-                              .catch(error => res.status(400).json({ error: 'Une erreure est survenue lors de la modification de ce commentaire' })); //Erreur Bad Request
+                         comment.update({ body: message }) 
+                              .then(() => res.status(200).json({ message: 'Commentaire modifié !' }))
+                              .catch(error => res.status(400).json({ error: 'Impossible de mettre à jour !' })); 
                     })
-                    .catch(error => res.status(404).json({ error: 'Post non trouvé !' })) //Erreur Not Found
+                    .catch(error => res.status(404).json({ error: 'Post non trouvé !' })) 
 
           })
-          .catch(error => { res.status(404).json({ error: 'Commentaire introuvable!' }) }); //Erreur Not Found
+          .catch(error => { res.status(404).json({ error: 'Commentaire non trouvé !' }) });
 }
