@@ -19,13 +19,13 @@ Open an sql terminal and create a database.
 --
 Afterwards : rename the `config/config.json.schema` into => `config.json`
 --
-Inside of it copy past this 
+Inside of it copy past this and replace the values with your DB's informations
 --
 ```shell{
     "development": {
-      "username": "Your username",
-      "password": "your password",
-      "database": "your DB's name",
+      "username": "YOUR_USERNAME",
+      "password": "YOUR_PASSWORD",
+      "database": "YOUR_DB_NAME",
       "host": "127.0.0.1",
       "dialect": "mysql",
       "operatorsAliases": 0
@@ -46,7 +46,7 @@ Inside of it copy past this
     }
   }
   ```
- At this point, inside the /backend folder create a file called `.env` and just as before copy poast the followings code inside of it, replacing the variales with your informations
+ At this point, inside the /backend folder create a file called `.env` and just as before copy past the followings code inside of it, replacing the values with your informations
  ---
  
   ```
@@ -57,5 +57,5 @@ Inside of it copy past this
 And that's it ! 
 ===
 
-Now just enter `npm run dev` inside the console and the project's backend'll be on ! 
+Now just enter `npm run dev` inside the console and the project's backend will be on ! 
 --
