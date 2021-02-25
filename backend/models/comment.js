@@ -1,6 +1,6 @@
 const {
     Model
-  } = require('sequelize');
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     const comment = sequelize.define("Comment", {
         body: {

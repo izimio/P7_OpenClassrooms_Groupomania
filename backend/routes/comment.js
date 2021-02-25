@@ -8,5 +8,5 @@ router.post('/:id', auth, commentCtrl.createComment)
 router.get('/post/:id', auth, commentCtrl.getAllComment)
 router.get('/:id', auth, commentCtrl.getOneComment)
 router.put('/:id', auth, commentCtrl.updateComment)
-//router.delete('/:id', auth, commentCtrl.deleteComment)
+router.delete('/:id', auth, commentCtrl.deleteComment)
 module.exports = router;

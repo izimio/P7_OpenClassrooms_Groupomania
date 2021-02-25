@@ -1,75 +1,187 @@
-const jwt = require('jsonwebtoken') 
-const models = require('../models') 
-const { Op } = require("sequelize")
+const jwt = require('jsonwebtoken')
+const models = require('../models')
+const {
+     Op
+} = require("sequelize")
 
 exports.createComment = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1]
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
-    const userId = decodedToken.userId
+     const token = req.headers.authorization.split(' ')[1]
+     const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
+     const userId = decodedToken.userId
 
-    const body = req.body.body
-    const postId = req.params.id
+     const body = req.body.body
+     const postId = req.params.id
 
-    if (body.length < 2 || body.length == null) {
-         return res.status(400).json({ error: 'Champs manquant ou erroné' })
-    }
+     if (body.length < 2 || body.length == null) {
+          return res.status(400).json({
+               error: 'Champs manquant ou erroné'
+          })
+     }
 
-    models.Post.findOne({
-         attributes: ['id', 'userID', 'username'],
-         where: { id: postId }
-    })
-         .then(post => {
-              if (post == null || post.id != postId) { 
-                   return res.status(400).json({ error: 'Une erreur est survenue lors de la ceation du commentaire' })
-              }
-              models.User.findOne({ 
-                   attributes: ['id', 'username'],
-                   where: { id: userId }
-              })
-                   .then(user => {
-                        models.Comment.create({ 
-                             userID: userId,
-                             postId: postId,
-                             username: user.username,
-                             body: body,
-                        })
-                             .then(comment => {
-                                res.status(201).json({ message: 'commentaire posté ! '})
-                            })
-                             .catch(error => res.status(500).json({ error: "un probleme est survenue" })) 
+     models.Post.findOne({
+               attributes: ['id', 'userID', 'username'],
+               where: {
+                    id: postId
+               }
+          })
+          .then(post => {
+               if (post == null || post.id != postId) {
+                    return res.status(400).json({
+                         error: 'Une erreur est survenue lors de la ceation du commentaire'
+                    })
+               }
+               models.User.findOne({
+                         attributes: ['id', 'username'],
+                         where: {
+                              id: userId
+                         }
+                    })
+                    .then(user => {
+                         models.Comment.create({
+                                   userID: userId,
+                                   postId: postId,
+                                   username: user.username,
+                                   body: body,
+                              })
+                              .then(comment => {
+                                   res.status(201).json({
+                                        message: 'commentaire posté ! '
+                                   })
+                              })
+                              .catch(error => res.status(500).json({
+                                   error: "un probleme est survenue"
+                              }))
 
-                   })
-                   .catch(error => res.status(500).json({ error })) 
-         })
-         .catch(error => res.status(403).json({ error: 'Post incorrect' }))
+                    })
+                    .catch(error => res.status(500).json({
+                         error
+                    }))
+          })
+          .catch(error => res.status(403).json({
+               error: 'Post incorrect'
+          }))
 }
 exports.getOneComment = (req, res, next) => {
      models.Comment.findOne({
-          attributes: ['id', 'PostId', 'UserID', 'username', 'body', 'createdAt', 'updatedAt'],
-          where: { id: req.params.id }
-     })
-          .then(comment => {
-               if (comment == null) { 
-                    return res.status(404).json({ error: 'Ce commentaire n\'existe pas !' })
+               attributes: ['id', 'PostId', 'UserID', 'username', 'body', 'createdAt', 'updatedAt'],
+               where: {
+                    id: req.params.id
                }
-               res.status(200).json({ comment }) 
           })
-          .catch(error => res.status(403).json({ error: 'Commentaire non trouvé' }))//Erreur server
+          .then(comment => {
+               if (comment == null) {
+                    return res.status(404).json({
+                         error: 'Ce commentaire n\'existe pas !'
+                    })
+               }
+               res.status(200).json({
+                    comment
+               })
+          })
+          .catch(error => res.status(403).json({
+               error: 'Commentaire non trouvé'
+          })) 
 }
 
 exports.getAllComment = (req, res, next) => {
-    models.Comment.findAll({
-         attributes: ['id', 'PostId', 'UserID', 'username', 'body', 'createdAt', 'updatedAt'],
-         where: { PostId: req.params.id } 
-    })
-         .then(comment => {
-              if (comment.length == 0) {
-                   return res.status(200).json({ message: 'Cette publication ne contient aucun commentaire' })
-              }
-              res.status(200).json({ comment })
-         })  
-         .catch(error => { res.status(400).json({ error: error }) })
+     models.Comment.findAll({
+               attributes: ['id', 'postId', 'UserID', 'username', 'body', 'createdAt', 'updatedAt'],
+               where: {
+                    PostId: req.params.id
+               },
+               order: [
+                    ['updatedAt', 'DESC']
+               ],
+          })
+          .then(comment => {
+               if (comment.length == 0) {
+                    return res.status(200).json({
+                         message: 'Cette publication ne contient aucun commentaire'
+                    })
+               }
+               res.status(200).json({
+                    comment
+               })
+          })
+          .catch(error => {
+               res.status(400).json({
+                    error: error
+               })
+          })
 }
+
+exports.deleteComment = (req, res, next) => {
+     const token = req.headers.authorization.split(' ')[1]
+     const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
+     const userId = decodedToken.userId
+
+     models.Comment.findOne({
+               where: {
+                    id: req.params.id
+               } 
+          })
+          .then(comment => {
+               if (comment.userID === userId) { 
+                    return models.Post.findOne({
+                              where: {
+                                   id: comment.postId
+                              } 
+                         })
+                         .then(post => {
+                              comment.destroy()
+                                   .then(() => res.status(200).json({
+                                        message: 'Commentaire supprimé !'
+                                   }))
+                                   .catch(error => res.status(400).json({
+                                        error: 'Impossible de supprimer !'
+                                   }));        
+                         })
+                         .catch(error => res.status(400).json({
+                              error: 'Impossible de trouver le post !'
+                         })); 
+               }
+               models.User.findOne({
+                         attributes: ['id', 'role'],
+                         where: {
+                              id: userId
+                         } 
+                    })
+                    .then(userAdmin => {
+                         if (userAdmin.role != true) {
+                              return res.status(406).json({
+                                   error: 'Impossible de supprimer le commentaire.'
+                              })
+                         }
+                         models.Post.findOne({
+                                   where: {
+                                        id: comment.postId
+                                   }
+                              })
+                              .then(post => {
+                                   comment.destroy()
+                                        .then(() => res.status(200).json({
+                                             message: 'Commentaire supprimé !'
+                                        }))
+                                        .catch(error => res.status(400).json({
+                                             error: 'Impossible de supprimer !'
+                                        }));
+                              })
+                              .catch(error => res.status(400).json({
+                                   error: 'Impossible de trouver le post !'
+                              }));
+                    })
+                    .catch(error => res.status(404).json({
+                         error: 'Utilisateur non trouvé !'
+                    }))
+
+          })
+          .catch(error => {
+               res.status(404).json({
+                    error: 'Commentaire non trouvé !'
+               })
+          });
+}
+
 exports.updateComment = (req, res, next) => {
      const token = req.headers.authorization.split(' ')[1]
      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
@@ -78,33 +190,59 @@ exports.updateComment = (req, res, next) => {
      const message = req.body.body
 
      models.Comment.findOne({
-          attributes: ['id', 'postId', 'userID', 'body'],
-          where: { id: req.params.id } 
-     })
+               attributes: ['id', 'postId', 'userID', 'body'],
+               where: {
+                    id: req.params.id
+               }
+          })
           .then(comment => {
                if (message === comment.body || message === null || message.length < 2) {
-                    return res.status(400).json({ error: 'Pas de mise à jour à faire ou champs vide.' })
+                    return res.status(400).json({
+                         error: 'Pas de mise à jour à faire ou champs vide.'
+                    })
                }
-               if (comment.userID === userId) {  
-                    return comment.update({ body: message }) 
-                         .then(() => res.status(200).json({ message: 'Commentaire modifié !'}))
-                         .catch(error => res.status(400).json({ error: 'Impossible de mettre à jour !' })); 
+               if (comment.userID === userId) {
+                    return comment.update({
+                              body: message
+                         })
+                         .then(() => res.status(200).json({
+                              message: 'Commentaire modifié !'
+                         }))
+                         .catch(error => res.status(400).json({
+                              error: 'Impossible de mettre à jour !'
+                         }));
                }
-               models.User.findOne({ 
-                    attributes: ['id', 'role'],
-                    where: { id: userId }
-               })
+               models.User.findOne({
+                         attributes: ['id', 'role'],
+                         where: {
+                              id: userId
+                         }
+                    })
                     .then(userAdmin => {
                          console.log(userAdmin.role)
-                         if (userAdmin.role != true) { 
-                              return res.status(406).json({ error: 'Impossible de modifier ce commentaire.' })
+                         if (userAdmin.role != true) {
+                              return res.status(406).json({
+                                   error: 'Impossible de modifier ce commentaire.'
+                              })
                          }
-                         comment.update({ body: message }) 
-                              .then(() => res.status(200).json({ message: 'Commentaire modifié !' }))
-                              .catch(error => res.status(400).json({ error: 'Impossible de mettre à jour !' })); 
+                         comment.update({
+                                   body: message
+                              })
+                              .then(() => res.status(200).json({
+                                   message: 'Commentaire modifié !'
+                              }))
+                              .catch(error => res.status(400).json({
+                                   error: 'Impossible de mettre à jour !'
+                              }));
                     })
-                    .catch(error => res.status(404).json({ error: 'Post non trouvé !' })) 
+                    .catch(error => res.status(404).json({
+                         error: 'Post non trouvé !'
+                    }))
 
           })
-          .catch(error => { res.status(404).json({ error: 'Commentaire non trouvé !' }) });
+          .catch(error => {
+               res.status(404).json({
+                    error: 'Commentaire non trouvé !'
+               })
+          });
 }
