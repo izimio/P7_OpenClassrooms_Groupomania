@@ -1,8 +1,8 @@
 {
     "development": {
       "username": "YOUR_USERNAME",
-      "password": "OUR_PASSWORD",
-      "database": "OUR_DB_NAME",
+      "password": "YOUR_PASSWORD",
+      "database": "YOUR_DB_NAME",
       "host": "127.0.0.1",
       "dialect": "mysql",
       "operatorsAliases": 0
