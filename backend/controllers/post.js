@@ -14,7 +14,7 @@ exports.createPost = (req, res, next) => {
 
      const title = req.body.title
      const body = req.body.body
-     const media = ((req.file) ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: null )
+     const media = ((req.file) ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
 
      if (title.length <= 2 || body <= 2) {
           return res.status(400).json({
@@ -29,7 +29,7 @@ exports.createPost = (req, res, next) => {
           })
           .then(user => {
                models.Post.create({
-                    UserId: userId,
+                         UserId: userId,
                          include: [{
                               model: models.User,
                               where: {
@@ -140,7 +140,7 @@ exports.updatePost = (req, res, next) => {
                               }))
                               .catch(error => res.status(400).json({
                                    error: 'Une erreur est survenue lors de la modification du post '
-                              })); 
+                              }));
                     })
                     .catch(error => res.status(404).json({
                          error: 'Post non trouvé !'
@@ -155,11 +155,11 @@ exports.updatePost = (req, res, next) => {
 
 exports.getOnePost = (req, res, next) => {
      models.Post.findOne({
-          attributes: ['id', 'title', 'body', 'username', 'userId', 'media', 'createdAt', 'updatedAt'],
-          where: {
-               id: req.params.id
-          }
-     })
+               attributes: ['id', 'title', 'body', 'username', 'userId', 'media', 'createdAt', 'updatedAt'],
+               where: {
+                    id: req.params.id
+               }
+          })
           .then(Post => {
                if (Post == null) {
                     return res.status(404).json({
@@ -172,7 +172,7 @@ exports.getOnePost = (req, res, next) => {
           })
           .catch(error => res.status(403).json({
                error: 'Post non trouvé'
-          })) 
+          }))
 }
 
 
@@ -223,11 +223,11 @@ exports.deletePost = (req, res, next) => {
                     })
                     .catch(error => res.status(404).json({
                          error: 'Utilisateur non trouvé !'
-                    })) 
+                    }))
           })
           .catch(error => {
                res.status(404).json({
                     error: 'Post non trouvé !'
                })
-          }); 
+          });
 }
