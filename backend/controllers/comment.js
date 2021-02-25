@@ -87,14 +87,15 @@ exports.updateComment = (req, res, next) => {
                }
                if (comment.userID === userId) {  
                     return comment.update({ body: message }) 
-                         .then(() => res.status(200).json({ message: 'Commentaire modifié !', postId: comment.postId }))
+                         .then(() => res.status(200).json({ message: 'Commentaire modifié !'}))
                          .catch(error => res.status(400).json({ error: 'Impossible de mettre à jour !' })); 
                }
                models.User.findOne({ 
                     attributes: ['id', 'role'],
-                    where: { id: userID }
+                    where: { id: userId }
                })
                     .then(userAdmin => {
+                         console.log(userAdmin.role)
                          if (userAdmin.role != true) { 
                               return res.status(406).json({ error: 'Impossible de modifier ce commentaire.' })
                          }
