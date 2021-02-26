@@ -56,6 +56,35 @@ exports.createPost = (req, res, next) => {
           }))
 }
 
+
+exports.getOneUserAllPosts = (req, res, next) => {
+     models.Post.findAll({
+               attributes: ['id', 'title', 'body', 'username', 'userId', 'media', 'createdAt', 'updatedAt'],
+               order: [
+                    ['updatedAt', 'DESC']
+               ],
+               where: {
+                    userId: req.params.id
+               }
+          })
+          .then(post => {
+               if (!post[0]) {
+                    return res.status(404).json({
+                         error: 'Cet utilisateur n\'a jamais posté'
+                    })
+               }
+               res.status(200).json({
+                    post
+               })
+          })
+          .catch(error => {
+               res.status(400).json({
+                    error: "Une erreur est survenu"
+               })
+          })
+
+}
+
 exports.getAllPost = (req, res, next) => {
      models.Post.findAll({
                attributes: ['id', 'title', 'body', 'username', 'userId', 'media', 'createdAt', 'updatedAt'],
