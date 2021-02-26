@@ -47,33 +47,33 @@ exports.signup = (req, res, next) => {
                          .then(hash => {
                               const tmp = hash;
                               bcrypt.hash(email, 10)
-                              .then(hash => {
-                              const user = models.User.create({ // Creating the user
-                                        email: hash,
-                                        username: username,
-                                        password: tmp,
-                                        role: 0
-                                   })
-                                   .then(user => {
-                                        console.log("user créé", user)
-                                        res.status(201).json({
-                                             userId: user.id,
-                                             role: user.role,
-                                             token: jwt.sign({
-                                                       userId: user.id
-                                                  },
-                                                  process.env.JWT_SECRET, {
-                                                       expiresIn: '12h'
-                                                  }
-                                             )
-                                        })
-                                   })
-                                   .catch(error => res.status(500).json({
+                                   .then(hash => {
+                                        const user = models.User.create({ // Creating the user
+                                                  email: hash,
+                                                  username: username,
+                                                  password: tmp,
+                                                  role: 0
+                                             })
+                                             .then(user => {
+                                                  console.log("user créé", user)
+                                                  res.status(201).json({
+                                                       userId: user.id,
+                                                       role: user.role,
+                                                       token: jwt.sign({
+                                                                 userId: user.id
+                                                            },
+                                                            process.env.JWT_SECRET, {
+                                                                 expiresIn: '12h'
+                                                            }
+                                                       )
+                                                  })
+                                             })
+                                             .catch(error => res.status(500).json({
+                                                  error
+                                             }))
+                                   }).catch(error => res.status(500).json({
                                         error
                                    }))
-                              }).catch(error => res.status(500).json({
-                                   error
-                              }))
                          })
                          .catch(error => res.status(500).json({
                               error: "Une erreur est survenue"
@@ -115,29 +115,28 @@ exports.login = (req, res, next) => {
                                    return res.status(406).json({
                                         error: 'Email ou mot de passe incorrect!'
                                    })
-                              }
-                              else{
+                              } else {
                                    bcrypt.compare(email, user.email)
-                                   .then(valid2 => {
-                                        if (!valid2) {
-                                             return res.status(406).json({
-                                                  error: 'Email ou mot de passe incorrect!'
+                                        .then(valid2 => {
+                                             if (!valid2) {
+                                                  return res.status(406).json({
+                                                       error: 'Email ou mot de passe incorrect!'
+                                                  })
+                                             }
+                                             res.status(200).json({
+                                                  userId: user.id,
+                                                  role: user.role,
+                                                  token: jwt.sign({
+                                                            userId: user.id
+                                                       },
+                                                       process.env.JWT_SECRET, {
+                                                            expiresIn: '12h'
+                                                       }
+                                                  )
                                              })
-                                        }
-                                        res.status(200).json({
-                                             userId: user.id,
-                                             role: user.role,
-                                             token: jwt.sign({
-                                                       userId: user.id
-                                                  },
-                                                  process.env.JWT_SECRET, {
-                                                       expiresIn: '12h'
-                                                  }
-                                             )
-                                        })
-                                   }).catch(error => res.status(403).json({
-                                        error: 'Email ou mot de passe incorrect!'
-                                   }))
+                                        }).catch(error => res.status(403).json({
+                                             error: 'Email ou mot de passe incorrect!'
+                                        }))
                               }
                          })
                          .catch(error => res.status(403).json({
