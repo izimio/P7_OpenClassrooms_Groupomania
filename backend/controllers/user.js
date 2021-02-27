@@ -102,7 +102,7 @@ exports.login = (req, res, next) => {
      }
 
      models.User.findOne({
-               attributes: ['email', 'password', "username"],
+               attributes: ['email', 'password', "username", "id", "role"],
                where: {
                     username: username
                }
