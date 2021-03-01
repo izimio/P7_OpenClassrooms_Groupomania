@@ -13,7 +13,7 @@ exports.signup = (req, res, next) => {
      const regexEmail = /^[a-z0-9._-ç]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/
      const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{3,}$/
 
-     if (email == null || username == null || password == null) {
+     if (!email[0]  || !username[0]  || !password[0]) {
           return res.status(400).json({
                error: 'Champs manquant'
           })
