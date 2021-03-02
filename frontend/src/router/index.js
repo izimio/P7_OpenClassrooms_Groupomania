@@ -36,6 +36,11 @@ const routes = [
     name: 'profileMain', 
     component: () => import('../views/profileMain.vue')
   },
+  {
+    path: '/profile/:id(\\d+)/update',
+    name: 'profileUpdate', 
+    component: () => import('../views/profileUpdate.vue')
+  },
 ]
 
 const router = createRouter({

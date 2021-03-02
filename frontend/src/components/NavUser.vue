@@ -52,6 +52,9 @@ $secondary-color: #fd2d01;
     #item_nav_login,
     #item_nav_signup {
       font-size: 3.5em;
+      &:hover{
+        text-decoration: none;
+      }
     }
   }
 }

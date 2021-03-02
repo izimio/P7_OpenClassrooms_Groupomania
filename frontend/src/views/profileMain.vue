@@ -1,72 +1,73 @@
 <template>
-<div>
-  <NavHub />
-  <h1>coucou</h1>
-</div>
+  <main id="profile-page">
+    <NavHub />
+    <section>
+      <h1 id="title-profile">Votre profil</h1>
+      <InfoProfile
+        :id="this.$route.params.id"
+        :username="username"
+        :email="email"
+        :role="role"
+        :profileId="profileId"
+      />
+    </section>
+    <FooterHub />
+  </main>
 </template>
 
 <script>
-
-import NavHub from '@/components/NavHub.vue'
-/*
-import profileBase from '@/components/profileBase.vue'
-import RouterDelete from '@/components/RouterDelete.vue'
-import RouterUpdate from '@/components/RouterUpdate.vue'
-*/
+import NavHub from "@/components/NavHub.vue";
+import FooterHub from "@/components/FooterHub.vue";
+import InfoProfile from "@/components/InfoProfile.vue";
 export default {
-  name: 'ProfileMain',
+  name: "ProfileMain",
   components: {
-    NavHub
-        /*
-    profileBase,
-    RouterDelete,
-    RouterUpdate
-    */
+    NavHub,
+    FooterHub,
+    InfoProfile,
   },
   data() {
     return {
-      username: '',
-      token: '',
-      userId: '',
-    profileId: '',
-      role: '',
-      error: '',
-    }
+      username: "",
+      token: "",
+      userId: "",
+      idProfile: "",
+      role: "",
+      error: "",
+      email: "",
+    };
   },
   created() {
-    const storage = localStorage.getItem('user')
-    const auth = JSON.parse(storage)
+    const storage = localStorage.getItem("user");
+    const auth = JSON.parse(storage);
     if (auth === null) {
-      return this.$router.push({ path: '/' })
+      return this.$router.push({ path: "/" });
     }
-    this.token = auth.token
-    this.userId = auth.userId
-    this.role = auth.role
-    fetch(
-      'http://localhost:5000/api/users/' + this.$route.params.id,
-      {
-        method: 'GET', //Methode d'envoi
-        headers: new Headers({
-          'Content-Type': 'application/json', //On 'précise' que l'objet envoyé sera au format JSON
-          Authorization: `Bearer ${this.token}` 
-        })
-      }
-    )
+    this.token = auth.token;
+    this.userId = auth.userId;
+    this.role = auth.role;
+    fetch("http://localhost:5000/api/users/" + this.$route.params.id, {
+      method: "GET", //Methode d'envoi
+      headers: new Headers({
+        "Content-Type": "application/json", //On 'précise' que l'objet envoyé sera au format JSON
+        Authorization: `Bearer ${this.token}`,
+      }),
+    })
       .then((response) => response.json())
       .then((response) => {
         if (response.error) {
-          return this.$router.push({ path: '/home' }) 
+          return this.$router.push({ path: "/home" });
         }
-        this.profileId = response.user.id
-        this.username = response.user.username
+        this.profileId = response.user.id;
+        this.username = response.user.username;
+        this.email = response.user.email;
       })
       .catch((error) => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   },
-  methods: {
-  }
-}
+  methods: {},
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

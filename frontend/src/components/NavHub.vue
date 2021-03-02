@@ -9,13 +9,13 @@
       <div id="nav_full">
         <router-link id="nav_home" to="/hub" title="Direction l'accueil"
           >Accueil</router-link
-        >
+        > |
         <router-link
           id="nav_profil"
           :to="{ name: 'profileMain', params: { id: userId } }"
           title="Direction votre profile"
           >Profil</router-link
-        >
+        > |
         <router-link id="nav_logout" to="/" title="Déconnexion">
           <i class="gg-log-off"></i
         ></router-link>

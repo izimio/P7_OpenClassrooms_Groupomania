@@ -156,7 +156,6 @@ h1 {
 #ban_login {
   margin-bottom: 7em;
   &_under {
-    margin-top: -1.5em;
     font-size: 2em;
   }
 }
@@ -200,6 +199,7 @@ h1 {
   p {
     margin: 0.5em;
   }
+  margin-top: 1em;
   display: flex;
   justify-content: center;
   &_button_login {
