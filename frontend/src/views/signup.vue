@@ -7,6 +7,10 @@
     <button @click="signup">Envoyer</button>
     <p>{{ error }}</p>
     <p>{{ test }}</p>
+      <input type="file" class="coucou" @change="onFileChange" />
+    <div id="preview">
+      <img v-if="url" :src="url" />
+    </div>
   </div>
 </template>
 
@@ -20,9 +24,14 @@ export default {
       pass: "",
       error: "pas d'erreur",
       test: "0",
+      url: null,
     };
   },
   methods: {
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.url = URL.createObjectURL(file);
+    },
     signup: function (event) {
       console.log("a");
       event.preventDefault();
@@ -60,3 +69,21 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  
+#preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.coucou{
+  border-radius: 25px;
+}
+
+#preview img {
+  width: 100px;
+  height: 100px;
+}
+</style>

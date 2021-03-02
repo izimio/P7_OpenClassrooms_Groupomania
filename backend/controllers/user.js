@@ -23,6 +23,13 @@ exports.signup = (req, res, next) => {
                error: 'pseudo trop court !'
           })
      }
+
+     if (password.length < 7) {
+          return res.status(406).json({
+               error: 'Mot de passe trop court !'
+          })
+     }
+
      if (!regexEmail.test(email)) {
           return res.status(406).json({
                error: 'Email erroné !'
