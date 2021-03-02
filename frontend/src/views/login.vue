@@ -124,7 +124,7 @@ h1 {
   }
 }
 #input {
-  width: 45em;
+  width: 75em;
   height: 3em;
   &:focus {
     transform: scale(1.05);
@@ -132,9 +132,10 @@ h1 {
   }
 }
 
-#upper_form_first {
-  color: purple;
+#input{
+    text-align: center;
 }
+
 #form_each {
   justify-content: center;
   margin-top: 2em;
@@ -145,7 +146,6 @@ h1 {
   }
   display: flex;
   justify-content: center;
-  transition: 500ms;
   &_button_login {
     color: darken(lightblue, 30);
     font-weight: bold;
@@ -177,4 +177,22 @@ h1 {
   text-decoration: underline;
 }
 // Media queries
+@media all and (max-width: 1200px) {
+  #input {
+    width: 80%;
+  }
+}
+
+@media all and (max-width: 650px) {
+  h1 {
+    font-size: 3em;
+  }
+  #ban_login {
+    margin-bottom: 4em;
+    &_under {
+      margin-top: -1.5em;
+      font-size: 1.5em;
+    }
+  }
+}
 </style>
