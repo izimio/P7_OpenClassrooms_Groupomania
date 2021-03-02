@@ -37,7 +37,7 @@ $pink: #ffd7d7;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   &_instagram{

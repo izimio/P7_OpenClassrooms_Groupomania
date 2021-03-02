@@ -3,6 +3,7 @@
     <NavHub />
     <section>
       <h1 id="title-profile">Votre profil</h1>
+
       <InfoProfile
         :id="this.$route.params.id"
         :username="username"
@@ -72,6 +73,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" module>
+$bg-red: #501B1D;
 * {
   margin: 0;
   padding: 0;

@@ -220,6 +220,7 @@ h1 {
       background: lighten($bg-red, 40);
       border-radius: 5px;
       width: 8em;
+      margin-top: 1em;
       cursor: not-allowed;
     }
   }
