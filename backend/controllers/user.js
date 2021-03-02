@@ -5,6 +5,7 @@ const {
      Op
 } = require("sequelize");
 
+
 exports.signup = (req, res, next) => {
      const email = req.body.email
      const username = req.body.username
@@ -23,13 +24,13 @@ exports.signup = (req, res, next) => {
                error: 'pseudo trop court !'
           })
      }
-
+     
      if (password.length < 7) {
           return res.status(406).json({
                error: 'Mot de passe trop court !'
           })
      }
-
+     
      if (!regexEmail.test(email)) {
           return res.status(406).json({
                error: 'Email erroné !'
@@ -57,38 +58,32 @@ exports.signup = (req, res, next) => {
                if (!userFound) {
                     bcrypt.hash(password, 10)
                          .then(hash => {
-                              const tmp = hash;
-                              bcrypt.hash(email, 10)
-                                   .then(hash => {
-                                        const user = models.User.create({ // Creating the user
-                                                  email: hash,
-                                                  username: username,
-                                                  password: tmp,
-                                                  role: 0
-                                             })
-                                             .then(user => {
-                                                  console.log("user créé", user)
-                                                  res.status(201).json({
-                                                       userId: user.id,
-                                                       role: user.role,
-                                                       token: jwt.sign({
-                                                                 userId: user.id
-                                                            },
-                                                            process.env.JWT_SECRET, {
-                                                                 expiresIn: '12h'
-                                                            }
-                                                       )
-                                                  })
-                                             })
-                                             .catch(error => res.status(500).json({
-                                                  error
-                                             }))
-                                   }).catch(error => res.status(500).json({
+                              const user = models.User.create({ // Creating the user
+                                        email: email,
+                                        username: username,
+                                        password: hash,
+                                        role: 0
+                                   })
+                                   .then(user => {
+                                        console.log("user créé", user)
+                                        res.status(201).json({
+                                             userId: user.id,
+                                             role: user.role,
+                                             token: jwt.sign({
+                                                       userId: user.id
+                                                  },
+                                                  process.env.JWT_SECRET, {
+                                                       expiresIn: '12h'
+                                                  }
+                                             )
+                                        })
+                                   })
+                                   .catch(error => res.status(500).json({
                                         error
                                    }))
                          })
                          .catch(error => res.status(500).json({
-                              error: "Une erreur est survenue"
+                              error: "aaa"
                          }))
 
                } else {
@@ -105,18 +100,17 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
      const email = req.body.email
      const password = req.body.password
-     const username = req.body.username
 
-     if (email == null || password == null || username == null) {
+     if (email == null || password == null) {
           return res.status(400).json({
                error: 'Champs manquant'
           })
      }
 
      models.User.findOne({
-               attributes: ['email', 'password', "username", "id", "role"],
+               attributes: ['email', 'password', 'role', 'id'],
                where: {
-                    username: username
+                    email: email
                }
           })
           .then(user => {
@@ -127,29 +121,18 @@ exports.login = (req, res, next) => {
                                    return res.status(406).json({
                                         error: 'Email ou mot de passe incorrect!'
                                    })
-                              } else {
-                                   bcrypt.compare(email, user.email)
-                                        .then(valid2 => {
-                                             if (!valid2) {
-                                                  return res.status(406).json({
-                                                       error: 'Email ou mot de passe incorrect!'
-                                                  })
-                                             }
-                                             res.status(200).json({
-                                                  userId: user.id,
-                                                  role: user.role,
-                                                  token: jwt.sign({
-                                                            userId: user.id
-                                                       },
-                                                       process.env.JWT_SECRET, {
-                                                            expiresIn: '12h'
-                                                       }
-                                                  )
-                                             })
-                                        }).catch(error => res.status(403).json({
-                                             error: 'Email ou mot de passe incorrect!'
-                                        }))
                               }
+                              res.status(200).json({
+                                   userId: user.id,
+                                   role: user.role,
+                                   token: jwt.sign({
+                                             userId: user.id
+                                        },
+                                        process.env.JWT_SECRET, {
+                                             expiresIn: '12h'
+                                        }
+                                   )
+                              })
                          })
                          .catch(error => res.status(403).json({
                               error: 'Email ou mot de passe incorrect!'

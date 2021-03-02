@@ -29,31 +29,48 @@
             />
           </div>
 
-          <div :id="$style.form_each">
-            <label for="password" :id="$style.label"> Mot de passe </label>
-            <input
-              :id="$style.input"
-              type="password"
-              v-model="password"
-              placeholder="Exemple1"
-              @keyup.enter="login"
-              required
-            />
+          <div :id="$style.form_pass">
+            <div :id="$style.form_pass_first">
+              <label for="password" :id="$style.label"> Mot de passe </label>
+              <input
+                :id="$style.form_pass_input2"
+                type="password"
+                v-model="password"
+                @keyup.enter="login"
+                placeholder="Exemple1"
+                required
+              />
+            </div>
+            <div :id="$style.form_pass_second">
+              <label for="conf_password" :id="$style.label">
+                confirmez votre mot de passe</label
+              >
+              <input
+                :id="$style.form_pass_input2"
+                type="password"
+                v-model="conf_password"
+                placeholder="Exemple1"
+                @keyup.enter="signup"
+                required
+              />
+            </div>
           </div>
         </div>
         <p :id="$style.error">{{ error }}</p>
         <div :id="$style.bottom_form">
           <div
             v-if="
-              email.length >= 5 && password.length >= 7 && username.length > 3
+              email.length >= 5 &&
+              password.length >= 6 &&
+              username.length > 3 && password == conf_password
             "
             :id="$style.bottom_form_button_login"
-            @click="login"
+            @click="signup"
           >
-            <p>Connexion</p>
+            <p>S'inscire</p>
           </div>
           <div :id="$style.bottom_form_button_login_block" v-else>
-            <p>Connexion</p>
+            <p>S'inscire</p>
           </div>
         </div>
       </form>
@@ -65,13 +82,14 @@
 <script>
 // @ is an alias to /src
 export default {
-  name: "Login",
+  name: "Signup",
   components: {},
   data() {
     return {
       username: "",
       email: "",
       password: "",
+      conf_password: "",
       error: "",
     };
   },
@@ -79,35 +97,42 @@ export default {
     localStorage.clear(); //On assure un local storage vide
   },
   methods: {
-    login(event) {
-      event.preventDefault();
+   signup: function() {
       const user = {
-        username: this.username.trim(),
-        email: this.email.trim(),
+        email: this.email.trim(), //trim() supprime les espaces inutiles rajouté par l'utilisateur si il y en a
         password: this.password.trim(),
-      };
-      fetch("http://localhost:5000/api/users/login", {
-        method: "POST",
-        headers: new Headers({
-          "Content-Type": "application/json",
-        }),
-        body: JSON.stringify(user), //putting to JSON format
-      })
-        .then(async (result_) => {
-          const user = await result_.json();
-          console.log("user login", user);
-          if (!user.error) {
-            window.localStorage.setItem("user", JSON.stringify(user));
-            this.$router.push({ path: "/home" });
-          }
-          this.error = user.error;
+        username: this.username.trim(),
+      }
+      if (
+        this.password === this.conf_password &&
+        this.password.length > 0
+      ) {
+        return fetch('http://localhost:5000/api/users/signup', {
+          method: 'POST', 
+          headers: new Headers({
+            'Content-Type': 'application/json' 
+          }),
+          body: JSON.stringify(user) 
         })
-        .catch((error) => {
-          console.log(error);
-        });
+          .then(async (result_) => {
+            const user = await result_.json() 
+            console.log('user', user)
+            if (!user.error) {
+              window.localStorage.setItem('user', JSON.stringify(user)) 
+              return this.$router.push({
+                path: '/login',
+              }) 
+            }
+            this.error = user.error 
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
+      this.error = 'Mot de passe incorrect' //Si erreur
     },
   },
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -124,7 +149,7 @@ h1 {
   }
 }
 #input {
-  width: 45em;
+  width: 75em;
   height: 3em;
   &:focus {
     transform: scale(1.05);
@@ -132,12 +157,31 @@ h1 {
   }
 }
 
-#upper_form_first {
-  color: purple;
+#input {
+  text-align: center;
 }
+
 #form_each {
   justify-content: center;
   margin-top: 2em;
+}
+
+#form_pass{
+  display: flex;
+  justify-content: center;
+
+  &_input2{
+    width: 36em;
+    height: 3em;
+  }
+  &_first{
+      margin-top: 2em;
+    margin-right: 1em;
+  }
+  &_second{
+      margin-top: 2em;
+    margin-left: 1em;
+  }
 }
 #bottom_form {
   p {
@@ -145,7 +189,6 @@ h1 {
   }
   display: flex;
   justify-content: center;
-  transition: 500ms;
   &_button_login {
     color: darken(lightblue, 30);
     font-weight: bold;
@@ -177,4 +220,22 @@ h1 {
   text-decoration: underline;
 }
 // Media queries
+@media all and (max-width: 1200px) {
+  #input {
+    width: 80%;
+  }
+}
+
+@media all and (max-width: 650px) {
+  h1 {
+    font-size: 3em;
+  }
+  #ban_login {
+    margin-bottom: 4em;
+    &_under {
+      margin-top: -1.5em;
+      font-size: 1.5em;
+    }
+  }
+}
 </style>

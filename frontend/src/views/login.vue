@@ -7,17 +7,6 @@
       </div>
       <form action="" method="post" autocomplete="on" :id="$style.form">
         <div :id="$style.form_each">
-          <label for="text" :id="$style.label"> Identifiant </label>
-          <input
-            :id="$style.input"
-            type="username"
-            v-model="username"
-            placeholder="Julien_Delorme"
-            required
-            autofocus
-          />
-        </div>
-        <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="email" :id="$style.label"> Adresse Email </label>
             <input
@@ -45,7 +34,7 @@
         <div :id="$style.bottom_form">
           <div
             v-if="
-              email.length >= 5 && password.length >= 7 && username.length > 3
+              email.length >= 5 && password.length >= 7
             "
             :id="$style.bottom_form_button_login"
             @click="login"
@@ -69,7 +58,6 @@ export default {
   components: {},
   data() {
     return {
-      username: "",
       email: "",
       password: "",
       error: "",
@@ -82,7 +70,6 @@ export default {
     login(event) {
       event.preventDefault();
       const user = {
-        username: this.username.trim(),
         email: this.email.trim(),
         password: this.password.trim(),
       };
@@ -98,7 +85,7 @@ export default {
           console.log("user login", user);
           if (!user.error) {
             window.localStorage.setItem("user", JSON.stringify(user));
-            this.$router.push({ path: "/home" });
+            this.$router.push({ path: "/signup" });
           }
           this.error = user.error;
         })
