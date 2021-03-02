@@ -14,7 +14,7 @@ exports.signup = (req, res, next) => {
      const regexEmail = /^[a-z0-9._-ç]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/
      const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{3,}$/
 
-     if (!email[0]  || !username[0]  || !password[0]) {
+     if (!email[0] || !username[0] || !password[0]) {
           return res.status(400).json({
                error: 'Champs manquant'
           })
@@ -24,13 +24,13 @@ exports.signup = (req, res, next) => {
                error: 'pseudo trop court !'
           })
      }
-     
+
      if (password.length < 7) {
           return res.status(406).json({
                error: 'Mot de passe trop court !'
           })
      }
-     
+
      if (!regexEmail.test(email)) {
           return res.status(406).json({
                error: 'Email erroné !'
@@ -207,66 +207,86 @@ exports.updateUser = (req, res, next) => {
      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
      const userId = decodedToken.userId
 
-     const username = req.body.username
-     models.User.findOne({
-               attributes: ['id', 'role', 'username'],
-               where: {
-                    id: req.params.id
-               }
-          })
-          .then(user => {
-               if (username == user.username) {
-                    return res.status(406).json({
-                         error: 'Pas de modification'
-                    })
-               }
-               if (user.id == userId) {
-                    if (username.length < 3) {
+     const body = req.body.body
+     const value = req.body.value
+     parseInt(value, 10);
+     if (value == 1) {
+          models.User.findOne({
+                    attributes: ['username'],
+                    where: {
+                         username: body
+                    }
+               })
+               .then(userFound => {
+                    if (!userFound) {
+                         models.User.findOne({
+                                   attributes: ['id', 'role', 'username'],
+                                   where: {
+                                        id: req.params.id
+                                   }
+                              })
+                              .then(user => {
+                                   if (body == user.username) {
+                                        return res.status(406).json({
+                                             error: 'Pas de modification'
+                                        })
+                                   }
+                                   if (user.id == userId) {
+                                        if (body.length < 3) {
+                                             return res.status(406).json({
+                                                  error: 'pseudo trop court !'
+                                             })
+                                        }
+                                        return user.update({
+                                                  username: body
+                                             })
+                                             .then(() => res.status(200).json({
+                                                  message: 'Utilisateur modifié !'
+                                             }))
+                                             .catch(error => res.status(400).json({
+                                                  error: 'Une erreur est survenue lors de la modification'
+                                             }));
+                                   }
+                                   models.User.findOne({
+                                             attributes: ['id', 'role'],
+                                             where: {
+                                                  id: userId
+                                             }
+                                        })
+                                        .then(userAdmin => {
+                                             if (userAdmin.role != true) {
+                                                  return res.status(406).json({
+                                                       error: 'Impossible de modifier cet utilisateur.'
+                                                  })
+                                             } else if (userAdmin.role == 1) {
+                                                  user.update({
+                                                            username: body
+                                                       })
+                                                       .then(() => res.status(200).json({
+                                                            message: 'Utilisateur modifié !'
+                                                       }))
+                                                       .catch(error => res.status(400).json({
+                                                            error: 'Une erreur est survenue lors de la modification'
+                                                       }));
+                                             }
+                                        })
+                                        .catch(error => res.status(404).json({
+                                             error: 'Utilisateur non trouvé !'
+                                        }))
+
+                              })
+                              .catch(error => res.status(404).json({
+                                   error: 'Utilisateur non trouvé !'
+                              }))
+                    } else {
                          return res.status(406).json({
-                              error: 'pseudo trop court !'
+                              error: 'Pseudo déjà pris !'
                          })
                     }
-                    return user.update({
-                              username: username
-                         })
-                         .then(() => res.status(200).json({
-                              message: 'Utilisateur modifié !'
-                         }))
-                         .catch(error => res.status(400).json({
-                              error: 'Une erreur est survenue lors de la modification'
-                         }));
-               }
-               models.User.findOne({
-                         attributes: ['id', 'role'],
-                         where: {
-                              id: userId
-                         }
-                    })
-                    .then(userAdmin => {
-                         if (userAdmin.role != 1) {
-                              return res.status(406).json({
-                                   error: 'Impossible de modifier cet utilisateur.'
-                              })
-                         } else if (userAdmin.role == 1) {
-                              user.update({
-                                        username: username
-                                   })
-                                   .then(() => res.status(200).json({
-                                        message: 'Utilisateur modifié !'
-                                   }))
-                                   .catch(error => res.status(400).json({
-                                        error: 'Une erreur est survenue lors de la modification'
-                                   }));
-                         }
-                    })
-                    .catch(error => res.status(404).json({
-                         error: 'Utilisateur non trouvé !'
-                    }))
-
-          })
-          .catch(error => res.status(404).json({
-               error: 'Utilisateur non trouvé !'
-          }))
+               }).catch(error => res.status(500).json({
+                    error
+               }))
+     }
 }
 
 

@@ -3,7 +3,15 @@
     <section>
       <div :id="$style.ban_login">
         <h1 :id="$style.ban_login_title">Modifiez vos données</h1>
-        <p :id="$style.ban_login_under">Connectez vous !</p>
+        <p :id="$style.ban_login_under" v-if="value == 1">
+          modification de votre username
+        </p>
+        <p :id="$style.ban_login_under" v-if="value == 2">
+          modification de votre email
+        </p>
+        <p :id="$style.ban_login_under" v-if="value == 3">
+          modification de votre mot de passe
+        </p>
       </div>
       <form action="" method="post" autocomplete="on" :id="$style.form">
         <div :id="$style.form_each">
@@ -61,7 +69,7 @@ export default {
     };
   },
   created() {
-    this.value = this.$route.params.id;
+    this.value = this.$route.params.value;
     const storage = localStorage.getItem("user");
     const auth = JSON.parse(storage);
     if (auth === null) {
@@ -70,12 +78,50 @@ export default {
     this.token = auth.token;
     this.userId = auth.userId;
     this.role = auth.role;
+
+    if (this.$route.params.id != this.userId && this.role != true) {
+      return this.$router.push({ path: "/hub" });
+    }
   },
   methods: {
     backward: function () {
       this.$router.push({ name: "profileMain", params: { id: this.userId } });
     },
-    modify: function () {},
+    modify: function () {
+      if (this.token === null) {
+        return this.$router.push({ path: "/" });
+      }
+      if (this.$route.params.id != this.userId && this.role != true) {
+        return this.$router.push({ path: "/hub" });
+      }
+
+      const infos = {
+        value: this.value,
+        body: this.conf_body
+      }
+      fetch('http://localhost:3000/api/users/' + this.$route.params.id, {
+        method: 'PUT',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.token}` 
+        }),
+        body: JSON.stringify(infos) 
+      })
+        .then(async (result_) => {
+          const user = await result_.json() 
+          if (!user.error) {
+            return this.$router.push({
+              name: 'ProfileMain',
+              params: this.$route.params.id
+            }) 
+          }
+          this.error = user.error 
+          this.$router.push({ name: 'ProfileMain', params: this.$route.params.id }) 
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   },
 };
 </script>
