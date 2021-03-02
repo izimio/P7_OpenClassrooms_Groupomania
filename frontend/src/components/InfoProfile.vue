@@ -1,14 +1,14 @@
 <template>
   <div id="Info_profile">
     <div id="header_profile">
-      <h2 id="title-profile" v-if="id == profileId">
+      <h2 id="title-profile" v-if="userId == profileId">
         Voici vos informations <strong>{{ username }} </strong>, <br />
         cliquez dessus pour les modifier
       </h2>
       <h2 id="title-profile" v-else>Découvrez {{ username }}:</h2>
     </div>
     <div id="all_profile">
-      <div id="profile" v-if="id == profileId || role == 1">
+      <div id="profile">
         <div id="id">
           <i class="gg-select"></i>
           <span id="id">Utilisateur n°{{ id }}</span>
@@ -18,7 +18,7 @@
           <i class="gg-user"></i>
           <router-link
             id="id"
-            v-if="id == profileId || role == 1"
+            v-if="userId == profileId || role == 1"
             :to="{ name: 'profileUpdate', params: { value: 1, id: id } }"
             title="Modifiez votre username"
             >pseudo : {{ username }}</router-link
@@ -30,18 +30,18 @@
           <i class="gg-mail"></i>
           <router-link
             id="id"
-            v-if="id == profileId || role == 1"
+            v-if="userId == profileId || role == 1"
             :to="{ name: 'profileUpdate', params: { value: 2, id: id } }"
             title="Modifiez votre email"
             >mail : {{ email }}</router-link
           >
           <span v-else>mail : {{ email }}</span>
         </div>
-        <span id="sep"> | </span>
+        <span id="sep" v-if="userId == profileId"> | </span>
         <div id="password" v-if="id == profileId || role == 1">
           <router-link
             id="id"
-            v-if="id == profileId || role == 1"
+            v-if="userId == profileId || role == 1"
             :to="{ name: 'profileUpdate', params: { value: 3, id: id } }"
             title="Modifiez votre mot de passe"
           >
@@ -49,11 +49,11 @@
             <span>Mot de passe</span>
           </router-link>
         </div>
-        <span id="sep"> | </span>
+        <span id="sep" v-if="userId == profileId"> | </span>
         <div id="delete" v-if="id == profileId || role == 1">
           <router-link
             id="id"
-            v-if="id == profileId || role == 1"
+            v-if="userId == profileId || role == 1"
             :to="{ name: 'profileDelete', params: { id: id } }"
             title="Modifiez votre mot de passe"
           >
@@ -68,8 +68,25 @@
 <script>
 export default {
   name: "InfoProfile",
-  props: ["id", "username", "email", "role", "profileId", "value"],
+  props: ["id", "username", "email", "value"],
+  data() {
+      return {
+          role: '',
+          profileId: null,
+          userId: null,
+      }
+  },
   methods: {},
+  created() {
+    this.profileId =  this.$route.params.id
+    const storage = localStorage.getItem("user");
+    const auth = JSON.parse(storage);
+    if (auth === null) {
+      return this.$router.push({ path: "/" });
+    }
+    this.userId = auth.userId;
+    console.log(this.userId + this.profileId)
+  },
 };
 </script>
 
@@ -87,22 +104,18 @@ strong {
   padding-top: 1em;
   margin-bottom: 15em;
 }
-
 #header_profile {
   margin-bottom: 2em;
 }
-
 #all_profile {
   display: flex;
   justify-content: center;
 }
-
 #profile {
   width: 80em;
   display: flex;
   justify-content: space-evenly;
 }
-
 #username,
 #email,
 #id,
@@ -121,7 +134,6 @@ strong {
   }
   margin-right: 1em;
 }
-
 @media screen and (max-width: 1170px) {
   #profile {
     width: 20em;
