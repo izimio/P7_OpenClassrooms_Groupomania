@@ -101,6 +101,7 @@ export default {
   }
   &:hover {
     font-weight: bold;
+    text-decoration: underline;
   }
 }
 </style>

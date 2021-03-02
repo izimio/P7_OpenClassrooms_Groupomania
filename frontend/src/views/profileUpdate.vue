@@ -66,6 +66,7 @@ export default {
       token: "",
       userId: "",
       role: "",
+      error: "",
     };
   },
   created() {
@@ -97,31 +98,30 @@ export default {
 
       const infos = {
         value: this.value,
-        body: this.conf_body
-      }
-      fetch('http://localhost:3000/api/users/' + this.$route.params.id, {
-        method: 'PUT',
+        body: this.conf_body,
+      };
+      console.log(infos);
+      fetch("http://localhost:5000/api/users/" + this.userId, {
+        method: "PUT",
         headers: new Headers({
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.token}` 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
         }),
-        body: JSON.stringify(infos) 
+        body: JSON.stringify(infos),
       })
         .then(async (result_) => {
-          const user = await result_.json() 
+          const user = await result_.json();
           if (!user.error) {
-            return this.$router.push({
-              name: 'ProfileMain',
-              params: this.$route.params.id
-            }) 
+            this.error = "";
+             this.$router.push({ name: 'profileMain', params: { id: this.userId } });
+          } else {
+            this.error = user.error;
           }
-          this.error = user.error 
-          this.$router.push({ name: 'ProfileMain', params: this.$route.params.id }) 
         })
         .catch((error) => {
-          console.log(error)
-        })
-    }
+          console.log(error);
+        });
+    },
   },
 };
 </script>
@@ -205,6 +205,7 @@ h1 {
 #error {
   color: red;
   text-decoration: underline;
+  margin-bottom: 1em;
 }
 // Media queries
 @media all and (max-width: 1200px) {
@@ -220,7 +221,6 @@ h1 {
   #ban_login {
     margin-bottom: 4em;
     &_under {
-      margin-top: -1.5em;
       font-size: 1.5em;
     }
   }
