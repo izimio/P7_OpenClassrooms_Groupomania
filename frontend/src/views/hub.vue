@@ -1,43 +1,40 @@
 <template>
-<div>
-  <NavHub />
   <main :id="$style.home">
+    <NavHub />
     <section>
       <h1 :id="$style.title">Fil d'actualité</h1>
       <router-link to="/post/create" :id="$style.create_post">
         Postez !
       </router-link>
     </section>
+        <FooterHub />
+              <router-view />
   </main>
-  <router-view />
-    <FooterHub />
-</div>
 </template>
 
 <script>
 // @ is an alias to /src
-import NavHub from '@/components/NavHub.vue'
-import FooterHub from '@/components/FooterHub.vue'
+import NavHub from "@/components/NavHub.vue";
+import FooterHub from "@/components/FooterHub.vue";
 export default {
-  name: 'Hub',
+  name: "Hub",
   components: {
     NavHub,
-    FooterHub
+    FooterHub,
   },
   created() {
-    const storage = localStorage.getItem('user')
-    const auth = JSON.parse(storage)
+    const storage = localStorage.getItem("user");
+    const auth = JSON.parse(storage);
     if (auth === null) {
-      this.$router.push({ path: '/' })
+      this.$router.push({ path: "/" });
     }
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" module>
-
-$bg-red: #501B1D;
-$bg-blue: #557A95;
+$bg-red: #501b1d;
+$bg-blue: #557a95;
 
 * {
   margin: 0;

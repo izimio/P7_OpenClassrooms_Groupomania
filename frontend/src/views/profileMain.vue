@@ -13,7 +13,12 @@
         :profileId="profileId"
       />
     </section>
+    <section>
+      <h2 id="title-profile" v-if="userId == profileId">Vos posts</h2>
+      <h2 v-else id="title-profile">Posts de {{ username }}</h2>
+    </section>
     <FooterHub />
+      <router-view />
   </main>
 </template>
 
@@ -74,7 +79,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" module>
+<style lang="scss">
 * {
   margin: 0;
   padding: 0;
@@ -82,6 +87,13 @@ export default {
   text-decoration: none;
   color: black;
   scroll-behavior: smooth;
+}
+
+#title-profile{
+  font-size: 4em;
+  &_under{
+    font-size: 2em;
+  }
 }
 #profile_page {
   background-color: #ffd7d7;
@@ -93,10 +105,6 @@ export default {
   justify-content: center;
   border: solid 1.5px black;
   line-height: 35px;
-  #action_btn {
-    margin: 0 auto;
-    border: solid 1.5px black;
-  }
 }
 @media screen and (max-width: 930px) {
   #form {

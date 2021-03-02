@@ -1,7 +1,7 @@
 <template>
   <div id="Info_profile">
     <div id="header_profile">
-      <h2 id="title-profile" v-if="userId == profileId">
+      <h2 id="$style.title-profile" v-if="userId == profileId">
         Voici vos informations <strong>{{ username }} </strong>, <br />
         cliquez dessus pour les modifier
       </h2>
@@ -104,7 +104,6 @@ strong {
   background-color: lighten(grey, 40);
   padding-bottom: 1em;
   padding-top: 1em;
-  margin-bottom: 15em;
 }
 #header_profile {
   margin-bottom: 2em;

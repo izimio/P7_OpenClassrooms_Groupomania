@@ -1,8 +1,7 @@
 <template>
-    <div :id="$style.cont_comment">
+    <div id="$style.cont_comment">
       <span>De: {{ username }}</span>
       <p>{{ comment }}</p>
-      <slot></slot>
     </div>
 </template>
 
