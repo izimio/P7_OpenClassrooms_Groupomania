@@ -152,6 +152,9 @@ exports.deleteUser = (req, res, next) => {
      const token = req.headers.authorization.split(' ')[1]
      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
      const userId = decodedToken.userId
+     
+     const elem = req.body.body
+     
      models.User.findOne({
                attributes: ['id', 'role', 'username'],
                where: {
@@ -159,7 +162,7 @@ exports.deleteUser = (req, res, next) => {
                }
           })
           .then(user => {
-               if (user.id === userId) {
+               if (user.id === userId && elem == user.username) {
                     return user.destroy()
                          .then(() => res.status(200).json({
                               message: 'Utilisateur supprimé !'

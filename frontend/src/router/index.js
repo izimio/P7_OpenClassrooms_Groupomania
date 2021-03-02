@@ -41,8 +41,12 @@ const routes = [
     name: 'profileUpdate', 
     component: () => import('../views/profileUpdate.vue')
   },
+  {
+    path: '/profile/:id(\\d+)/delete',
+    name: 'profileDelete', 
+    component: () => import('../views/profileDelete.vue')
+  },
 ]
-
 const router = createRouter({
   mode: 'history',
   history: createWebHashHistory(),

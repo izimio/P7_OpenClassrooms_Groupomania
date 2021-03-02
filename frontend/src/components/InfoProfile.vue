@@ -49,11 +49,22 @@
             <span>Mot de passe</span>
           </router-link>
         </div>
+        <span id="sep"> | </span>
+        <div id="delete" v-if="id == profileId || role == 1">
+          <router-link
+            id="id"
+            v-if="id == profileId || role == 1"
+            :to="{ name: 'profileDelete', params: { id: id } }"
+            title="Modifiez votre mot de passe"
+          >
+            <i class="gg-trash"></i>
+            <span>Supprimer le compte</span>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: "InfoProfile",
@@ -87,7 +98,7 @@ strong {
 }
 
 #profile {
-  width: 60em;
+  width: 80em;
   display: flex;
   justify-content: space-evenly;
 }
@@ -95,7 +106,7 @@ strong {
 #username,
 #email,
 #id,
-#password {
+#password, #delete {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,7 +122,7 @@ strong {
   margin-right: 1em;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 1170px) {
   #profile {
     width: 20em;
     height: 150px;
@@ -128,6 +139,9 @@ strong {
   }
   #email{
       margin-right: -1em;
+  }
+  #delete{
+      margin-left: 0.4em;
   }
   #sep {
     display: none;
