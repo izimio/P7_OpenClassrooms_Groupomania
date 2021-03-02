@@ -1,9 +1,10 @@
 <template>
   <main :id="$style.login_page">
+    <NavUser />
     <section>
       <div :id="$style.ban_login">
         <h1 :id="$style.ban_login_title">Bienvenue!</h1>
-        <p :id="$style.ban_login_under">Connectez vous !</p>
+        <p :id="$style.ban_login_under">Inscrivez vous !</p>
       </div>
       <form action="" method="post" autocomplete="on" :id="$style.form">
         <div :id="$style.form_each">
@@ -81,9 +82,12 @@
 
 <script>
 // @ is an alias to /src
+import NavUser from '@/components/NavUser.vue'
 export default {
   name: "Signup",
-  components: {},
+  components: {
+    NavUser,
+  },
   data() {
     return {
       username: "",
@@ -120,7 +124,7 @@ export default {
             if (!user.error) {
               window.localStorage.setItem('user', JSON.stringify(user)) 
               return this.$router.push({
-                path: '/login',
+                path: '/hub',
               }) 
             }
             this.error = user.error 
@@ -129,7 +133,7 @@ export default {
             console.log(error)
           })
       }
-      this.error = 'Mot de passe incorrect' //Si erreur
+      this.error = 'Mot de passe incorrect' 
     },
   },
 }
@@ -137,8 +141,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" module>
+
+$bg-red: #501B1D;
+$bg-blue: #557A95;
+
 h1 {
   font-size: 5em;
+}
+
+#login_page{
+      margin-bottom: 2em;
 }
 
 #ban_login {
@@ -191,20 +203,21 @@ h1 {
   display: flex;
   justify-content: center;
   &_button_login {
-    color: darken(lightblue, 30);
+    color: darken($bg-blue, 30);
     font-weight: bold;
     cursor: pointer;
     width: 8em;
     border-radius: 5px;
-    background: lighten(lightblue, 10);
+    background: lighten($bg-blue, 30);
     height: auto;
     &:hover {
       text-decoration: underline;
+      background: lighten($bg-blue, 10);
     }
     &_block {
-      color: darken(red, 10);
+      color: darken($bg-red, 10);
       font-weight: bold;
-      background: lighten(red, 40);
+      background: lighten($bg-red, 40);
       border-radius: 5px;
       width: 8em;
       cursor: not-allowed;

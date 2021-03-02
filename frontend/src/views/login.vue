@@ -1,8 +1,9 @@
 <template>
   <main :id="$style.login_page">
+    <NavUser />
     <section>
       <div :id="$style.ban_login">
-        <h1 :id="$style.ban_login_title">Bienvenue!</h1>
+        <h1 :id="$style.ban_login_title">Vous revoilà !</h1>
         <p :id="$style.ban_login_under">Connectez vous !</p>
       </div>
       <form action="" method="post" autocomplete="on" :id="$style.form">
@@ -52,10 +53,13 @@
 
 
 <script>
-// @ is an alias to /src
+import NavUser from '@/components/NavUser.vue'
 export default {
   name: "Login",
-  components: {},
+  components: {
+    NavUser,
+
+  },
   data() {
     return {
       email: "",
@@ -85,7 +89,7 @@ export default {
           console.log("user login", user);
           if (!user.error) {
             window.localStorage.setItem("user", JSON.stringify(user));
-            this.$router.push({ path: "/signup" });
+            this.$router.push({ path: "/hub" });
           }
           this.error = user.error;
         })
@@ -99,14 +103,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" module>
+
+$bg-red: #501B1D;
+$bg-blue: #557A95;
+
 h1 {
   font-size: 5em;
+}
+
+#login_page{
+      margin-bottom: 2em;
 }
 
 #ban_login {
   margin-bottom: 7em;
   &_under {
-    margin-top: -1.5em;
     font-size: 2em;
   }
 }
@@ -135,20 +146,23 @@ h1 {
   display: flex;
   justify-content: center;
   &_button_login {
-    color: darken(lightblue, 30);
+
+    color: darken($bg-blue, 30);
     font-weight: bold;
     cursor: pointer;
     width: 8em;
     border-radius: 5px;
-    background: lighten(lightblue, 10);
+    margin-top: 1em;
+    background: lighten($bg-blue, 30);
     height: auto;
     &:hover {
       text-decoration: underline;
+      background: lighten($bg-blue, 10);
     }
     &_block {
-      color: darken(red, 10);
+      color: darken($bg-red, 10);
       font-weight: bold;
-      background: lighten(red, 40);
+      background: lighten($bg-red, 40);
       border-radius: 5px;
       width: 8em;
       cursor: not-allowed;
