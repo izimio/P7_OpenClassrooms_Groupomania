@@ -113,6 +113,7 @@ h1 {
 #input {
   width: 75em;
   height: 3em;
+  text-align: center;
   &:focus {
     transform: scale(1.05);
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);

@@ -43,7 +43,7 @@
             </div>
             <div :id="$style.form_pass_second">
               <label for="conf_password" :id="$style.label">
-                confirmez votre mot de passe</label
+                confirmez votre MDP</label
               >
               <input
                 :id="$style.form_pass_input2"
@@ -151,14 +151,11 @@ h1 {
 #input {
   width: 75em;
   height: 3em;
+  text-align: center;
   &:focus {
     transform: scale(1.05);
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
-}
-
-#input {
-  text-align: center;
 }
 
 #form_each {
@@ -173,6 +170,10 @@ h1 {
   &_input2{
     width: 36em;
     height: 3em;
+    &:focus {
+    transform: scale(1.05);
+    box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+  }
   }
   &_first{
       margin-top: 2em;
@@ -223,6 +224,19 @@ h1 {
 @media all and (max-width: 1200px) {
   #input {
     width: 80%;
+  }
+  #form_pass{
+    display: flex;
+    flex-direction: column;
+    &_input2{
+      width: 80%;
+    }
+    &_first{
+      margin-right: 0;
+    }
+    &_second{
+       margin-left: 0;
+    }
   }
 }
 
