@@ -2,7 +2,8 @@
   <main id="profile-page">
     <NavHub />
     <section>
-      <h1 id="title-profile">Votre profil</h1>
+      <h1 id="title-profile" v-if="userId == profileId">Votre profil</h1>
+      <h1 v-else id="title-profile">Profile de {{ username }}</h1>
 
       <InfoProfile
         :id="this.$route.params.id"
@@ -32,13 +33,14 @@ export default {
       username: "",
       token: "",
       userId: "",
-      idProfile: "",
+      profileId: "",
       role: "",
       error: "",
       email: "",
     };
   },
   created() {
+    this.profileId = this.$route.params.id;
     const storage = localStorage.getItem("user");
     const auth = JSON.parse(storage);
     if (auth === null) {
@@ -73,7 +75,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" module>
-$bg-red: #501B1D;
 * {
   margin: 0;
   padding: 0;

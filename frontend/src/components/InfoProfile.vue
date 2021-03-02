@@ -9,11 +9,13 @@
     </div>
     <div id="all_profile">
       <div id="profile">
-        <div id="id">
+        <div id="id"  v-if="userId == profileId || role == 1">
           <i class="gg-select"></i>
           <span id="id">Utilisateur n°{{ id }}</span>
         </div>
-        <span id="sep"> | </span>
+        <span v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span id="sep"  v-if="userId == profileId || role == 1"> | </span>
         <div id="username">
           <i class="gg-user"></i>
           <router-link
@@ -58,7 +60,7 @@
             title="Modifiez votre mot de passe"
           >
             <i class="gg-trash"></i>
-            <span>Supprimer le compte</span>
+            <span> Supprimer le compte </span>
           </router-link>
         </div>
       </div>
@@ -70,22 +72,22 @@ export default {
   name: "InfoProfile",
   props: ["id", "username", "email", "value"],
   data() {
-      return {
-          role: '',
-          profileId: null,
-          userId: null,
-      }
+    return {
+      role: "",
+      profileId: null,
+      userId: null,
+    };
   },
   methods: {},
   created() {
-    this.profileId =  this.$route.params.id
+    this.profileId = this.$route.params.id;
     const storage = localStorage.getItem("user");
     const auth = JSON.parse(storage);
     if (auth === null) {
       return this.$router.push({ path: "/" });
     }
     this.userId = auth.userId;
-    console.log(this.userId + this.profileId)
+    console.log(this.userId + this.profileId);
   },
 };
 </script>
@@ -119,7 +121,8 @@ strong {
 #username,
 #email,
 #id,
-#password, #delete {
+#password,
+#delete {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,6 +136,19 @@ strong {
     text-decoration: underline;
   }
   margin-right: 1em;
+}
+#delete {
+  span {
+      padding: 0.3em;
+      transition: 400ms;
+      &:hover{
+          background-color: red;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+      }
+  }
 }
 @media screen and (max-width: 1170px) {
   #profile {
@@ -149,11 +165,11 @@ strong {
   #id {
     margin-left: -0.2em;
   }
-  #email{
-      margin-right: -1em;
+  #email {
+    margin-right: -1em;
   }
-  #delete{
-      margin-left: 0.4em;
+  #delete {
+    margin-left: 0.4em;
   }
   #sep {
     display: none;
