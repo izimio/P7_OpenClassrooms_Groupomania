@@ -83,26 +83,24 @@ export default {
       event.preventDefault();
       const user = {
         username: this.username.trim(),
-        email: this.email.trim(), //trim() supprime les espaces inutiles rajouté par l'utilisateur si il y en a
+        email: this.email.trim(), 
         password: this.password.trim(),
       };
-      //On vérifie nos champs
       fetch("http://localhost:5000/api/users/login", {
-        method: "POST", //Methode d'envoi
+        method: "POST", 
         headers: new Headers({
           "Content-Type": "application/json",
         }),
-        body: JSON.stringify(user), //On stringify l'objet envoyé
+        body: JSON.stringify(user), //putting to JSON format
       })
         .then(async (result_) => {
-          const user = await result_.json(); //On attend le résultat de resul_.json() pour exécuter le reste
+          const user = await result_.json(); 
           console.log("user login", user);
           if (!user.error) {
-            //SI pas d'erreur
-            window.localStorage.setItem("user", JSON.stringify(user)); //On stocke user dans le localStorage pour l'utiliser après
+            window.localStorage.setItem("user", JSON.stringify(user)); 
             this.$router.push({ path: "/home" });
           }
-          this.error = user.error; //Si erreur
+          this.error = user.error; 
         })
         .catch((error) => {
           console.log(error);
@@ -114,7 +112,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" module>
-//Variables
 
 h1 {
   font-size: 5em;
