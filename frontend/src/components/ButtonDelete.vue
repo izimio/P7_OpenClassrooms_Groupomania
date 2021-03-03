@@ -1,5 +1,5 @@
 <template>
-  <div id="delete-btn" @click="delette">
+  <div id="delete-btn-trash" @click="delette">
     <i class="gg-trash"></i>
     <span id="button-send">Supprimer</span>
   </div>
@@ -17,16 +17,26 @@ export default {
 </script>
 
 <style lang="scss">
-  #delete-btn{
-    border: 1px solid blue;
+  #delete-btn-trash{
+    margin-right: 2em;
     display: flex;
+    align-items: center;
     padding: 0.5em;
+    background-color: lighten(red,20);
+          border-radius: 5px;
+    transition: 500ms;
+    cursor: pointer;
+    &:hover{
+      scale: 1.1;
+      background-color: lighten(red,15);
+    }
   }
+
   .gg-trash{
     margin-right: 0.5em;
   }
-  button{
-    background-color: white;
-    border: none;
+  #button-send{
+    color: black;
+    font-weight: bold;
   }
 </style>

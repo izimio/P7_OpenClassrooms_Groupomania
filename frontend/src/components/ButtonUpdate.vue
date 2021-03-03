@@ -1,12 +1,7 @@
 <template>
-  <div>
-    <button
-      id="button-send"
-      title="Bouton pour update son profil"
-      @click="update"
-    >
-      Modifier
-    </button>
+  <div id="modify-btn" @click="update">
+    <i class="gg-pen"></i>
+    <span id="button-send">Modifier</span>
   </div>
 </template>
 
@@ -22,5 +17,25 @@ export default {
 </script>
 
 <style lang="scss">
+  #modify-btn{
+    display: flex;
+    padding: 0.5em;
+    background-color: lighten(blue,30);
+          border-radius: 5px;
+    transition: 500ms;
+    align-items: center;
+    cursor: pointer;
+    &:hover{
+      scale: 1.1;
+      background-color: lighten(blue,25);
+    }
+  }
 
+  .gg-pen{
+    margin-right: 0.5em;
+  }
+  #button-send{
+    color: black;
+    font-weight: bold;
+  }
 </style>

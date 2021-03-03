@@ -1,6 +1,9 @@
 <template>
   <article v-if="num == '0'" :id="$style.post">
-    <router-link  :class="$style.link" :to="{ name: 'PostEach', params: { id: id } }">
+    <router-link
+      :class="$style.link"
+      :to="{ name: 'PostEach', params: { id: id } }"
+    >
       <h3 :class="$style.title">{{ title }}</h3>
       <p :class="$style.body">
         {{ body }}
@@ -16,7 +19,7 @@
       >
     </router-link>
     <router-view />
-        <div :class="$style.slots">
+    <div :class="$style.slots">
       <slot></slot>
     </div>
   </article>
@@ -28,14 +31,15 @@
     </p>
     <img src="" alt="photo du post" v-if="media != undefined" />
     <span :class="$style.updateAt">Dernière modification: {{ updatedAt }}</span>
-    <div :class="$style.slots">
-      <slot></slot>
-    </div>
     <router-link :to="{ name: 'profileMain', params: { id: UserId } }">
       <span :class="$style.username"
         >De: <strong> {{ username }} </strong></span
       >
     </router-link>
+    <router-view />
+    <div :class="$style.slots">
+      <slot></slot>
+    </div>
   </article>
 </template>
 <script>
@@ -78,6 +82,7 @@ $bg-red: #501b1d;
   border: solid 1.5px black;
   position: relative;
   transition: 500ms;
+  border-radius: 0 0 15px 15px;
   &:hover {
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
@@ -90,14 +95,15 @@ $bg-red: #501b1d;
     text-align: center;
     margin: 0 auto;
   }
-  .link{
+  .link {
     transition: 500ms;
     padding-bottom: 1em;
-      &:hover {
-   background-color: lighten($bg-red, 48);
+    margin-bottom: 2em;
+    &:hover {
+      background-color: lighten($bg-red, 43);
+    }
   }
-  }
-    .slots {
+  .slots {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,9 +120,9 @@ $bg-red: #501b1d;
     border: 1px solid transparent;
     padding: 0.5em;
     transition: 500ms;
+    border-radius: 5px 0 15px;
     &:hover {
       border: 1px solid white;
-      border-top-left-radius: 5px;
       background-color: white;
     }
   }
@@ -173,6 +179,7 @@ $bg-red: #501b1d;
     padding: 0.5em;
   }
   .slots {
+    border: 2px solid green;
     display: flex;
     justify-content: center;
     align-items: center;
