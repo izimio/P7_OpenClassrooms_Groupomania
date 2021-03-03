@@ -1,80 +1,80 @@
 <template>
-  <main :id="$style.post">
-    <article>
-      <h1 :class="$style.tiltle_posts">Post de {{ post.username }}</h1>
-      <Posts
-        :title="post.title"
-        :id="post.id"
-        :username="username"
-        :body="post.body"
-        :media="post.media"
-        :createdAt="post.createdAt"
-        :updatedAt="post.updatedAt"
-        :UserId="post.UserId"
+  <div>
+    <NavHub />
+    <main :id="$style.post">
+      <article>
+        <h1 :class="$style.tiltle_posts">Post de {{ post.username }}</h1>
+        <Posts
+          :title="post.title"
+          :id="post.id"
+          :username="post.username"
+          :body="post.body"
+          :media="post.media"
+          :createdAt="post.createdAt"
+          :updatedAt="post.updatedAt"
+          :UserId="post.UserId"
         >
-        <ButtonDelete
-          v-if="userId === post.UserId || role === true"
-          @deleteButton="deletePost(post.id, post.UserId)"
-        >
-        </ButtonDelete>
+          <ButtonDelete
+            v-if="userId === post.UserId || role === true"
+            @deleteButton="deletePost(post.id, post.UserId)"
+          >
+          </ButtonDelete>
 
-        <ButtonUpdate
-          v-if="userId === post.UserId || role === true"
-        ></ButtonUpdate>
-      </Posts>
+          <ButtonUpdate
+            v-if="userId === post.UserId || role === true"
+          ></ButtonUpdate>
+        </Posts>
 
-      <!-- Commentaire -->
-      <aside v-if="comments[0]">
-        
-      </aside>
-      <aside v-else>
-        <div :id="$style.cont_comment">
-          <p>Aucun commentaire</p>
-        </div>
-      </aside>
-    </article>
-    <router-view />
-  </main>
+        <!-- Commentaire -->
+        <aside v-if="comments[0]"></aside>
+        <aside v-else>
+          <div :id="$style.cont_comment">
+            <p>Aucun commentaire</p>
+          </div>
+        </aside>
+      </article>
+      <router-view />
+    </main>
+  </div>
 </template>
 
 
 <script>
-
 import NavHub from "@/components/NavHub.vue";
 import Posts from "@/components/Posts.vue";
 import ButtonUpdate from "@/components/ButtonUpdate.vue";
 import ButtonDelete from "@/components/ButtonDelete.vue";
 export default {
-    name: "PostEach",
-    component: {
-        NavHub,
-        Posts,
-        ButtonUpdate,
-        ButtonDelete
-    },
-    data() {
+  name: "PostEach",
+  components: {
+    NavHub,
+    Posts,
+    ButtonUpdate,
+    ButtonDelete,
+  },
+  data() {
     return {
       comments: {},
       post: {},
-      username: '',
-      token: '',
-      userId: '',
-      role: '',
-      error: ''
-    }
+      username: "",
+      token: "",
+      userId: "",
+      role: "",
+      error: "",
+    };
   },
   created() {
-    const storage = localStorage.getItem('user')
-    const auth = JSON.parse(storage)
+    const storage = localStorage.getItem("user");
+    const auth = JSON.parse(storage);
     if (auth === null) {
-      return this.$router.push({ path: '/' }) 
+      return this.$router.push({ path: "/" });
     }
-    this.token = auth.token
-    this.userId = auth.userId
-    this.isAdmin = auth.role
+    this.token = auth.token;
+    this.userId = auth.userId;
+    this.isAdmin = auth.role;
 
-    fetch('http://localhost:5000/api/posts/' + this.$route.params.id, {
-     method: "GET",
+    fetch("http://localhost:5000/api/posts/" + this.$route.params.id, {
+      method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
         Authorization: `Bearer ${this.token}`,
@@ -82,7 +82,7 @@ export default {
     })
       .then(async (result_) => {
         const arr = await result_.json();
-         if (arr.error) {
+        if (arr.error) {
           this.error = "Oops, une erreur est survenu";
         } else {
           this.post = arr.Post;
@@ -92,7 +92,7 @@ export default {
         console.log(error);
       });
   },
-}
+};
 </script>
 
 <style lang="scss" module>

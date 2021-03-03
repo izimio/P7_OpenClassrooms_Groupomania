@@ -14,9 +14,11 @@
         :profileId="profileId"
       />
     </section>
-    <section v-if="allPosts[0]">
-      <h2 id="title-profile" v-if="userId == profileId">Vos posts</h2>
-      <h2 v-else :id="$style.title - profile">Posts de {{ username }}</h2>
+    <section v-if="allPosts[0]" :id="$style.content">
+      <h2 :id="$style.content_title" v-if="userId == profileId">Vos posts</h2>
+      <h2 v-else :id="$style.content_title - profile">
+        Posts de {{ username }}
+      </h2>
       <Posts
         v-for="(post, index) in allPosts"
         :key="index"
@@ -109,7 +111,6 @@ export default {
           this.error = "Oops, une erreur est survenu";
         } else {
           this.allPosts = arr.post;
-          console.log("coucou" + this.allPosts);
         }
       })
       .catch((error) => {
@@ -131,10 +132,12 @@ export default {
   scroll-behavior: smooth;
 }
 
-#title-profile {
-  font-size: 4em;
-  &_under {
-    font-size: 2em;
+#content {
+  min-height: 360px;
+  &_title {
+    font-size: 3em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
   }
 }
 #profile_page {

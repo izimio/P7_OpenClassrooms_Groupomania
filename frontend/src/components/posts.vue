@@ -82,23 +82,19 @@ $bg-red: #501b1d;
   }
   .username{
       position: absolute;
-      bottom: 0;
+      bottom: 2px;
       right: 10px;
   }
-  .updateAt{
-      position: absolute;
-      bottom: 0;
-      left: 10px;
-  }
   .body{
-      width: 50%;
+      width: 85%;
       border-radius: 10px;
       background-color: white;
       margin-bottom: 0.5em;
       font-weight: bold;
+      padding: 0.5em;
   }
 }
-@media screen and (max-width: 930px) {
+@media all and (max-width: 930px) {
   #post {
     width: 85%;
   }
