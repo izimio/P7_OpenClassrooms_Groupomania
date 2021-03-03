@@ -47,6 +47,11 @@ const routes = [
     name: 'PostUpdate',
     component: () => import('../views/PostUpdate.vue')
   },
+  {
+    path: '/comment/:id(\\d+)/update',
+    name: 'CommentUpdate',
+    component: () => import('../views/CommentUpdate.vue')
+  },
 ]
 const router = createRouter({
   mode: 'history',

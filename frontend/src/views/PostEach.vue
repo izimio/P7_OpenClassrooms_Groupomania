@@ -68,6 +68,7 @@
             <ButtonUpdate
               v-if="userId === comment.UserId || role === true"
               :value="1"
+              :com_id="comment.id"
             ></ButtonUpdate>
           </Comments>
         </aside>

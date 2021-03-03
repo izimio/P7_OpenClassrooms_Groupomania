@@ -2,13 +2,14 @@
   <div id="modify-btn" @click="update">
     <i class="gg-pen"></i>
     <span id="button-send">Modifier</span>
+    <p>{{ com_id }}</p>
   </div>
 </template>
 
 <script>
 export default {
   name: "ButtonUpdate",
-  props: ["value"],
+  props: ["value", "com_id"],
   data() {
     return {
       id: null,
@@ -19,7 +20,11 @@ export default {
   },
   methods: {
     update: function () {
-      this.$router.push({ name: "PostUpdate", params: { id: this.id } });
+      if (this.value == 0) {
+        this.$router.push({ name: "PostUpdate", params: { id: this.id } });
+      } else if (this.value == 1) {
+        this.$router.push({ name: "CommentUpdate", params: { com_id: this.com_id, id: this.id} });
+      }
     },
   },
 };
