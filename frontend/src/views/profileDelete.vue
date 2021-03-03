@@ -167,7 +167,7 @@ h1 {
 #bottom_form {
   &_check{
     display: flex;
-    justify-content: end;
+    justify-content: center;
     width: 30em;
   }
   p {

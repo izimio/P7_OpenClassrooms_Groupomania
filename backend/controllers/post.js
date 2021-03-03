@@ -79,7 +79,7 @@ exports.getOneUserAllPosts = (req, res, next) => {
           })
           .catch(error => {
                res.status(400).json({
-                    error: "Une erreur est"
+                    error: "Une erreur est survenue"
                })
           })
 

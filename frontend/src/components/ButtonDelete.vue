@@ -1,7 +1,7 @@
 <template>
   <div id="delete-btn">
     <i class="gg-trash"></i>
-    <button id="button-send" @click="deleteButton">Supprimer</button>
+    <button id="button-send" @click="delette">Supprimer</button>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 export default {
   name: 'ButtonDelete',
   methods: {
-    deleteButton() {
+    delette: function() {
       this.$emit('deleteButton')
     }
   }

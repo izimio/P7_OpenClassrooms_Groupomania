@@ -1,37 +1,39 @@
 <template>
-  <div id="Info_profile">
-    <div id="header_profile">
-      <h2 id="$style.title-profile" v-if="userId == profileId">
+  <div :id="$style.Info_profile">
+    <div :id="$style.header_profile">
+      <h2 :id="$style.title-profile" v-if="userId == profileId">
         Voici vos informations <strong>{{ username }} </strong>, <br />
         cliquez dessus pour les modifier
       </h2>
-      <h2 id="title-profile" v-else>Découvrez {{ username }}:</h2>
+      <h2 :id="$style.title-profile" v-else>Découvrez {{ username }}:</h2>
     </div>
-    <div id="all_profile">
-      <div id="profile">
-        <div id="id"  v-if="userId == profileId || role == 1">
+    <div :id="$style.all_profile">
+      <div :id="$style.profile">
+        <div :id="$style.id" v-if="userId == profileId || role == 1">
           <i class="gg-select"></i>
-          <span id="id">Utilisateur n°{{ id }}</span>
+          <span :id="$style.id">Utilisateur n°{{ id }}</span>
         </div>
-        <span v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <span id="sep"  v-if="userId == profileId || role == 1"> | </span>
-        <div id="username">
+        <span v-else
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <span :id="$style.sep" v-if="userId == profileId || role == 1"> | </span>
+        <div :id="$style.username">
           <i class="gg-user"></i>
           <router-link
-            id="id"
+            :id="$style.id"
             v-if="userId == profileId || role == 1"
             :to="{ name: 'profileUpdate', params: { value: 1, id: id } }"
             title="Modifiez votre username"
             >pseudo : {{ username }}</router-link
           >
-          <span id="id" v-else>pseudo : {{ username }}</span>
+          <span :id="$style.id" v-else>pseudo : {{ username }}</span>
         </div>
-        <span id="sep"> | </span>
-        <div id="email">
+        <span :id="$style.sep"> | </span>
+        <div :id="$style.email">
           <i class="gg-mail"></i>
           <router-link
-            id="id"
+            :id="$style.id"
             v-if="userId == profileId || role == 1"
             :to="{ name: 'profileUpdate', params: { value: 2, id: id } }"
             title="Modifiez votre email"
@@ -39,10 +41,10 @@
           >
           <span v-else>mail : {{ email }}</span>
         </div>
-        <span id="sep" v-if="userId == profileId"> | </span>
-        <div id="password" v-if="id == profileId || role == 1">
+        <span :id="$style.sep" v-if="userId == profileId"> | </span>
+        <div :id="$style.password" v-if="id == profileId || role == 1">
           <router-link
-            id="id"
+            :id="$style.id"
             v-if="userId == profileId || role == 1"
             :to="{ name: 'profileUpdate', params: { value: 3, id: id } }"
             title="Modifiez votre mot de passe"
@@ -51,13 +53,13 @@
             <span>Mot de passe</span>
           </router-link>
         </div>
-        <span id="sep" v-if="userId == profileId"> | </span>
-        <div id="delete" v-if="id == profileId || role == 1">
+        <span :id="$style.sep" v-if="userId == profileId"> | </span>
+        <div :id="$style.delete" v-if="id == profileId || role == 1">
           <router-link
-            id="id"
+            :id="$style.id"
             v-if="userId == profileId || role == 1"
             :to="{ name: 'profileDelete', params: { id: id } }"
-            title="Modifiez votre mot de passe"
+            title="Supprimer votre compte"
           >
             <i class="gg-trash"></i>
             <span> Supprimer le compte </span>
@@ -92,7 +94,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
 $bg-red: #501b1d;
 strong {
   color: lighten($bg-red, 30);
@@ -120,8 +122,7 @@ strong {
 #username,
 #email,
 #id,
-#password,
-#delete {
+#password {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -138,20 +139,19 @@ strong {
 }
 #delete {
   span {
-      padding: 0.3em;
-      transition: 400ms;
-      &:hover{
-          background-color: red;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-      }
+          padding: 0.3em;
+    transition: 400ms;
   }
+  &:hover {
+      background-color: lighten(red,15);
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+    }
 }
 @media screen and (max-width: 1170px) {
   #profile {
-    width: 20em;
+    width: 25em;
     height: 150px;
     display: flex;
     justify-content: space-evenly;
@@ -163,9 +163,6 @@ strong {
   }
   #id {
     margin-left: -0.2em;
-  }
-  #email {
-    margin-right: -1em;
   }
   #delete {
     margin-left: 0.4em;
