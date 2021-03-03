@@ -12,17 +12,17 @@
           :media="post.media"
           :createdAt="post.createdAt"
           :updatedAt="post.updatedAt"
-          :UserId="post.UserId"
-          :num=1
+          :UserId="post.userId"
+          :num="1"
         >
           <ButtonDelete
-            v-if="userId === post.UserId || role === true"
-            @deleteButton="deletePost(post.id, post.UserId)"
+            v-if="userId === post.userId || role === true"
+            @deleteButton="deletePost(post.id, post.userId)"
           >
           </ButtonDelete>
 
           <ButtonUpdate
-            v-if="userId === post.UserId || role === true"
+            v-if="userId === post.userId || role === true"
           ></ButtonUpdate>
         </Posts>
 
@@ -72,7 +72,7 @@ export default {
     }
     this.token = auth.token;
     this.userId = auth.userId;
-    this.isAdmin = auth.role;
+    this.role = auth.role;
 
     fetch("http://localhost:5000/api/posts/" + this.$route.params.id, {
       method: "GET",

@@ -1,7 +1,7 @@
 <template>
-  <div id="delete-btn">
+  <div id="delete-btn" @click="delette">
     <i class="gg-trash"></i>
-    <button id="button-send" @click="delette">Supprimer</button>
+    <span id="button-send">Supprimer</span>
   </div>
 </template>
 
@@ -17,5 +17,16 @@ export default {
 </script>
 
 <style lang="scss">
-
+  #delete-btn{
+    border: 1px solid blue;
+    display: flex;
+    padding: 0.5em;
+  }
+  .gg-trash{
+    margin-right: 0.5em;
+  }
+  button{
+    background-color: white;
+    border: none;
+  }
 </style>
