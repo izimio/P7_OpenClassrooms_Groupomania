@@ -24,13 +24,28 @@
 
           <ButtonUpdate
             v-if="userId === post.userId || role === true"
-
           ></ButtonUpdate>
         </Posts>
 
-        <!-- Commentaire -->
+        <!-- Comments -->
         <aside v-if="comments[0]">
-
+          <h3> Ils ont réagis </h3>
+          <router-link
+            :class="$style.comment_create"
+            :to="{ name: 'profileMain', params: { id: comments[0].PostId } }"
+          >
+          Commenter
+          </router-link>
+          <Comments
+            v-for="(comment, index) in comments"
+            :key="index"
+            :body="comment.body"
+            :id="comment.id"
+            :postId="comment.PostId"
+            :username="comment.username"
+            :updatedAt="comment.updatedAt"
+            :userId="comment.UserId"
+          />
         </aside>
         <aside v-else>
           <div :id="$style.cont_comment">
@@ -49,6 +64,7 @@ import NavHub from "@/components/NavHub.vue";
 import Posts from "@/components/Posts.vue";
 import ButtonUpdate from "@/components/ButtonUpdate.vue";
 import ButtonDelete from "@/components/ButtonDelete.vue";
+import Comments from "@/components/Comments.vue";
 export default {
   name: "PostEach",
   components: {
@@ -56,6 +72,7 @@ export default {
     Posts,
     ButtonUpdate,
     ButtonDelete,
+    Comments,
   },
   data() {
     return {
@@ -97,14 +114,44 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+
+    // getting comments
+
+    fetch("http://localhost:5000/api/comments/post/" + this.$route.params.id, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`,
+      }),
+    })
+      .then(async (result_) => {
+        const arr = await result_.json();
+        if (arr.error) {
+          this.error = "Oops, une erreur est survenu";
+          return this.$router.push({ path: "/Home" });
+        } else {
+          this.comments = arr.comment;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>
 
 <style lang="scss" module>
-
-#post{
-
+#post {
 }
 
+aside {
+  h3 {
+    margin-bottom: 1em;
+    text-decoration: underline;
+    font-size: 2em;
+  }
+  .comment_create{
+    color: purple;
+  }
+}
 </style>

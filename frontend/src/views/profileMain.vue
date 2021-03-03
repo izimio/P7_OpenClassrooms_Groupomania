@@ -14,7 +14,7 @@
     </section>
     <section v-if="allPosts[0]" :id="$style.content">
       <h2 :id="$style.content_title" v-if="userId == profileId">Vos posts</h2>
-      <h2 v-else :id="$style.content_title - profile">
+      <h2 v-else :id="$style.content_title">
         Posts de {{ username }}
       </h2>
       <Posts
@@ -133,7 +133,7 @@ export default {
 }
 
 #content {
-  min-height: 360px;
+  min-height: 400px;
   &_title {
     font-size: 3em;
     margin-top: 0.5em;
