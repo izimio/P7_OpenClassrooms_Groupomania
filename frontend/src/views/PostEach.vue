@@ -23,6 +23,7 @@
 
           <ButtonUpdate
             v-if="userId === post.userId || role === true"
+
           ></ButtonUpdate>
         </Posts>
 
@@ -98,5 +99,8 @@ export default {
 
 <style lang="scss" module>
 
+#post{
+
+}
 
 </style>

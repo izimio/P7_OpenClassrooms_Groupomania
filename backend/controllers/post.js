@@ -117,6 +117,7 @@ exports.updatePost = (req, res, next) => {
      const title = req.body.title
      const body = req.body.body
      const media = req.body.media
+
      models.Post.findOne({
                attributes: ['id', 'UserId', 'title', 'body', 'media'],
                where: {
@@ -129,7 +130,7 @@ exports.updatePost = (req, res, next) => {
                          error: 'Champs  manquant our erroné'
                     })
                }
-               if (title === post.title && body === post.body) {
+               if (title === post.title && body === post.body && media == post.media) {
                     return res.status(400).json({
                          error: 'Le post est déjà à jour'
                     })

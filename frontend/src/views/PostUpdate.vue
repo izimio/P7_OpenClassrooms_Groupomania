@@ -8,7 +8,7 @@
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="email" :id="$style.label"> Modification </label>
-            <input :id="$style.input" type="email" v-model="body" required />
+            <input :id="$style.input" type="email" v-model="title" required />
           </div>
         </div>
         <div :id="$style.form_each">
@@ -17,17 +17,17 @@
             <input :id="$style.input" type="email" v-model="body" required />
           </div>
         </div>
-        <div id="app">
+        <div :id="$style.img">
           <input type="file" @change="onFileChange" />
           <label for="url" :id="$style.label"> Modification </label>
-          <div id="preview">
-            <img v-if="url" :src="url" />
+          <div :id="$style.preview">
+            <img v-if="media" :src="media" />
           </div>
         </div>
         <p :id="$style.error">{{ error }}</p>
         <div :id="$style.bottom_form">
           <div
-            v-if="body.length >= 1 && title >= 1"
+            v-if="body.length >= 1 && title.length >= 1"
             :id="$style.bottom_form_button_login"
             @click="modify"
           >
@@ -60,11 +60,9 @@ export default {
       postId: "",
       postUserId: "",
       error: "",
-      url: null,
     };
   },
   created() {
-    this.value = this.$route.params.value;
     const storage = localStorage.getItem("user");
     const auth = JSON.parse(storage);
     if (auth === null) {
@@ -102,7 +100,7 @@ export default {
   methods: {
     onFileChange(e) {
       const file = e.target.files[0];
-      this.url = URL.createObjectURL(file);
+      this.media = URL.createObjectURL(file);
     },
     backward: function () {
       this.$router.push({
@@ -114,13 +112,11 @@ export default {
       if (this.token === null) {
         return this.$router.push({ path: "/" });
       }
-      if (this.$route.params.id != this.userId && this.role != true) {
-        return this.$router.push({ path: "/Home" });
-      }
 
       const infos = {
-        value: this.value,
-        body: this.conf_body,
+        media: this.media,
+        body: this.body,
+        title: this.title,
       };
       console.log(infos);
       fetch("http://localhost:5000/api/posts/" + this.$route.params.id, {
@@ -136,7 +132,7 @@ export default {
           if (!user.error) {
             this.error = "";
             this.$router.push({
-              name: "profileMain",
+              name: "PostEach",
               params: { id: this.$route.params.id },
             });
           } else {
@@ -227,7 +223,7 @@ h1 {
   margin-bottom: 0.5em;
 }
 
-#app {
+#img {
   padding: 20px;
 }
 
@@ -235,13 +231,11 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
-  height: 5em;
 }
 
 #preview img {
-  width: 100%;
-  height: 100%;
+  width: 400px;
+  height: 400px;
 }
 
 #error {
@@ -254,10 +248,6 @@ h1 {
   #input {
     width: 80%;
   }
-  #preview img {
-  width: auto;
-  height: 100px;
-}
 }
 
 @media all and (max-width: 650px) {
@@ -269,6 +259,10 @@ h1 {
     &_under {
       font-size: 1.5em;
     }
+  }
+  #preview img {
+    width: 300px;
+    height: 300px;
   }
 }
 </style>

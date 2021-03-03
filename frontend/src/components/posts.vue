@@ -8,7 +8,7 @@
       <p :class="$style.body">
         {{ body }}
       </p>
-      <img src="" alt="photo du post" v-if="media != undefined" />
+      <img v-if="media" :src="media" />
       <span :class="$style.updateAt"
         >Dernière modification: {{ updatedAt }}</span
       >
@@ -30,7 +30,7 @@
       <p :class="$style.body">
         {{ body }}
       </p>
-      <img src="" alt="photo du post" v-if="media != undefined" />
+      <img v-if="media" :src="media" />
       <span :class="$style.updateAt"
         >Dernière modification: {{ updatedAt }}</span
       >
