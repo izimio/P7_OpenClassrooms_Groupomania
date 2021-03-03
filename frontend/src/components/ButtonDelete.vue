@@ -41,7 +41,7 @@ export default {
             console.log(error);
           });
       } else if (this.value == 1) {
-        fetch("http://localhost:5000/api/comments/" + this.$route.params.id, {
+        fetch("http://localhost:5000/api/comments/" + this.id, {
           method: "DELETE",
           headers: new Headers({
             "Content-Type": "application/json",
@@ -51,6 +51,7 @@ export default {
           .then(async (result_) => {
             const res = await result_.json();
             if (!res.error) {
+              location.reload()
               return this.$router.push({ path: "/Home" });
             } else {
               alert("Un problème est survenue lors de la suppression");

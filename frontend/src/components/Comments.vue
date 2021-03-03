@@ -7,7 +7,9 @@
     </router-link>
       <p :class="$style.body">{{ body }}</p>
       <p :class="$style.up">modifié le : {{ updatedAt }}</p>
+         <div :class="$style.slots">
       <slot></slot>
+    </div>
     </div>
 </template>
 
@@ -24,8 +26,13 @@ export default {
   border: solid 1.5px black;
   margin: 0 auto;
   margin-bottom: 0.5em;
-  width: 70%;
+  width: 50%;
   position: relative;
+  background-color: #F7CAC9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   .username {
     position: absolute;
     bottom: 0px;
@@ -38,6 +45,24 @@ export default {
       border: 1px solid white;
       background-color: red;
     }
+  }
+  .body{
+    background-color: lighten(#F7CAC9,10);
+    width: 50%;
+    padding: 0.5em;
+    border-radius: 15px;
+  }
+    .slots {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media all and (max-width: 930px) {
+  #comment {
+    width: 85%;
   }
 }
 </style>
