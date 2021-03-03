@@ -1,11 +1,11 @@
 <template>
   <div :id="$style.Info_profile">
     <div :id="$style.header_profile">
-      <h2 :id="$style.title-profile" v-if="userId == profileId">
+      <h2 :id="$style.title - profile" v-if="userId == profileId">
         Voici vos informations <strong>{{ username }} </strong>, <br />
         cliquez dessus pour les modifier
       </h2>
-      <h2 :id="$style.title-profile" v-else>Découvrez {{ username }}:</h2>
+      <h2 :id="$style.title - profile" v-else>Découvrez {{ username }}:</h2>
     </div>
     <div :id="$style.all_profile">
       <div :id="$style.profile">
@@ -17,7 +17,9 @@
           >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
         >
-        <span :id="$style.sep" v-if="userId == profileId || role == 1"> | </span>
+        <span :id="$style.sep" v-if="userId == profileId || role == 1">
+          |
+        </span>
         <div :id="$style.username">
           <i class="gg-user"></i>
           <router-link
@@ -132,22 +134,20 @@ strong {
     margin-left: 1em;
   }
   &:hover {
-    font-weight: bold;
     text-decoration: underline;
   }
   margin-right: 1em;
 }
 #delete {
   span {
-          padding: 0.3em;
-    transition: 400ms;
+    padding: 0.3em;
   }
+  transition: 400ms;
   &:hover {
-      background-color: lighten(red,15);
-      border-radius: 5px;
-      color: white;
-      font-weight: bold;
-    }
+    background-color: lighten(red, 15);
+    border-radius: 5px;
+    color: white;
+  }
 }
 @media screen and (max-width: 1170px) {
   #profile {

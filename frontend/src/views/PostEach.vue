@@ -1,41 +1,26 @@
 <template>
   <main :id="$style.post">
-    <NavHub />
     <article>
-      <h1 :class="$style.tiltle_posts">Post de {{ name }}</h1>
-
-      <!-- Post -->
+      <h1 :class="$style.tiltle_posts">Post de {{ post.username }}</h1>
       <Posts
         :title="post.title"
         :id="post.id"
-        :userName="name"
-        :message="post.message"
-        :comment="post.commentCount"
-        :link="post.link"
-        :like="post.like"
+        :username="username"
+        :body="post.body"
+        :media="post.media"
         :createdAt="post.createdAt"
         :updatedAt="post.updatedAt"
         :UserId="post.UserId"
-      >
-
-        <!-- Boutton delete post -->
+        >
         <ButtonDelete
-          v-if="userId === post.UserId || isAdmin === true"
-          :postId="post.id"
-          :id="post.id"
-          :UserId="post.UserId"
-          :postUserId="post.UserId"
+          v-if="userId === post.UserId || role === true"
           @deleteButton="deletePost(post.id, post.UserId)"
         >
         </ButtonDelete>
 
-        <!-- Router update post -->
         <ButtonUpdate
           v-if="userId === post.UserId || role === true"
-          :id="post.id"
-          :commentUserId="null"
         ></ButtonUpdate>
-
       </Posts>
 
       <!-- Commentaire -->
@@ -48,16 +33,17 @@
         </div>
       </aside>
     </article>
+    <router-view />
   </main>
 </template>
 
 
 <script>
 
-import Posts from '@/components/Posts.vue'
-import NavHub from '@/components/NavHub.vue'
-import ButtonUpdate from '@/components/ButtonUpdate.vue'
-import ButtonDelete from '@/components/ButtonDelete.vue'
+import NavHub from "@/components/NavHub.vue";
+import Posts from "@/components/Posts.vue";
+import ButtonUpdate from "@/components/ButtonUpdate.vue";
+import ButtonDelete from "@/components/ButtonDelete.vue";
 export default {
     name: "PostEach",
     component: {
@@ -78,16 +64,15 @@ export default {
     }
   },
   created() {
-    //On recupère notre token
     const storage = localStorage.getItem('user')
     const auth = JSON.parse(storage)
     if (auth === null) {
-      return this.$router.push({ path: '/' }) //On redirige vers le login
+      return this.$router.push({ path: '/' }) 
     }
     this.token = auth.token
     this.userId = auth.userId
     this.isAdmin = auth.role
-    //Appel de notre API
+
     fetch('http://localhost:5000/api/posts/' + this.$route.params.id, {
      method: "GET",
       headers: new Headers({
@@ -97,8 +82,10 @@ export default {
     })
       .then(async (result_) => {
         const arr = await result_.json();
-        if (!arr.error) {
-            this.posts = arr.Post;
+         if (arr.error) {
+          this.error = "Oops, une erreur est survenu";
+        } else {
+          this.post = arr.Post;
         }
       })
       .catch((error) => {
@@ -107,3 +94,22 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" module>
+#post {
+  background-color: #ffd7d7;
+  width: 70%;
+  margin: 0 auto 50px auto;
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: solid 1.5px black;
+  line-height: 35px;
+  #action_btn {
+    border: solid 1.5px black;
+    margin: 0 auto;
+    width: 20%;
+  }
+}
+</style>
