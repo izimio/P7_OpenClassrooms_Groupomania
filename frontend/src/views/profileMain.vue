@@ -33,7 +33,7 @@
       <p>{{ error }}</p>
     </section>
     <section v-else :id="$style.nothing">
-      <h2 v-if="!allPosts[0]">Aucun post à afficher</h2>
+      <h2 >Aucun post à afficher</h2>
       <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
     </section>
     <FooterHub />

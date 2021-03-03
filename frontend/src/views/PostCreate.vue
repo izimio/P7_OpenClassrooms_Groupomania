@@ -2,7 +2,7 @@
   <main :id="$style.login_page">
     <section>
       <div :id="$style.ban_login">
-        <h1 :id="$style.ban_login_title">Modifiez votre post</h1>
+        <h1 :id="$style.ban_login_title">A quoi donc pensez vous ?</h1>
       </div>
       <form action="" method="post" autocomplete="on" :id="$style.form">
         <div :id="$style.form_each">
@@ -33,10 +33,10 @@
             :id="$style.bottom_form_button_login"
             @click="modify"
           >
-            <p>modifier</p>
+            <p>Poster</p>
           </div>
           <div :id="$style.bottom_form_button_login_block" v-else>
-            <p>modifier</p>
+            <p>Poster</p>
           </div>
           <div :id="$style.bottom_form_button_deny">
             <p @click="backward">Annuler</p>
@@ -73,31 +73,6 @@ export default {
     this.token = auth.token;
     this.userId = auth.userId;
     this.role = auth.role;
-
-    fetch("http://localhost:5000/api/posts/" + this.$route.params.id, {
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`,
-      }),
-    })
-      .then(async (result_) => {
-        const res = await result_.json();
-        if (!res.error) {
-          this.postId = res.Post.id;
-          this.title = res.Post.title;
-          this.body = res.Post.body;
-          this.media = res.Post.media;
-          this.postUserId = res.Post.userId;
-        } else {
-          return this.$router.push({ path: "/Home" });
-        }
-        if (this.postUserId != this.userId && this.role != true) {
-          return this.$router.push({ path: "/Home" });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   },
   methods: {
     onFileChange(e) {
@@ -121,8 +96,8 @@ export default {
         title: this.title,
       };
       console.log(infos);
-      fetch("http://localhost:5000/api/posts/" + this.$route.params.id, {
-        method: "PUT",
+      fetch("http://localhost:5000/api/posts/", {
+        method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
           Authorization: `Bearer ${this.token}`,
@@ -134,9 +109,9 @@ export default {
           if (!user.error) {
             this.error = "";
             this.$router.push({
-              name: "PostEach",
-              params: { id: this.$route.params.id },
+              name: "Home",
             });
+            alert("Post crée avec succès")
           } else {
             this.error = user.error;
           }

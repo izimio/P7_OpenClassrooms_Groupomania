@@ -38,6 +38,11 @@ const routes = [
     component: () => import('../views/PostEach.vue')
   },
   {
+    path: '/post/create',
+    name: 'PostCreate',
+    component: () => import('../views/PostCreate.vue')
+  },
+  {
     path: '/post/:id(\\d+)/update',
     name: 'PostUpdate',
     component: () => import('../views/PostUpdate.vue')

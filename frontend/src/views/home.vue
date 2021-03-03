@@ -7,7 +7,7 @@
         Postez !
       </router-link>
     </section>
-    <section :id="$style.allpost">
+    <section v-if="allPosts[0]" :id="$style.allpost">
       <Posts
         v-for="(post, index) in allPosts"
         :key="index"
@@ -21,6 +21,10 @@
         :UserId="post.userId"
         :num=0
       />
+    </section>
+      <section v-else :id="$style.nothing">
+      <h2 >Oops, c'est bien vide par ici... Raison de plus ! soyez le premier à poster</h2>
+      <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
     </section>
         <FooterHub />
               <router-view />
@@ -73,7 +77,6 @@ export default {
           this.error = "Oops, une erreur est survenu";
         } else {
           this.allPosts = arr.post;
-          console.log("yes")
         }
       })
       .catch((error) => {
@@ -117,5 +120,23 @@ $bg-blue: #557a95;
 
 #allpost{
   margin-top: 3em;
+}
+
+#nothing {
+  margin-top: 5em;
+  margin-bottom: 5em;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &_smiley {
+    font-size: 13em;
+  }
+}
+
+@media screen and (max-width: 930px) {
+  #nothing_smiley {
+    font-size: 5em;
+  }
 }
 </style>
