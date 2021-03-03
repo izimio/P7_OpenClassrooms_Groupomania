@@ -78,6 +78,7 @@ export default {
     onFileChange(e) {
       const file = e.target.files[0];
       this.media = URL.createObjectURL(file);
+      console.log(this.media)
     },
     backward: function () {
       this.$router.push({

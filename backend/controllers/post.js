@@ -14,7 +14,7 @@ exports.createPost = (req, res, next) => {
 
      const title = req.body.title
      const body = req.body.body
-     const media = ((req.file) ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
+     const media = req.body.media
 
      if (title.length <= 2 || body <= 2) {
           return res.status(400).json({
