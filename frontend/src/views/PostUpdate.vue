@@ -19,12 +19,12 @@
         </div>
         <div :id="$style.img">
           <input type="file" @change="onFileChange" />
-          <label for="url" :id="$style.label"> image </label>
           <div :id="$style.preview">
             <img v-if="media" :src="media" />
           </div>
-          <label for="url" :id="$style.label"> Supprimer le media </label>
-          <input type="checkbox" @change="supMedia" v-model="delMedia" />
+          <div v-if="media">
+            <span @click="media = null" :id="$style.label_del" > Supprimer le media </span>
+          </div>
         </div>
         <p :id="$style.error">{{ error }}</p>
         <div :id="$style.bottom_form">
@@ -62,7 +62,6 @@ export default {
       postId: "",
       postUserId: "",
       error: "",
-      delMedia: false
     };
   },
   created() {
@@ -101,10 +100,6 @@ export default {
       });
   },
   methods: {
-      supMedia: function(){
-          if(this.delMedia)
-            this.media = null;
-      },
     onFileChange(e) {
       const file = e.target.files[0];
       this.media = URL.createObjectURL(file);
@@ -228,6 +223,13 @@ h1 {
 #label {
   display: block;
   margin-bottom: 0.5em;
+  &_del{
+      &:hover{
+          cursor: pointer;
+          font-weight: bold;
+          text-decoration: underline;
+      }
+  }
 }
 
 #img {

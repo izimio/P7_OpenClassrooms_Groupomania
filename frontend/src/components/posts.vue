@@ -8,10 +8,10 @@
       <p :class="$style.body">
         {{ body }}
       </p>
-      <img v-if="media" :src="media" />
-      <p :class="$style.updateAt"
-        >Dernière modification: {{ updatedAt }}</p
-      >
+      <div :class="$style.preview">
+        <img v-if="media" :src="media" />
+      </div>
+      <p :class="$style.updateAt">Dernière modification: {{ updatedAt }}</p>
     </router-link>
     <router-link :to="{ name: 'profileMain', params: { id: UserId } }">
       <span :class="$style.username"
@@ -30,10 +30,10 @@
       <p :class="$style.body">
         {{ body }}
       </p>
-      <img v-if="media" :src="media" />
-      <p :class="$style.updateAt"
-        >Dernière modification: {{ updatedAt }}</p
-      >
+      <div :class="$style.preview">
+        <img v-if="media" :src="media" />
+      </div>
+      <p :class="$style.updateAt">Dernière modification: {{ updatedAt }}</p>
       <router-link :to="{ name: 'profileMain', params: { id: UserId } }">
         <span :class="$style.username"
           >De: <strong> {{ username }} </strong></span
@@ -100,7 +100,17 @@ $bg-red: #501b1d;
     text-align: center;
     margin: 0 auto;
   }
-  .link, .fullscren {
+  .preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 400px;
+      height: 300px;
+    }
+  }
+  .link,
+  .fullscren {
     transition: 500ms;
     padding-bottom: 1em;
     margin-bottom: 1em;

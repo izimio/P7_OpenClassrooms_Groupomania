@@ -86,6 +86,7 @@ export default {
         const arr = await result_.json();
         if (arr.error) {
           this.error = "Oops, une erreur est survenu";
+          return this.$router.push({ path: "/Home" });
         } else {
           this.post = arr.Post;
         }

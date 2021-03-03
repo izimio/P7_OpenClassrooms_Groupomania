@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const models = require('../models')
+const multer = require('multer');
 const fs = require('fs')
 
 const {
@@ -14,7 +15,7 @@ exports.createPost = (req, res, next) => {
 
      const title = req.body.title
      const body = req.body.body
-     const media = ((req.file) ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
+     const media = req.body.media
 
      if (title.length <= 2 || body <= 2) {
           return res.status(400).json({
@@ -117,6 +118,8 @@ exports.updatePost = (req, res, next) => {
      const title = req.body.title
      const body = req.body.body
      const media = req.body.media
+
+     console.log(req.file)
 
      models.Post.findOne({
                attributes: ['id', 'UserId', 'title', 'body', 'media'],
