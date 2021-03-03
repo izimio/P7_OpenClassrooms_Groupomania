@@ -9,8 +9,8 @@
         {{ body }}
       </p>
       <img v-if="media" :src="media" />
-      <span :class="$style.updateAt"
-        >Dernière modification: {{ updatedAt }}</span
+      <p :class="$style.updateAt"
+        >Dernière modification: {{ updatedAt }}</p
       >
     </router-link>
     <router-link :to="{ name: 'profileMain', params: { id: UserId } }">
@@ -31,8 +31,8 @@
         {{ body }}
       </p>
       <img v-if="media" :src="media" />
-      <span :class="$style.updateAt"
-        >Dernière modification: {{ updatedAt }}</span
+      <p :class="$style.updateAt"
+        >Dernière modification: {{ updatedAt }}</p
       >
       <router-link :to="{ name: 'profileMain', params: { id: UserId } }">
         <span :class="$style.username"

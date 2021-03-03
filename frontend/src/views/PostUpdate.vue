@@ -7,22 +7,24 @@
       <form action="" method="post" autocomplete="on" :id="$style.form">
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
-            <label for="email" :id="$style.label"> Modification </label>
+            <label for="email" :id="$style.label"> Titre </label>
             <input :id="$style.input" type="email" v-model="title" required />
           </div>
         </div>
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
-            <label for="email" :id="$style.label"> Modification </label>
+            <label for="email" :id="$style.label"> Message </label>
             <input :id="$style.input" type="email" v-model="body" required />
           </div>
         </div>
         <div :id="$style.img">
           <input type="file" @change="onFileChange" />
-          <label for="url" :id="$style.label"> Modification </label>
+          <label for="url" :id="$style.label"> image </label>
           <div :id="$style.preview">
             <img v-if="media" :src="media" />
           </div>
+          <label for="url" :id="$style.label"> Supprimer le media </label>
+          <input type="checkbox" @change="supMedia" v-model="delMedia" />
         </div>
         <p :id="$style.error">{{ error }}</p>
         <div :id="$style.bottom_form">
@@ -60,6 +62,7 @@ export default {
       postId: "",
       postUserId: "",
       error: "",
+      delMedia: false
     };
   },
   created() {
@@ -98,6 +101,10 @@ export default {
       });
   },
   methods: {
+      supMedia: function(){
+          if(this.delMedia)
+            this.media = null;
+      },
     onFileChange(e) {
       const file = e.target.files[0];
       this.media = URL.createObjectURL(file);
