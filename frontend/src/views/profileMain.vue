@@ -22,13 +22,12 @@
         :key="index"
         :title="post.title"
         :id="post.id"
-        :username="username"
+        :username="post.username"
         :body="post.body"
         :media="post.media"
         :createdAt="post.createdAt"
         :updatedAt="post.updatedAt"
         :UserId="post.userId"
-        :watcherId="userId"
         :num=0
       />
       <p>{{ error }}</p>

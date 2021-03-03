@@ -156,4 +156,14 @@ $bg-red: #501b1d;
     width: 85%;
   }
 }
+@media all and (max-width: 550px) {
+  
+  #post {
+    .preview {
+    img {
+      width: 250px;
+    }
+  }
+  }
+}
 </style>
