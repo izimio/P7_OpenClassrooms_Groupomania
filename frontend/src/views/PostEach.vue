@@ -59,14 +59,14 @@
             :userId="comment.UserId"
           >
             <ButtonDelete
-              v-if="userId === comment.userId || role === true"
+              v-if="userId === comment.UserId || role === true"
               :id="comment.id"
               :value="1"
             >
             </ButtonDelete>
 
             <ButtonUpdate
-              v-if="userId === comment.userId || role === true"
+              v-if="userId === comment.UserId || role === true"
               :value="1"
             ></ButtonUpdate>
           </Comments>
