@@ -30,17 +30,7 @@
         :UserId="post.userId"
         :watcherId="userId"
         :num=0
-      >
-       <ButtonDelete
-            v-if="userId === post.userId || role === true"
-            @deleteButton="deletePost(post.id, post.userId)"
-          >
-          </ButtonDelete>
-
-          <ButtonUpdate
-            v-if="userId === post.userId || role === true"
-          ></ButtonUpdate>
-        </Posts>
+      />
       <p>{{ error }}</p>
     </section>
     <section v-else :id="$style.nothing">
@@ -57,8 +47,6 @@ import NavHub from "@/components/NavHub.vue";
 import FooterHub from "@/components/FooterHub.vue";
 import InfoProfile from "@/components/InfoProfile.vue";
 import Posts from "@/components/Posts.vue";
-import ButtonUpdate from "@/components/ButtonUpdate.vue";
-import ButtonDelete from "@/components/ButtonDelete.vue";
 export default {
   name: "ProfileMain",
   components: {
@@ -66,8 +54,6 @@ export default {
     FooterHub,
     InfoProfile,
     Posts,
-    ButtonUpdate,
-    ButtonDelete
   },
 
   data() {

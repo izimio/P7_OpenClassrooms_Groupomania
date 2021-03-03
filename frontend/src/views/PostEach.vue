@@ -17,7 +17,7 @@
         >
           <ButtonDelete
             v-if="userId === post.userId || role === true"
-            @deleteButton="deletePost(post.id, post.userId)"
+            :id="this.$route.params.id"
           >
           </ButtonDelete>
 
@@ -98,8 +98,5 @@ export default {
 
 <style lang="scss" module>
 
-#post{
-  
-}
 
 </style>

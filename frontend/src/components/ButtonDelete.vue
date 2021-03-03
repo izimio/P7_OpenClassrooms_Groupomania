@@ -8,6 +8,9 @@
 <script>
 export default {
   name: 'ButtonDelete',
+    props: [
+    "id",
+  ],
   methods: {
     delette: function() {
       this.$emit('deleteButton')

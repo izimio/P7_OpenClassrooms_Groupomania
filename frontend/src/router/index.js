@@ -37,6 +37,11 @@ const routes = [
     name: 'PostEach',
     component: () => import('../views/PostEach.vue')
   },
+  {
+    path: '/post/:id(\\d+)/update',
+    name: 'PostUpdate',
+    component: () => import('../views/PostUpdate.vue')
+  },
 ]
 const router = createRouter({
   mode: 'history',

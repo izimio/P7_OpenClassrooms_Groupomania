@@ -1,16 +1,30 @@
 <template>
-  <div id="modify-btn" @click="update">
+    <router-link
+      id="update-router"
+      :to="{ name: 'PostUpdate', params: { id: id } }"
+      title="Lien pour update son profile"
+    >
+    <div id="modify-btn">
     <i class="gg-pen"></i>
     <span id="button-send">Modifier</span>
   </div>
+    </router-link>
 </template>
 
 <script>
 export default {
   name: 'ButtonUpdate',
+   data() {
+    return {
+      id: null,
+    }
+  },
+  created() {
+    this.id = this.$route.params.id
+  },
   methods: {
     update: function() {
-      this.$emit('update')
+      this.$router.push({ name: "PostUpdate", params: {id: this.id} });
     }
   }
 }

@@ -88,7 +88,7 @@ export default {
           const user = await result_.json();
           console.log("user login", user);
           if (!user.error) {
-            window.localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("user", JSON.stringify(user));
             this.$router.push({ path: "/Home" });
           }
           this.error = user.error;
