@@ -105,7 +105,14 @@ $bg-blue: #557a95;
   margin: 20px auto;
   background-color: #ffd7d7;
   border: solid 1.5px black;
-  padding: 5px;
+  padding: 0.5em;
+  font-size: 2em;
+  border-radius: 5px;
+  transition: 500ms;
+  &:hover{
+    background-color: darken(#ffd7d7,5); 
+    text-decoration: underline;
+    }
 }
 
 #allpost{
