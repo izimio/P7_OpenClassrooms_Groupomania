@@ -31,18 +31,22 @@
         <!-- Comments -->
         <aside v-if="comments[0]">
           <h3>Ils ont réagis</h3>
-          <div>
+          <div :id="$style.comment_create_all">
+            <label for="com" :id="$style.comment_create_label">
+              Commenter
+            </label>
             <div :id="$style.comment_create">
-              <label for="com" :id="$style.comment_create_label">
-               Commenter
-              </label>
               <input
                 :id="$style.comment_create_input"
                 type="text"
                 v-model="newCom"
                 @keyup.enter="postComment"
               />
+              <div :id="$style.comment_create_button" @click="postComment">
+                <span>Commenter</span>
+              </div>
             </div>
+            <p :id="$style.comment_create_error">{{ error }}</p>
           </div>
           <Comments
             v-for="(comment, index) in comments"
@@ -159,9 +163,31 @@ export default {
       });
   },
   methods: {
-    postComment: function(){
-      
-    }
+    postComment: function () {
+      const infos = {
+        body: this.newCom,
+      };
+
+      fetch("http://localhost:5000/api/comments/" + this.$route.params.id, {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+        body: JSON.stringify(infos),
+      })
+        .then(async (result_) => {
+          const res = await result_.json();
+          if (res.error) {
+            this.error = res.error;
+          } else {
+            location.reload();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
@@ -178,18 +204,40 @@ aside {
   }
   #comment_create {
     margin-bottom: 1em;
-    &_input {
-        width: 75em;
-        height: 3em;
-        text-align: center;
-        &:focus {
-          transform: scale(1.05);
-          box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
-        }
-        &:invalid{
-          border: none
-        }
+    display: flex;
+    justify-content: center;
+    &_button {
+      background-color: lighten(blue, 20);
+      padding: 0.6em 0 0.7em;
+      border-top: 1px solid black;
+      border-radius: 0 5px 5px 0;
+      padding: 0.5em;
+      span{
+        color: white;
+        font-weight: bold;
       }
+      &:hover{
+        background-color: lighten(blue, 15);
+        cursor: pointer;
+      }
+    }
+    &_error{
+      text-decoration: underline;
+      color: red;
+      margin-bottom: 0.5em;
+      font-weight: bold;
+    }
+    &_input {
+      width: 75em;
+      height: 3em;
+      text-align: center;
+      &:focus {
+        box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+      }
+      &:invalid {
+        border: none;
+      }
+    }
     &_label {
       display: block;
       margin-bottom: 0.5em;
