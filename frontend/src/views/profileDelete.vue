@@ -76,7 +76,7 @@ export default {
     this.role = auth.role;
 
     if (this.$route.params.id != this.userId && this.role != true) {
-      return this.$router.push({ path: "/hub" });
+      return this.$router.push({ path: "/Home" });
     }
   },
   methods: {
@@ -88,7 +88,7 @@ export default {
         return this.$router.push({ path: "/" });
       }
       if (this.$route.params.id != this.userId && this.role != true) {
-        return this.$router.push({ path: "/hub" });
+        return this.$router.push({ path: "/Home" });
       }
 
     const infos = {
@@ -96,7 +96,7 @@ export default {
     }
 
       console.log(infos);
-      fetch("http://localhost:5000/api/users/" + this.userId, {
+      fetch("http://localhost:5000/api/users/" + this.$route.params.id, {
         method: "DELETE",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -108,7 +108,10 @@ export default {
           const user = await result_.json();
           if (!user.error) {
             this.error = "";
+            if(this.role != 1)
              return this.$router.push({ path: "/" });
+             else
+             this.$router.push({ name: 'profileMain', params: { id: this.userId } });
           } else {
             this.error = user.error;
           }

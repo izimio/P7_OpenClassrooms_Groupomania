@@ -81,7 +81,7 @@ export default {
     this.role = auth.role;
 
     if (this.$route.params.id != this.userId && this.role != true) {
-      return this.$router.push({ path: "/hub" });
+      return this.$router.push({ path: "/Home" });
     }
   },
   methods: {
@@ -93,7 +93,7 @@ export default {
         return this.$router.push({ path: "/" });
       }
       if (this.$route.params.id != this.userId && this.role != true) {
-        return this.$router.push({ path: "/hub" });
+        return this.$router.push({ path: "/Home" });
       }
 
       const infos = {

@@ -89,7 +89,7 @@ export default {
           console.log("user login", user);
           if (!user.error) {
             window.localStorage.setItem("user", JSON.stringify(user));
-            this.$router.push({ path: "/hub" });
+            this.$router.push({ path: "/Home" });
           }
           this.error = user.error;
         })
@@ -146,7 +146,6 @@ h1 {
   display: flex;
   justify-content: center;
   &_button_login {
-
     color: darken($bg-blue, 30);
     font-weight: bold;
     cursor: pointer;
@@ -165,6 +164,7 @@ h1 {
       background: lighten($bg-red, 40);
       border-radius: 5px;
       width: 8em;
+      margin-top: 1em;
       cursor: not-allowed;
     }
   }

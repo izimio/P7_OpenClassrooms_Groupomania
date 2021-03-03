@@ -29,7 +29,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" module>
 $pink: #ffd7d7;
-
 #footer{
   padding-top: 1em;
   padding-bottom: 1em;
@@ -57,7 +56,6 @@ $pink: #ffd7d7;
     }
   }
 }
-
 @media all and (max-width: 500px) {
     &_instagram{
     margin-left: 8%;

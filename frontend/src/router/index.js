@@ -13,9 +13,9 @@ const routes = [
     component: () => import('../views/signup.vue')
   },
   {
-    path: '/hub',
-    name: 'hub',
-    component: () => import('../views/hub.vue')
+    path: '/Home',
+    name: 'Home',
+    component: () => import('../views/home.vue')
   },
   {
     path: '/profile/:id(\\d+)',

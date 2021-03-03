@@ -124,7 +124,7 @@ export default {
             if (!user.error) {
               window.localStorage.setItem('user', JSON.stringify(user)) 
               return this.$router.push({
-                path: '/hub',
+                path: '/Home',
               }) 
             }
             this.error = user.error 

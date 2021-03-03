@@ -17,7 +17,7 @@
 import NavHub from "@/components/NavHub.vue";
 import FooterHub from "@/components/FooterHub.vue";
 export default {
-  name: "Hub",
+  name: "Home",
   components: {
     NavHub,
     FooterHub,

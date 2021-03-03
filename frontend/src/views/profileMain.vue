@@ -173,7 +173,7 @@ export default {
   flex-direction: column;
   align-items: center;
   &_smiley {
-    font-size: 10em;
+    font-size: 11em;
   }
 }
 @media screen and (max-width: 930px) {
