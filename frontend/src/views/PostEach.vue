@@ -97,20 +97,9 @@ export default {
 </script>
 
 <style lang="scss" module>
-#post {
-  background-color: #ffd7d7;
-  width: 70%;
-  margin: 0 auto 50px auto;
-  padding-bottom: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border: solid 1.5px black;
-  line-height: 35px;
-  #action_btn {
-    border: solid 1.5px black;
-    margin: 0 auto;
-    width: 20%;
-  }
+
+#post{
+  
 }
+
 </style>

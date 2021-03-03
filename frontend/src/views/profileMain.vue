@@ -6,12 +6,10 @@
       <h1 v-else :id="$style.title - profile">Profile de {{ username }}</h1>
 
       <InfoProfile
-        v-if="allPosts"
         :id="this.$route.params.id"
         :username="username"
         :email="email"
         :role="role"
-        :profileId="profileId"
       />
     </section>
     <section v-if="allPosts[0]" :id="$style.content">

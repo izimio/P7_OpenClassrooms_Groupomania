@@ -91,6 +91,7 @@ export default {
       return this.$router.push({ path: "/" });
     }
     this.userId = auth.userId;
+    this.role = auth.role
     console.log(this.userId + this.profileId);
   },
 };
