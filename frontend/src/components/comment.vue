@@ -1,14 +1,15 @@
 <template>
-    <div id="$style.cont_comment">
+    <div :id="$style.cont_comment">
       <span>De: {{ username }}</span>
-      <p>{{ comment }}</p>
+      <p>{{ body }}</p>
+      <slot></slot>
     </div>
 </template>
 
 <script>
 export default {
   name: 'Comment',
-  props: ['username', 'comment']
+  props: ['username', 'body']
 }
 </script>
 <style lang="scss" module>

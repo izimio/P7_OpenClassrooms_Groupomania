@@ -96,6 +96,7 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+      console.log(this.username)
     // Calling for the posts
     fetch("http://localhost:5000/api/posts/user/" + this.$route.params.id, {
       method: "GET",

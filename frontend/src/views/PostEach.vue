@@ -18,6 +18,7 @@
           <ButtonDelete
             v-if="userId === post.userId || role === true"
             :id="this.$route.params.id"
+            :value="0"
           >
           </ButtonDelete>
 
@@ -28,7 +29,9 @@
         </Posts>
 
         <!-- Commentaire -->
-        <aside v-if="comments[0]"></aside>
+        <aside v-if="comments[0]">
+
+        </aside>
         <aside v-else>
           <div :id="$style.cont_comment">
             <p>Aucun commentaire</p>

@@ -7,7 +7,7 @@
     />
     <nav id="nav">
       <div id="nav_full">
-        <router-link id="nav_home" to="/Home" title="Direction l'accueil"
+        <router-link id="nav_home" to="/home" title="Direction l'accueil"
           >Accueil</router-link
         > |
         <router-link
