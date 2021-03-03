@@ -1,6 +1,6 @@
 <template>
   <article v-if="this.$route.params.id != id" :id="$style.post">
-    <router-link :to="{ name: 'profileMain', params: { id: id } }">
+    <router-link :to="{ name: 'PostEach', params: { id: id } }">
         <h3 :class="$style.title">{{ title }}</h3>
         <span :class="$style.username">De: <strong> {{ username }} </strong></span>
       <p :class="$style.body">

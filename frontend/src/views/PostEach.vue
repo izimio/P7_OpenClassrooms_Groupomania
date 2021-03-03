@@ -17,28 +17,6 @@
         :updatedAt="post.updatedAt"
         :UserId="post.UserId"
       >
-        <!-- <CommentCreate /> -->
-
-        <!-- Router comment -->
-        <RouterComment :id="post.id" />
-
-        <!-- Boutton like -->
-        <ButtonLike
-          :id="post.id"
-          :userId="userId"
-          :likeMessage="likeMessage"
-          @like="likePost(post.id)"
-        >
-        </ButtonLike>
-
-        <!-- Boutton dislike -->
-        <ButtonDislike
-          :id="post.id"
-          :userId="userId"
-          :dislikeMessage="dislikeMessage"
-          @dislike="dislikePost(post.id)"
-        >
-        </ButtonDislike>
 
         <!-- Boutton delete post -->
         <ButtonDelete
@@ -52,16 +30,16 @@
         </ButtonDelete>
 
         <!-- Router update post -->
-        <RouterUpdate
+        <ButtonUpdate
           v-if="userId === post.UserId || role === true"
           :id="post.id"
           :commentUserId="null"
-        ></RouterUpdate>
+        ></ButtonUpdate>
 
       </Posts>
 
       <!-- Commentaire -->
-      <aside v-if="comments != 0">
+      <aside v-if="comments[0]">
         
       </aside>
       <aside v-else>
@@ -87,6 +65,45 @@ export default {
         Posts,
         ButtonUpdate,
         ButtonDelete
+    },
+    data() {
+    return {
+      comments: {},
+      post: {},
+      username: '',
+      token: '',
+      userId: '',
+      role: '',
+      error: ''
     }
+  },
+  created() {
+    //On recupère notre token
+    const storage = localStorage.getItem('user')
+    const auth = JSON.parse(storage)
+    if (auth === null) {
+      return this.$router.push({ path: '/' }) //On redirige vers le login
+    }
+    this.token = auth.token
+    this.userId = auth.userId
+    this.isAdmin = auth.role
+    //Appel de notre API
+    fetch('http://localhost:5000/api/posts/' + this.$route.params.id, {
+     method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`,
+      }),
+    })
+      .then(async (result_) => {
+        const arr = await result_.json();
+        if (!arr.error) {
+            this.posts = arr.Post;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 }
 </script>

@@ -21,6 +21,7 @@
         v-for="(post, index) in allPosts"
         :key="index"
         :title="post.title"
+        :id="post.id"
         :username="username"
         :body="post.body"
         :media="post.media"
@@ -82,8 +83,8 @@ export default {
         Authorization: `Bearer ${this.token}`,
       }),
     })
-      .then((response) => response.json())
-      .then((response) => {
+      .then(async (result_) => {
+        const response = await result_.json();
         if (response.error) {
           return this.$router.push({ path: "/home" });
         }

@@ -38,6 +38,11 @@ const routes = [
     name: 'profileDelete', 
     component: () => import('../views/profileDelete.vue')
   },
+  {
+    path: '/post/:id(\\d+)',
+    name: 'PostEach',
+    component: () => import('../views/PostEach.vue')
+  },
 ]
 const router = createRouter({
   mode: 'history',
