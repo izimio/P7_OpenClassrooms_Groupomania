@@ -30,6 +30,7 @@
         :createdAt="post.createdAt"
         :updatedAt="post.updatedAt"
         :UserId="post.UserId"
+        :num=0
       />
       <p>{{ error }}</p>
     </section>

@@ -13,6 +13,7 @@
           :createdAt="post.createdAt"
           :updatedAt="post.updatedAt"
           :UserId="post.UserId"
+          :num=1
         >
           <ButtonDelete
             v-if="userId === post.UserId || role === true"

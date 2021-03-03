@@ -1,5 +1,5 @@
 <template>
-  <article v-if="this.$route.params.id != id" :id="$style.post">
+  <article v-if="num == '0'" :id="$style.post">
     <router-link :to="{ name: 'PostEach', params: { id: id } }">
         <h3 :class="$style.title">{{ title }}</h3>
         <span :class="$style.username">De: <strong> {{ username }} </strong></span>
@@ -16,7 +16,7 @@
 
   <article v-else :id="$style.post">
     <h3 :class="$style.title">{{ title }}</h3>
-    <span :class="$style.username">De: {{ username }}</span>
+    <span :class="$style.username">De: titouan</span>
     <p :class="$style.body">
       {{ body }}
     </p>
@@ -37,7 +37,11 @@ export default {
     "createdAt",
     "updatedAt",
     "UserId",
+    "num",
   ],
+  created() {
+    console.log(this.$route.params.id + "====" + this.id)
+  },
 };
 </script>
 
