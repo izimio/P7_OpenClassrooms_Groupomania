@@ -12,6 +12,9 @@ exports.createPost = (req, res, next) => {
      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
      const userId = decodedToken.userId
 
+
+     if(req.file)
+          console.log("ouais")
      const title = req.body.title
      const body = req.body.body
      const media = req.body.media

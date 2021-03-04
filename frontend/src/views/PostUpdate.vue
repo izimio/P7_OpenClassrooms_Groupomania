@@ -8,13 +8,13 @@
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="titre" :id="$style.label"> Titre </label>
-            <input :id="$style.input" type="text" v-model="title" required />
+            <input :id="$style.input" type="text" v-model="title" required maxlength="50" />
           </div>
         </div>
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="titre" :id="$style.label"> Message </label>
-            <input :id="$style.input" type="text" v-model="body" required />
+            <input :id="$style.input" type="text" v-model="body" required  maxlength="250"/>
           </div>
         </div>
         <div :id="$style.img">

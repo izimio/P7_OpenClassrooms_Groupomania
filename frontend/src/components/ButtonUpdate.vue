@@ -2,7 +2,6 @@
   <div id="modify-btn" @click="update">
     <i class="gg-pen"></i>
     <span id="button-send">Modifier</span>
-    <p>{{ com_id }}</p>
   </div>
 </template>
 

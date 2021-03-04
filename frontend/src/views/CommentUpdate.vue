@@ -8,7 +8,7 @@
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="body" :id="$style.label"> Message </label>
-            <input :id="$style.input" type="text" v-model="body" required />
+            <textarea :id="$style.input" type="text" v-model="body" required maxlength="250"/>
           </div>
         </div>
         <p :id="$style.error">{{ error }}</p>
@@ -69,7 +69,7 @@ export default {
         } else {
           this.error = res.error
         }
-        if (this.postUserId != this.userId && this.role != true) {
+        if (res.comment.UserId != this.userId && this.role != true) {
           return this.$router.push({ path: "/Home" });
         }
       })
@@ -140,7 +140,7 @@ h1 {
     font-size: 2em;
   }
 }
-#input {
+#input, textarea {
   width: 75em;
   height: 3em;
   text-align: center;
@@ -150,10 +150,9 @@ h1 {
   }
 }
 
-#input {
-  text-align: center;
+textarea{
+  min-height: 15em;
 }
-
 #form_each {
   justify-content: center;
   margin-top: 2em;

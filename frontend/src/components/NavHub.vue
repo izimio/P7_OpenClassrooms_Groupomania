@@ -14,6 +14,7 @@
           id="nav_profil"
           :to="{ name: 'profileMain', params: { id: userId } }"
           title="Direction votre profile"
+          v-on:click="rerender"
           >Profil</router-link
         > |
         <router-link id="nav_logout" to="/" title="Déconnexion">
@@ -47,6 +48,9 @@ export default {
     this.role = auth.role;
   },
   methods: {
+    rerender: function(){
+      this.$emit('rerender',1)
+    }
   },
 };
 </script>

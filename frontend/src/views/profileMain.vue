@@ -1,18 +1,18 @@
 <template>
   <main :id="$style.profile">
-    <NavHub />
-    <section>
-      <h1 :id="$style.title" v-if="userId == profileId">Votre profil</h1>
-      <h1 v-else :id="$style.title">Profile de {{ username }}</h1>
-      <InfoProfile
+    <NavHub/>
+    <section :key="componentKey">
+      <InfoProfile 
         :id="this.$route.params.id"
         :username="username"
         :email="email"
+        :userId="userId"
+        :profileId="profileId"
       />
     </section>
-    <section v-if="allPosts[0]" :id="$style.content">
+    <section v-if="allPosts[0]" :id="$style.content" :key="componentKey">
       <h2 :id="$style.content_title" v-if="userId == profileId">Vos posts</h2>
-      <h2 v-else :id="$style.content_title">Posts de {{ username }}</h2>
+      <h2 v-else :id="$style.content_title">Il a posté</h2>
       <Posts
         v-for="(post, index) in allPosts"
         :key="index"
@@ -62,7 +62,7 @@ export default {
       error: "",
       email: "",
       allPosts: {},
-      renderMyView: true,
+      componentKey: 0,
     };
   },
   created() {
@@ -114,9 +114,9 @@ export default {
       });
   },
   methods: {
-    forceUpdate() {
-      this.$forceUpdate();
-    },
+    rerender: function() {
+      this.componentKey += 1;
+    }
   },
 };
 </script>

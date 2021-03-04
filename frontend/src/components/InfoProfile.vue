@@ -1,71 +1,76 @@
 <template>
-  <div :id="$style.Info_profile">
-    <div :id="$style.header_profile">
-      <h2 :id="$style.title" v-if="userId == profileId">
-        Voici vos informations <strong>{{ username }} </strong>, <br />
-        cliquez dessus pour les modifier
-      </h2>
-      <h2 :id="$style.title" v-else>Découvrez {{ username }}:</h2>
-    </div>
-    <div :id="$style.all_profile">
-      <div :id="$style.profile">
-        <div :id="$style.id" v-if="userId == profileId || role == 1">
-          <i class="gg-select"></i>
-          <span :id="$style.id">Utilisateur n°{{ id }}</span>
-        </div>
-        <span v-else
-          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
-        >
-        <span :id="$style.sep" v-if="userId == profileId || role == 1">
-          |
-        </span>
-        <div :id="$style.username">
-          <i class="gg-user"></i>
-          <router-link
-            :id="$style.id"
-            v-if="userId == profileId || role == 1"
-            :to="{ name: 'profileUpdate', params: { value: 1, id: id } }"
-            title="Modifiez votre username"
-            >pseudo : {{ username }}</router-link
+  <div>
+    <h1 :id="$style.title" v-if="userId == profileId">Votre profil</h1>
+    <h1 v-else :id="$style.title">Profile de {{ username }}</h1>
+    <div :id="$style.Info_profile">
+      <div :id="$style.header_profile">
+        <h2 :id="$style.title" v-if="userId == profileId">
+          Voici vos informations <strong>{{ username }} </strong>, <br />
+          cliquez dessus pour les modifier
+        </h2>
+        <h2 :id="$style.title" v-else>Découvrez {{ username }}:</h2>
+      </div>
+      <div :id="$style.all_profile">
+        <div :id="$style.profile">
+          <div :id="$style.id" v-if="userId == profileId || role == 1">
+            <i class="gg-select"></i>
+            <span :id="$style.id">Utilisateur n°{{ id }}</span>
+          </div>
+          <span v-else
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
           >
-          <span :id="$style.id" v-else>pseudo : {{ username }}</span>
-        </div>
-        <span :id="$style.sep"> | </span>
-        <div :id="$style.email">
-          <i class="gg-mail"></i>
-          <router-link
-            :id="$style.id"
-            v-if="userId == profileId || role == 1"
-            :to="{ name: 'profileUpdate', params: { value: 2, id: id } }"
-            title="Modifiez votre email"
-            >mail : {{ email }}</router-link
-          >
-          <span v-else>mail : {{ email }}</span>
-        </div>
-        <span :id="$style.sep" v-if="userId == profileId"> | </span>
-        <div :id="$style.password" v-if="id == profileId || role == 1">
-          <router-link
-            :id="$style.id"
-            v-if="userId == profileId || role == 1"
-            :to="{ name: 'profileUpdate', params: { value: 3, id: id } }"
-            title="Modifiez votre mot de passe"
-          >
-            <i class="gg-lock"></i>
-            <span>Mot de passe</span>
-          </router-link>
-        </div>
-        <span :id="$style.sep" v-if="userId == profileId"> | </span>
-        <div :id="$style.delete" v-if="id == profileId || role == 1">
-          <router-link
-            :id="$style.id"
-            v-if="userId == profileId || role == 1"
-            :to="{ name: 'profileDelete', params: { id: id } }"
-            title="Supprimer votre compte"
-          >
-            <i class="gg-trash"></i>
-            <span> Supprimer le compte </span>
-          </router-link>
+          <span :id="$style.sep" v-if="userId == profileId || role == 1">
+            |
+          </span>
+          <div :id="$style.username">
+            <i class="gg-user"></i>
+            <router-link
+              :id="$style.id"
+              v-if="userId == profileId || role == 1"
+              :to="{ name: 'profileUpdate', params: { value: 1, id: id } }"
+              title="Modifiez votre username"
+              >pseudo : {{ username }}</router-link
+            >
+            <span :id="$style.id" v-else>pseudo : {{ username }}</span>
+          </div>
+          <span :id="$style.sep"> | </span>
+          <div :id="$style.email">
+            <i class="gg-mail"></i>
+            <router-link
+              :id="$style.id"
+              v-if="userId == profileId || role == 1"
+              :to="{ name: 'profileUpdate', params: { value: 2, id: id } }"
+              title="Modifiez votre email"
+              >mail : {{ email }}</router-link
+            >
+            <span v-else>mail : {{ email }}</span>
+          </div>
+          <span :id="$style.sep" v-if="userId == profileId"> | </span>
+          <div :id="$style.password" v-if="id == profileId || role == 1">
+            <router-link
+              :id="$style.id"
+              v-if="userId == profileId || role == 1"
+              :to="{ name: 'profileUpdate', params: { value: 3, id: id } }"
+              title="Modifiez votre mot de passe"
+            >
+              <i class="gg-lock"></i>
+              <span>Mot de passe</span>
+            </router-link>
+          </div>
+          <span :id="$style.sep" v-if="userId == profileId"> | </span>
+          <div :id="$style.delete" v-if="id == profileId || role == 1">
+            <router-link
+              :id="$style.id"
+              v-if="userId == profileId || role == 1"
+              :to="{ name: 'profileDelete', params: { id: id } }"
+              title="Supprimer votre compte"
+              @click="forceRerender"
+            >
+              <i class="gg-trash"></i>
+              <span> Supprimer le compte </span>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -82,7 +87,9 @@ export default {
       userId: null,
     };
   },
-  methods: {},
+  methods: {
+    forceRerender: function () {},
+  },
   created() {
     this.profileId = this.$route.params.id;
     const storage = localStorage.getItem("user");
@@ -91,7 +98,7 @@ export default {
       return this.$router.push({ path: "/" });
     }
     this.userId = auth.userId;
-    this.role = auth.role
+    this.role = auth.role;
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavHub />
-    <main :id="$style.post">
+    <main>
       <article>
         <h1 :class="$style.tiltle_posts">Post de {{ post.username }}</h1>
         <Posts
@@ -39,6 +39,7 @@
               <input
                 :id="$style.comment_create_input"
                 type="text"
+                maxlength="250"
                 v-model="newCom"
                 @keyup.enter="postComment"
               />
@@ -157,7 +158,7 @@ export default {
         if (arr.error) {
           this.error = "Oops, une erreur est survenu";
         } else {
-          this.comments = ((arr.comment[0]) ? arr.comment : 0);
+          this.comments = arr.comment[0] ? arr.comment : 0;
         }
       })
       .catch((error) => {
@@ -195,9 +196,6 @@ export default {
 </script>
 
 <style lang="scss" module>
-#post {
-}
-
 aside {
   h3 {
     margin-bottom: 1em;
@@ -205,7 +203,7 @@ aside {
     font-size: 2em;
   }
   #comment_create {
-    margin-bottom: 1em;
+    margin: 0 1em 1em 1em;
     display: flex;
     justify-content: center;
     &_button {

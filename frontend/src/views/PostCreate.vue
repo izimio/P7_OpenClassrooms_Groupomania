@@ -8,13 +8,13 @@
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="titre" :id="$style.label"> Titre </label>
-            <input :id="$style.input" type="text" v-model="title" required />
+            <input :id="$style.input" type="text" v-model="title" required maxlength="50"/>
           </div>
         </div>
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="titre" :id="$style.label"> Message </label>
-            <input :id="$style.input" type="text" v-model="body" required />
+            <textarea :id="$style.input" name="text" v-model="body" required="true" rows="4" cols="40" maxlength="250" />
           </div>
         </div>
         <div :id="$style.img">
@@ -78,7 +78,6 @@ export default {
     onFileChange(e) {
       const file = e.target.files[0];
       this.media = URL.createObjectURL(file);
-      console.log(this.media)
     },
     backward: function () {
       this.$router.push({
@@ -112,7 +111,6 @@ export default {
             this.$router.push({
               name: "Home",
             });
-            alert("Post crée avec succès")
           } else {
             this.error = user.error;
           }
@@ -154,10 +152,13 @@ h1 {
   }
 }
 
-#input {
+#input, textarea {
   text-align: center;
 }
 
+textarea{
+  min-height: 15em;
+}
 #form_each {
   justify-content: center;
   margin-top: 2em;
