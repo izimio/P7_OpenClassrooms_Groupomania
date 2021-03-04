@@ -19,11 +19,13 @@ app.use((req, res, next) => {
 })
 
 app.use(bodyParser.json({
-  limit: "50MB"
+  limit: "1kb"
 }))
 app.use(bodyParser.urlencoded({
   extended: true
 })) // transform the req into an JS object 
+
+
 app.use(helmet())
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
