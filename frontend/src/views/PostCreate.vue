@@ -8,22 +8,38 @@
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="titre" :id="$style.label"> Titre </label>
-            <input :id="$style.input" type="text" v-model="title" required maxlength="50"/>
+            <input
+              :id="$style.input"
+              type="text"
+              v-model="title"
+              required
+              maxlength="50"
+            />
           </div>
         </div>
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="titre" :id="$style.label"> Message </label>
-            <textarea :id="$style.input" name="text" v-model="body" required="true" rows="4" cols="40" maxlength="250" />
+            <textarea
+              :id="$style.input"
+              name="text"
+              v-model="body"
+              required="true"
+              rows="4"
+              cols="40"
+              maxlength="250"
+            />
           </div>
         </div>
         <div :id="$style.img">
-          <input type="file" @change="onFileChange" />
+          <input type="file" @change="onFileChange" name="img" id="file" />
           <div :id="$style.preview">
             <img v-if="media" :src="media" />
           </div>
           <div v-if="media">
-            <span @click="media = null" :id="$style.label_del" > Supprimer le media </span>
+            <span @click="media = null" :id="$style.label_del">
+              Supprimer le media
+            </span>
           </div>
         </div>
         <p :id="$style.error">{{ error }}</p>
@@ -76,33 +92,32 @@ export default {
   },
   methods: {
     onFileChange(e) {
-      const file = e.target.files[0];
-      this.media = URL.createObjectURL(file);
+      const img = e.target.files[0];
+      this.media = URL.createObjectURL(img);
     },
     backward: function () {
       this.$router.push({
-        name: "PostEach",
-        params: { id: this.$route.params.id },
+        name: "Home",
       });
     },
     modify: function () {
-      if (this.token === null) {
-        return this.$router.push({ path: "/" });
-      }
+      let file = document.getElementById("file");
 
       const infos = {
-        media: this.media,
         body: this.body,
         title: this.title,
       };
-      console.log(infos);
+
+      let formData = new FormData();
+      formData.append("file", file.files[0]);
+      formData.append("content", JSON.stringify(infos));
+
       fetch("http://localhost:5000/api/posts/", {
         method: "POST",
         headers: new Headers({
-          "Content-Type": "application/json",
           Authorization: `Bearer ${this.token}`,
         }),
-        body: JSON.stringify(infos),
+        body: formData,
       })
         .then(async (result_) => {
           const user = await result_.json();
@@ -152,11 +167,12 @@ h1 {
   }
 }
 
-#input, textarea {
+#input,
+textarea {
   text-align: center;
 }
 
-textarea{
+textarea {
   min-height: 15em;
 }
 #form_each {
@@ -200,12 +216,12 @@ textarea{
 #label {
   display: block;
   margin-bottom: 0.5em;
-  &_del{
-      &:hover{
-          cursor: pointer;
-          font-weight: bold;
-          text-decoration: underline;
-      }
+  &_del {
+    &:hover {
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: underline;
+    }
   }
 }
 

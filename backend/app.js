@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const helmet = require("helmet")
 const path = require('path')
+const multer = require('multer')
 const apiLimiter = require("./middleware/limits-rate")
 const userRoutes = require("./routes/user")
 const postRoutes = require("./routes/post")
@@ -18,7 +19,7 @@ app.use((req, res, next) => {
 })
 
 app.use(bodyParser.json({
-  limit: "1kb"
+  limit: "50MB"
 }))
 app.use(bodyParser.urlencoded({
   extended: true

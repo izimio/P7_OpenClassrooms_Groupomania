@@ -1,23 +1,25 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const models = require('../models')
+const multer = require('multer')
 const fs = require('fs')
 
 const {
      Op
 } = require("sequelize")
 
+
 exports.createPost = (req, res, next) => {
+
+
+     console.log(req.body)
      const token = req.headers.authorization.split(' ')[1]
      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
      const userId = decodedToken.userId
 
-
-     if(req.file)
-          console.log("ouais")
      const title = req.body.title
      const body = req.body.body
-     const media = req.body.media
+     const media =  (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
 
      if (title.length <= 2 || body <= 2) {
           return res.status(400).json({
