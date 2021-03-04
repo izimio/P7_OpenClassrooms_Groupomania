@@ -26,9 +26,9 @@ app.use(bodyParser.urlencoded({
 app.use(helmet())
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use('/api/users', apiLimiter, userRoutes);
-app.use('/api/posts', apiLimiter, postRoutes);
-app.use('/api/comments', apiLimiter, commentRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/comments', commentRoutes);
 // all the routes
 
 // exporting app

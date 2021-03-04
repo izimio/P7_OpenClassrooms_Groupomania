@@ -46,7 +46,8 @@ export default {
     this.userId = auth.userId;
     this.role = auth.role;
   },
-  methods: {},
+  methods: {
+  },
 };
 </script>
 

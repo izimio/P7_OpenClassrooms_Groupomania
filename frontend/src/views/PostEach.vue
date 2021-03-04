@@ -29,7 +29,7 @@
         </Posts>
 
         <!-- Comments -->
-        <aside v-if="comments[0]">
+        <aside>
           <h3>Ils ont réagis</h3>
           <div :id="$style.comment_create_all">
             <label for="com" :id="$style.comment_create_label">
@@ -48,31 +48,33 @@
             </div>
             <p :id="$style.comment_create_error">{{ error }}</p>
           </div>
-          <Comments
-            v-for="(comment, index) in comments"
-            :key="index"
-            :body="comment.body"
-            :id="comment.id"
-            :postId="comment.PostId"
-            :username="comment.username"
-            :updatedAt="comment.updatedAt"
-            :userId="comment.UserId"
-          >
-            <ButtonDelete
-              v-if="userId === comment.UserId || role === true"
+          <article v-if="comments">
+            <Comments
+              v-for="(comment, index) in comments"
+              :key="index"
+              :body="comment.body"
               :id="comment.id"
-              :value="1"
+              :postId="comment.PostId"
+              :username="comment.username"
+              :updatedAt="comment.updatedAt"
+              :userId="comment.UserId"
             >
-            </ButtonDelete>
+              <ButtonDelete
+                v-if="userId === comment.UserId || role === true"
+                :id="comment.id"
+                :value="1"
+              >
+              </ButtonDelete>
 
-            <ButtonUpdate
-              v-if="userId === comment.UserId || role === true"
-              :value="1"
-              :com_id="comment.id"
-            ></ButtonUpdate>
-          </Comments>
+              <ButtonUpdate
+                v-if="userId === comment.UserId || role === true"
+                :value="1"
+                :com_id="comment.id"
+              ></ButtonUpdate>
+            </Comments>
+          </article>
         </aside>
-        <aside v-else>
+        <aside v-if="!comments[0]">
           <div :id="$style.cont_comment">
             <p>Aucun commentaire</p>
           </div>
@@ -154,9 +156,8 @@ export default {
         const arr = await result_.json();
         if (arr.error) {
           this.error = "Oops, une erreur est survenu";
-          return this.$router.push({ path: "/Home" });
         } else {
-          this.comments = arr.comment;
+          this.comments = ((arr.comment[0]) ? arr.comment : 0);
         }
       })
       .catch((error) => {
@@ -213,16 +214,16 @@ aside {
       border-top: 1px solid black;
       border-radius: 0 5px 5px 0;
       padding: 0.5em;
-      span{
+      span {
         color: white;
         font-weight: bold;
       }
-      &:hover{
+      &:hover {
         background-color: lighten(blue, 15);
         cursor: pointer;
       }
     }
-    &_error{
+    &_error {
       text-decoration: underline;
       color: red;
       margin-bottom: 0.5em;

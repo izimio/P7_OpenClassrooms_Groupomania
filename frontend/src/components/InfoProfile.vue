@@ -1,11 +1,11 @@
 <template>
   <div :id="$style.Info_profile">
     <div :id="$style.header_profile">
-      <h2 :id="$style.title - profile" v-if="userId == profileId">
+      <h2 :id="$style.title" v-if="userId == profileId">
         Voici vos informations <strong>{{ username }} </strong>, <br />
         cliquez dessus pour les modifier
       </h2>
-      <h2 :id="$style.title - profile" v-else>Découvrez {{ username }}:</h2>
+      <h2 :id="$style.title" v-else>Découvrez {{ username }}:</h2>
     </div>
     <div :id="$style.all_profile">
       <div :id="$style.profile">
@@ -92,7 +92,6 @@ export default {
     }
     this.userId = auth.userId;
     this.role = auth.role
-    console.log(this.userId + this.profileId);
   },
 };
 </script>

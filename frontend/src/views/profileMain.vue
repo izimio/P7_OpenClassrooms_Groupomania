@@ -1,22 +1,18 @@
 <template>
-  <main id="profile-page">
+  <main :id="$style.profile">
     <NavHub />
     <section>
-      <h1 id="title-profile" v-if="userId == profileId">Votre profil</h1>
-      <h1 v-else :id="$style.title - profile">Profile de {{ username }}</h1>
-
+      <h1 :id="$style.title" v-if="userId == profileId">Votre profil</h1>
+      <h1 v-else :id="$style.title">Profile de {{ username }}</h1>
       <InfoProfile
         :id="this.$route.params.id"
         :username="username"
         :email="email"
-        :role="role"
       />
     </section>
     <section v-if="allPosts[0]" :id="$style.content">
       <h2 :id="$style.content_title" v-if="userId == profileId">Vos posts</h2>
-      <h2 v-else :id="$style.content_title">
-        Posts de {{ username }}
-      </h2>
+      <h2 v-else :id="$style.content_title">Posts de {{ username }}</h2>
       <Posts
         v-for="(post, index) in allPosts"
         :key="index"
@@ -28,12 +24,12 @@
         :createdAt="post.createdAt"
         :updatedAt="post.updatedAt"
         :UserId="post.userId"
-        :num=0
+        :num="0"
       />
       <p>{{ error }}</p>
     </section>
     <section v-else :id="$style.nothing">
-      <h2 >Aucun post à afficher</h2>
+      <h2>Aucun post à afficher</h2>
       <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
     </section>
     <FooterHub />
@@ -46,6 +42,7 @@ import NavHub from "@/components/NavHub.vue";
 import FooterHub from "@/components/FooterHub.vue";
 import InfoProfile from "@/components/InfoProfile.vue";
 import Posts from "@/components/Posts.vue";
+
 export default {
   name: "ProfileMain",
   components: {
@@ -65,6 +62,7 @@ export default {
       error: "",
       email: "",
       allPosts: {},
+      renderMyView: true,
     };
   },
   created() {
@@ -89,14 +87,12 @@ export default {
         if (response.error) {
           return this.$router.push({ path: "/home" });
         }
-        this.profileId = response.user.id;
         this.username = response.user.username;
         this.email = response.user.email;
       })
       .catch((error) => {
         console.log(error);
       });
-      console.log(this.username)
     // Calling for the posts
     fetch("http://localhost:5000/api/posts/user/" + this.$route.params.id, {
       method: "GET",
@@ -117,7 +113,11 @@ export default {
         console.log(error);
       });
   },
-  methods: {},
+  methods: {
+    forceUpdate() {
+      this.$forceUpdate();
+    },
+  },
 };
 </script>
 
@@ -132,8 +132,12 @@ export default {
   scroll-behavior: smooth;
 }
 
+
+#profile{
+  text-decoration: none;
+}
 #content {
-  min-height: 400px;
+  min-height: 500px;
   &_title {
     font-size: 3em;
     margin-top: 0.5em;
@@ -142,7 +146,6 @@ export default {
 }
 #profile_page {
   background-color: #ffd7d7;
-  width: 900px;
   margin: 0 auto;
   padding-bottom: 40px;
   display: flex;
