@@ -25,7 +25,7 @@
               name="text"
               v-model="body"
               required="true"
-              rows="4"
+              rows="3"
               cols="40"
               maxlength="250"
             />
@@ -104,9 +104,11 @@ export default {
       let file = document.getElementById("file");
 
       let formData = new FormData();
-      formData.append("file", file.files[0]);
+      if (this.media != null) {
+        formData.append("file", file.files[0]);
+      }
       formData.append("body", this.body);
-      formData.append("title", this.title)
+      formData.append("title", this.title);
       fetch("http://localhost:5000/api/posts/", {
         method: "POST",
         headers: new Headers({
@@ -168,7 +170,9 @@ textarea {
 }
 
 textarea {
+  font-family: "Work Sans", Avenir, Helvetica, Arial, sans-serif;
   min-height: 15em;
+  font-weight: bold;
 }
 #form_each {
   justify-content: center;

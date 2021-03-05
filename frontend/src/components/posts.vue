@@ -109,6 +109,7 @@ $bg-red: #501b1d;
     img {
       width: 400px;
       height: 300px;
+      border-radius: 10%;
     }
   }
   .link,

@@ -20,11 +20,13 @@
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="titre" :id="$style.label"> Message </label>
-            <input
+            <textarea
               :id="$style.input"
-              type="text"
+              name="text"
               v-model="body"
-              required
+              required="true"
+              rows="4"
+              cols="40"
               maxlength="250"
             />
           </div>
@@ -43,7 +45,7 @@
         <p :id="$style.error">{{ error }}</p>
         <div :id="$style.bottom_form">
           <div
-            v-if="body.length >= 1 && title.length >= 1"
+            v-if="body.length >= 2 && title.length >= 2"
             :id="$style.bottom_form_button_login"
             @click="modify"
           >
@@ -128,8 +130,9 @@ export default {
       let formData = new FormData();
       formData.append("body", this.body);
       formData.append("title", this.title);
-      if(this.media != null)
+      if (this.media != null) {
         formData.append("file", file.files[0]);
+      }
       formData.append("imgChange", this.media);
       for (var value of formData.values()) {
         console.log(value);
@@ -186,8 +189,14 @@ h1 {
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
 }
-#input {
+#input, textarea {
   text-align: center;
+}
+
+textarea {
+  font-family: "Work Sans", Avenir, Helvetica, Arial, sans-serif;
+  min-height: 15em;
+  font-weight: bold;
 }
 #form_each {
   justify-content: center;
