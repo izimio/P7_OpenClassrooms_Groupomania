@@ -42,7 +42,7 @@ exports.createPost = (req, res, next) => {
                          username: user.username,
                          title: title,
                          body: body,
-                         media: media
+                         media: media,
                     })
                     .then(post => {
                          res.status(201).json({
@@ -121,24 +121,30 @@ exports.updatePost = (req, res, next) => {
      const body = req.body.body
      const media = req.body.media
 
-     console.log("aaa")
+     if (title.length <= 2 || body.length <= 2) {
+          return res.status(400).json({
+               error: 'Champs  manquant ou erroné'
+          })
+     }
      models.Post.findOne({
-               attributes: ['id', 'UserId', 'title', 'body', 'media'],
+               attributes: ['id', 'UserId', 'title', 'body', 'media', 'updatedAt'],
                where: {
                     id: req.params.id
                }
           })
           .then(post => {
-               if (req.file && post.media) {
-                    const filename = post.media.split('/images/')[1]; // deleting the linked file
-                    fs.unlink(`images/${filename}`, () => {})
+               let newMedia = post.media;
+               console.log(post.media)
+               if (req.body.imgChange != post.media || req.file) {
+                    console.log("JAI ETE TRIGGERED YOUPI")
+                    if(post.media)
+                    {
+                         const filename = post.media.split('/images/')[1]; // deleting the linked file
+                         fs.unlink(`images/${filename}`, () => {})
+                    }
+                    newMedia = null
                }
-               if (title.length <= 2 || body.length <= 2) {
-                    return res.status(400).json({
-                         error: 'Champs  manquant our erroné'
-                    })
-               }
-               if (title === post.title && body === post.body && media == post.media) {
+               if (title == post.title && body == post.body && req.body.imgChange == post.media) {
                     return res.status(400).json({
                          error: 'Le post est déjà à jour'
                     })
@@ -147,7 +153,7 @@ exports.updatePost = (req, res, next) => {
                     return post.update({
                               title: title,
                               body: body,
-                              media: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : post.media)
+                              media: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : newMedia),
                          })
                          .then(() => res.status(200).json({
                               message: 'Post modifié !'
@@ -171,7 +177,7 @@ exports.updatePost = (req, res, next) => {
                          post.update({
                                    title: title,
                                    body: body,
-                                   media: media,
+                                   media: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : newMedia),
                               })
                               .then(() => res.status(200).json({
                                    message: 'Post modifié !'
@@ -220,7 +226,7 @@ exports.deletePost = (req, res, next) => {
      const userId = decodedToken.userId
 
      models.Post.findOne({
-          attributes: ['id', 'title', 'body', 'username', 'UserId', 'media', 'createdAt', 'updatedAt'],
+               attributes: ['id', 'title', 'body', 'username', 'UserId', 'media', 'createdAt', 'updatedAt'],
                where: {
                     id: req.params.id
                }
