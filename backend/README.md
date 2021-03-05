@@ -14,8 +14,8 @@ Next, `npm install`
 --
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Open an sql terminal and create a database.
-`CREATE DATABASE "Your_DB_Name"`
+Inside the terminal write the following command.
+`sequelize db:create groupomania`
 --
 Afterwards : rename the `config/config.json.schema` into => `config.json`
 --
