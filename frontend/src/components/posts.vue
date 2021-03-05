@@ -101,9 +101,11 @@ $bg-red: #501b1d;
     margin: 0 auto;
   }
   .preview {
+    border-radius: 15px 0 15px;
     display: flex;
     justify-content: center;
     align-items: center;
+  background-color: lighten($bg-red, 40);
     img {
       width: 400px;
       height: 300px;

@@ -17,7 +17,7 @@ exports.createPost = (req, res, next) => {
      const title = req.body.title
      const body = req.body.body
      console.log(req.body.title)
-     const media =  (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
+     const media = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
      console.log(media)
      if (title.length <= 2 || body.body <= 2) {
           return res.status(400).json({
@@ -116,9 +116,12 @@ exports.updatePost = (req, res, next) => {
      const token = req.headers.authorization.split(' ')[1]
      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
      const userId = decodedToken.userId
+
      const title = req.body.title
      const body = req.body.body
      const media = req.body.media
+
+     console.log("aaa")
      models.Post.findOne({
                attributes: ['id', 'UserId', 'title', 'body', 'media'],
                where: {
@@ -126,6 +129,10 @@ exports.updatePost = (req, res, next) => {
                }
           })
           .then(post => {
+               if (req.file && post.media) {
+                    const filename = post.media.split('/images/')[1]; // deleting the linked file
+                    fs.unlink(`images/${filename}`, () => {})
+               }
                if (title.length <= 2 || body.length <= 2) {
                     return res.status(400).json({
                          error: 'Champs  manquant our erroné'
@@ -140,7 +147,7 @@ exports.updatePost = (req, res, next) => {
                     return post.update({
                               title: title,
                               body: body,
-                              media: media,
+                              media: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : post.media)
                          })
                          .then(() => res.status(200).json({
                               message: 'Post modifié !'
@@ -213,12 +220,17 @@ exports.deletePost = (req, res, next) => {
      const userId = decodedToken.userId
 
      models.Post.findOne({
+          attributes: ['id', 'title', 'body', 'username', 'UserId', 'media', 'createdAt', 'updatedAt'],
                where: {
                     id: req.params.id
                }
           })
           .then(post => {
                if (post.UserId === userId) {
+                    if (post.media != null) {
+                         const filename = post.media.split('/images/')[1]; // deleting the linked file
+                         fs.unlink(`images/${filename}`, () => {})
+                    }
                     return post.destroy()
                          .then(() => res.status(200).json({
                               message: 'Post supprimé !'
@@ -241,6 +253,10 @@ exports.deletePost = (req, res, next) => {
                               return res.status(406).json({
                                    error: 'Un problème est survenue lors de la suppression'
                               })
+                         }
+                         if (post.media != null) {
+                              const filename = post.media.split('/images/')[1]; // deleting the linked file
+                              fs.unlink(`images/${filename}`, () => {})
                          }
                          post.destroy()
                               .then(() => res.status(200).json({

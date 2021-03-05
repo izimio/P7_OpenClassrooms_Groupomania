@@ -8,22 +8,36 @@
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="titre" :id="$style.label"> Titre </label>
-            <input :id="$style.input" type="text" v-model="title" required maxlength="50" />
+            <input
+              :id="$style.input"
+              type="text"
+              v-model="title"
+              required
+              maxlength="50"
+            />
           </div>
         </div>
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="titre" :id="$style.label"> Message </label>
-            <input :id="$style.input" type="text" v-model="body" required  maxlength="250"/>
+            <input
+              :id="$style.input"
+              type="text"
+              v-model="body"
+              required
+              maxlength="250"
+            />
           </div>
         </div>
         <div :id="$style.img">
-          <input type="file" @change="onFileChange" />
+          <input type="file" @change="onFileChange" id="file" />
           <div :id="$style.preview">
             <img v-if="media" :src="media" />
           </div>
           <div v-if="media">
-            <span @click="media = null" :id="$style.label_del" > Supprimer le media </span>
+            <span @click="media = null" :id="$style.label_del">
+              Supprimer le media
+            </span>
           </div>
         </div>
         <p :id="$style.error">{{ error }}</p>
@@ -73,7 +87,6 @@ export default {
     this.token = auth.token;
     this.userId = auth.userId;
     this.role = auth.role;
-
     fetch("http://localhost:5000/api/posts/" + this.$route.params.id, {
       headers: new Headers({
         "Content-Type": "application/json",
@@ -101,8 +114,8 @@ export default {
   },
   methods: {
     onFileChange(e) {
-      const file = e.target.files[0];
-      this.media = URL.createObjectURL(file);
+      const img = e.target.files[0];
+      this.media = URL.createObjectURL(img);
     },
     backward: function () {
       this.$router.push({
@@ -111,23 +124,21 @@ export default {
       });
     },
     modify: function () {
-      if (this.token === null) {
-        return this.$router.push({ path: "/" });
+      let file = document.getElementById("file");
+      let formData = new FormData();
+      formData.append("body", this.body);
+      formData.append("title", this.title);
+      formData.append("file", file.files[0]);
+      formData.append("imgChange", this.media);
+      for (var value of formData.values()) {
+        console.log(value);
       }
-
-      const infos = {
-        media: this.media,
-        body: this.body,
-        title: this.title,
-      };
-      console.log(infos);
       fetch("http://localhost:5000/api/posts/" + this.$route.params.id, {
         method: "PUT",
         headers: new Headers({
-          "Content-Type": "application/json",
           Authorization: `Bearer ${this.token}`,
         }),
-        body: JSON.stringify(infos),
+        body: formData,
       })
         .then(async (result_) => {
           const user = await result_.json();
@@ -153,15 +164,12 @@ export default {
 <style lang="scss" module>
 $bg-red: #501b1d;
 $bg-blue: #557a95;
-
 h1 {
   font-size: 5em;
 }
-
 #login_page {
   margin-bottom: 2em;
 }
-
 #ban_login {
   margin-bottom: 7em;
   &_under {
@@ -177,11 +185,9 @@ h1 {
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
 }
-
 #input {
   text-align: center;
 }
-
 #form_each {
   justify-content: center;
   margin-top: 2em;
@@ -223,30 +229,26 @@ h1 {
 #label {
   display: block;
   margin-bottom: 0.5em;
-  &_del{
-      &:hover{
-          cursor: pointer;
-          font-weight: bold;
-          text-decoration: underline;
-      }
+  &_del {
+    &:hover {
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: underline;
+    }
   }
 }
-
 #img {
   padding: 20px;
 }
-
 #preview {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 #preview img {
   width: 400px;
   height: 400px;
 }
-
 #error {
   color: red;
   text-decoration: underline;
@@ -258,7 +260,6 @@ h1 {
     width: 80%;
   }
 }
-
 @media all and (max-width: 650px) {
   h1 {
     font-size: 3em;

@@ -105,8 +105,8 @@ export default {
 
       let formData = new FormData();
       formData.append("file", file.files[0]);
-      formData.append("body", JSON.stringify(this.body));
-      formData.append("title", JSON.stringify(this.title))
+      formData.append("body", this.body);
+      formData.append("title", this.title)
       fetch("http://localhost:5000/api/posts/", {
         method: "POST",
         headers: new Headers({
