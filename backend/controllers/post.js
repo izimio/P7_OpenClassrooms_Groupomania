@@ -134,10 +134,10 @@ exports.updatePost = (req, res, next) => {
           })
           .then(post => {
                let newMedia = post.media;
+
                if (req.body.imgChange != post.media || req.file) {
                     console.log("JAI ETE TRIGGERED YOUPI")
-                    if(post.media)
-                    {
+                    if (post.media) {
                          const filename = post.media.split('/images/')[1]; // deleting the linked file
                          fs.unlink(`images/${filename}`, () => {})
                     }
@@ -152,7 +152,7 @@ exports.updatePost = (req, res, next) => {
                     return post.update({
                               title: title,
                               body: body,
-                              media: ((req.file && req.body.imgChange) ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : newMedia),
+                              media: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : newMedia),
                          })
                          .then(() => res.status(200).json({
                               message: 'Post modifié !'
