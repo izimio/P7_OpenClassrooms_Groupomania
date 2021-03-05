@@ -44,7 +44,7 @@ export default {
     border-radius: 5px 0 20px;
     &:hover {
       border: 1px solid white;
-      background-color: red;
+      background-color: white;
     }
   }
   .body {

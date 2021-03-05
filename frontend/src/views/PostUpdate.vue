@@ -128,7 +128,8 @@ export default {
       let formData = new FormData();
       formData.append("body", this.body);
       formData.append("title", this.title);
-      formData.append("file", file.files[0]);
+      if(this.media != null)
+        formData.append("file", file.files[0]);
       formData.append("imgChange", this.media);
       for (var value of formData.values()) {
         console.log(value);
