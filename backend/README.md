@@ -14,8 +14,8 @@ Next, `npm install`
 --
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Open an sql terminal and create a database.
-`CREATE DATABASE "Your_DB_Name"`
+Inside the terminal write the following command.
+`sequelize db:create *YOUR DB NAME*`
 --
 Afterwards : rename the `config/config.json.schema` into => `config.json`
 --
@@ -50,8 +50,7 @@ Inside of it copy past this and replace the values with your DB's informations
  ---
  
   ```
-  JWT_SECRET="YOU RANDOM SECRET TOKEN"
-  PORT= The port for the app
+    JWT_SECRET= "YOUR JWT SECRET KEY"
 ```
 
 And that's it ! 
