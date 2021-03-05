@@ -10,18 +10,16 @@ const {
 
 
 exports.createPost = (req, res, next) => {
-
-
-     console.log(req.body)
      const token = req.headers.authorization.split(' ')[1]
      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
      const userId = decodedToken.userId
 
      const title = req.body.title
      const body = req.body.body
+     console.log(req.body.title)
      const media =  (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
-
-     if (title.length <= 2 || body <= 2) {
+     console.log(media)
+     if (title.length <= 2 || body.body <= 2) {
           return res.status(400).json({
                error: 'Champs manquant ou incorrect'
           })
@@ -47,7 +45,6 @@ exports.createPost = (req, res, next) => {
                          media: media
                     })
                     .then(post => {
-                         console.log("post !!!", post)
                          res.status(201).json({
                               message: "Post crée avec succès"
                          })

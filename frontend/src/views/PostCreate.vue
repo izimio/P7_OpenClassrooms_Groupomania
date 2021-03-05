@@ -103,15 +103,10 @@ export default {
     modify: function () {
       let file = document.getElementById("file");
 
-      const infos = {
-        body: this.body,
-        title: this.title,
-      };
-
       let formData = new FormData();
       formData.append("file", file.files[0]);
-      formData.append("content", JSON.stringify(infos));
-
+      formData.append("body", JSON.stringify(this.body));
+      formData.append("title", JSON.stringify(this.title))
       fetch("http://localhost:5000/api/posts/", {
         method: "POST",
         headers: new Headers({

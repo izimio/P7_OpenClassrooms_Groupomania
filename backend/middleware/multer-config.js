@@ -3,7 +3,9 @@ const multer = require('multer') //
 const MIME_TYPES = { //dict in order to know the file's extension
      'image/jpg': '.jpg',
      'image/jpeg': '.jpg',
-     'image/png': '.png'
+     'image/png': '.png',
+     'image/gif': '.gif',
+     'image/webp': '.webp'
 };
 
 const storage = multer.diskStorage({ 
@@ -17,4 +19,4 @@ const storage = multer.diskStorage({
      }
 })
 
-module.exports = multer({ storage: storage }).single('image') //exporting the module
+module.exports = multer({ storage: storage }).single('file') //exporting the module
