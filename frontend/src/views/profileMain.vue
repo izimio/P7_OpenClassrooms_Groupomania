@@ -1,38 +1,42 @@
 <template>
   <main :id="$style.profile">
-    <NavHub/>
-    <section :key="componentKey">
-      <InfoProfile 
-        :id="this.$route.params.id"
-        :username="username"
-        :email="email"
-        :userId="userId"
-        :profileId="profileId"
-      />
-    </section>
-    <section v-if="allPosts[0]" :id="$style.content" :key="componentKey">
-      <h2 :id="$style.content_title" v-if="userId == profileId">Vos posts</h2>
-      <h2 v-else :id="$style.content_title">Il a posté</h2>
-      <Posts
-        v-for="(post, index) in allPosts"
-        :key="index"
-        :title="post.title"
-        :id="post.id"
-        :username="post.username"
-        :body="post.body"
-        :media="post.media"
-        :createdAt="post.createdAt"
-        :updatedAt="post.updatedAt"
-        :UserId="post.userId"
-        :num="0"
-      />
-      <p>{{ error }}</p>
-    </section>
-    <section v-else :id="$style.nothing">
-      <h2>Aucun post à afficher</h2>
-      <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
-    </section>
-    <FooterHub />
+    <NavHub />
+    <div :id="$style.fullProfile">
+      <section :key="componentKey">
+        <InfoProfile
+          :id="this.$route.params.id"
+          :username="username"
+          :email="email"
+          :userId="userId"
+          :profileId="profileId"
+        />
+      </section>
+      <section v-if="allPosts[0]" :id="$style.content" :key="componentKey">
+        <h2 :id="$style.content_title" v-if="userId == profileId">Vos posts</h2>
+        <h2 v-else :id="$style.content_title">Il a posté</h2>
+        <Posts
+          v-for="(post, index) in allPosts"
+          :key="index"
+          :title="post.title"
+          :id="post.id"
+          :username="post.username"
+          :body="post.body"
+          :media="post.media"
+          :createdAt="post.createdAt"
+          :updatedAt="post.updatedAt"
+          :UserId="post.userId"
+          :num="0"
+        />
+        <p>{{ error }}</p>
+      </section>
+      <section v-else :id="$style.nothing">
+        <h2>Aucun post à afficher</h2>
+        <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
+      </section>
+    </div>
+    <div :id="$style.footHub">
+      <FooterHub />
+    </div>
     <router-view />
   </main>
 </template>
@@ -114,9 +118,9 @@ export default {
       });
   },
   methods: {
-    rerender: function() {
+    rerender: function () {
       this.componentKey += 1;
-    }
+    },
   },
 };
 </script>
@@ -132,9 +136,15 @@ export default {
   scroll-behavior: smooth;
 }
 
-
-#profile{
+#profile {
   text-decoration: none;
+}
+#fullProfile {
+  min-height: 900px;
+  margin-bottom: 2em;
+}
+#footHub{
+  margin-top: 2em;
 }
 #content {
   min-height: 500px;

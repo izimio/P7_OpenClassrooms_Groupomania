@@ -1,33 +1,40 @@
 <template>
   <main :id="$style.home">
     <NavHub />
-    <section>
-      <h1 :id="$style.title">Fil d'actualité</h1>
-      <router-link to="/post/create" :id="$style.create_post">
-        Postez !
-      </router-link>
-    </section>
-    <section v-if="allPosts[0]" :id="$style.allpost">
-      <Posts
-        v-for="(post, index) in allPosts"
-        :key="index"
-        :title="post.title"
-        :id="post.id"
-        :username="post.username"
-        :body="post.body"
-        :media="post.media"
-        :createdAt="post.createdAt"
-        :updatedAt="post.updatedAt"
-        :UserId="post.userId"
-        :num=0
-      />
-    </section>
+    <div :id="$style.fullHome">
+      <section>
+        <h1 :id="$style.title">Fil d'actualité</h1>
+        <router-link to="/post/create" :id="$style.create_post">
+          Postez !
+        </router-link>
+      </section>
+      <section v-if="allPosts[0]" :id="$style.allpost">
+        <Posts
+          v-for="(post, index) in allPosts"
+          :key="index"
+          :title="post.title"
+          :id="post.id"
+          :username="post.username"
+          :body="post.body"
+          :media="post.media"
+          :createdAt="post.createdAt"
+          :updatedAt="post.updatedAt"
+          :UserId="post.userId"
+          :num="0"
+        />
+      </section>
       <section v-else :id="$style.nothing">
-      <h2 >Oops, c'est bien vide par ici... Raison de plus ! soyez le premier à poster</h2>
-      <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
-    </section>
-        <FooterHub />
-              <router-view />
+        <h2>
+          Oops, c'est bien vide par ici... Raison de plus ! soyez le premier à
+          poster
+        </h2>
+        <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
+      </section>
+    </div>
+    <div :id="$style.footHub">
+      <FooterHub />
+    </div>
+    <router-view />
   </main>
 </template>
 
@@ -43,7 +50,7 @@ export default {
     FooterHub,
     Posts,
   },
- data() {
+  data() {
     return {
       username: "",
       token: "",
@@ -104,6 +111,14 @@ $bg-blue: #557a95;
     margin-bottom: 20px;
   }
 }
+
+#fullHome{
+  min-height: 900px;
+  margin-bottom: 2em;
+}
+#footHub{
+  margin-top: 2em;
+}
 #create_post {
   margin: 20px auto;
   background-color: #ffd7d7;
@@ -112,13 +127,13 @@ $bg-blue: #557a95;
   font-size: 2em;
   border-radius: 5px;
   transition: 500ms;
-  &:hover{
-    background-color: darken(#ffd7d7,5); 
+  &:hover {
+    background-color: darken(#ffd7d7, 5);
     text-decoration: underline;
-    }
+  }
 }
 
-#allpost{
+#allpost {
   margin-top: 3em;
 }
 
@@ -131,6 +146,7 @@ $bg-blue: #557a95;
   align-items: center;
   &_smiley {
     font-size: 13em;
+    margin-bottom: 1em;
   }
 }
 
