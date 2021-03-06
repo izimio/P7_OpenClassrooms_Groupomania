@@ -19,7 +19,7 @@
           :key="index"
           :title="post.title"
           :id="post.id"
-          :username="post.username"
+          :username="username"
           :body="post.body"
           :media="post.media"
           :createdAt="post.createdAt"

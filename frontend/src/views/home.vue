@@ -14,7 +14,7 @@
           :key="index"
           :title="post.title"
           :id="post.id"
-          :username="post.username"
+          :username="allUsers[post.userId - 1]"
           :body="post.body"
           :media="post.media"
           :createdAt="post.createdAt"
@@ -52,7 +52,6 @@ export default {
   },
   data() {
     return {
-      username: "",
       token: "",
       userId: "",
       profileId: "",
@@ -60,6 +59,7 @@ export default {
       error: "",
       email: "",
       allPosts: {},
+      allUsers: [],
     };
   },
   created() {
@@ -84,6 +84,29 @@ export default {
           this.error = "Oops, une erreur est survenu";
         } else {
           this.allPosts = arr.post;
+          if (arr.post[0]) {
+            fetch("http://localhost:5000/api/users/", {
+              method: "GET",
+              headers: new Headers({
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${this.token}`,
+              }),
+            })
+              .then(async (result_) => {
+                const res = await result_.json();
+                if (res.error) {
+                  console.log(res.error);
+                } else {
+                  let i = -1;
+                  while (res.user[++i]) {
+                    this.allUsers.push(res.user[i].username);
+                  }
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
         }
       })
       .catch((error) => {
@@ -112,11 +135,11 @@ $bg-blue: #557a95;
   }
 }
 
-#fullHome{
+#fullHome {
   min-height: 900px;
   margin-bottom: 2em;
 }
-#footHub{
+#footHub {
   margin-top: 2em;
 }
 #create_post {

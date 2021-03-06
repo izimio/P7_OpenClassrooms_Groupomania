@@ -3,11 +3,11 @@
     <NavHub />
     <main>
       <article>
-        <h1 :class="$style.tiltle_posts">Post de {{ post.username }}</h1>
+        <h1 :class="$style.tiltle_posts">Post de {{ allUsers[post.userId - 1] }}</h1>
         <Posts
           :title="post.title"
           :id="post.id"
-          :username="post.username"
+          :username="allUsers[post.userId - 1]"
           :body="post.body"
           :media="post.media"
           :createdAt="post.createdAt"
@@ -49,14 +49,14 @@
             </div>
             <p :id="$style.comment_create_error">{{ error }}</p>
           </div>
-          <article v-if="comments">
+          <article v-if="comments[0]">
             <Comments
               v-for="(comment, index) in comments"
               :key="index"
               :body="comment.body"
               :id="comment.id"
               :postId="comment.PostId"
-              :username="comment.username"
+              :username="allUsers[comment.UserId - 1]"
               :updatedAt="comment.updatedAt"
               :userId="comment.UserId"
             >
@@ -106,6 +106,7 @@ export default {
     return {
       comments: {},
       post: {},
+      allUsers: [],
       username: "",
       token: "",
       userId: "",
@@ -123,7 +124,6 @@ export default {
     this.token = auth.token;
     this.userId = auth.userId;
     this.role = auth.role;
-
     fetch("http://localhost:5000/api/posts/" + this.$route.params.id, {
       method: "GET",
       headers: new Headers({
@@ -143,9 +143,7 @@ export default {
       .catch((error) => {
         console.log(error);
       });
-
     // getting comments
-
     fetch("http://localhost:5000/api/comments/post/" + this.$route.params.id, {
       method: "GET",
       headers: new Headers({
@@ -164,13 +162,36 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+
+    // getting users
+
+    fetch("http://localhost:5000/api/users/", {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`,
+      }),
+    })
+      .then(async (result_) => {
+        const res = await result_.json();
+        if (res.error) {
+          console.log(res.error);
+        } else {
+          let i = -1;
+          while (res.user[++i]) {
+            this.allUsers.push(res.user[i].username);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   methods: {
     postComment: function () {
       const infos = {
         body: this.newCom,
       };
-
       fetch("http://localhost:5000/api/comments/" + this.$route.params.id, {
         method: "POST",
         headers: new Headers({

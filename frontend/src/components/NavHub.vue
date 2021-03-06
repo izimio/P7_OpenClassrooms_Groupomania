@@ -1,23 +1,22 @@
 <template>
   <header>
     <img
-      id="logo"
+      :id="$style.logo"
       src="../assets/icon-left-font.png"
       alt="logo de gropupomania"
     />
-    <nav id="nav">
-      <div id="nav_full">
-        <router-link id="nav_home" to="/home" title="Direction l'accueil"
+    <nav :id="$style.nav">
+      <div :id="$style.nav_full">
+        <router-link :id="$style.nav_home" to="/home" title="Direction l'accueil"
           >Accueil</router-link
         > |
         <router-link
-          id="nav_profil"
+          :id="$style.nav_profil"
           :to="{ name: 'profileMain', params: { id: userId } }"
           title="Direction votre profile"
-          v-on:click="rerender"
           >Profil</router-link
         > |
-        <router-link id="nav_logout" to="/" title="Déconnexion">
+        <router-link :id="$style.nav_logout" to="/" title="Déconnexion">
           <i class="gg-log-off"></i
         ></router-link>
       </div>
@@ -34,7 +33,6 @@ export default {
       token: "",
       userId: "",
       role: "",
-      username: "",
     };
   },
   created() {
@@ -47,16 +45,12 @@ export default {
     this.userId = auth.userId;
     this.role = auth.role;
   },
-  methods: {
-    rerender: function(){
-      this.$emit('rerender',1)
-    }
-  },
+
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
+<style lang="scss" module>
 //Variables
 $bg-red: #501b1d;
 #logo {

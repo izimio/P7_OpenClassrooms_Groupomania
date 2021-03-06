@@ -16,7 +16,6 @@ exports.createPost = (req, res, next) => {
 
      const title = req.body.title
      const body = req.body.body
-     console.log(req.body.title)
      const media = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
      console.log(media)
      if (title.length <= 2 || body.body <= 2) {
@@ -25,7 +24,7 @@ exports.createPost = (req, res, next) => {
           })
      }
      models.User.findOne({
-               attributes: ['id', 'username'],
+               attributes: ['id'],
                where: {
                     id: userId
                }
@@ -39,7 +38,6 @@ exports.createPost = (req, res, next) => {
                                    id: userId
                               },
                          }],
-                         username: user.username,
                          title: title,
                          body: body,
                          media: media,
@@ -61,7 +59,7 @@ exports.createPost = (req, res, next) => {
 
 exports.getOneUserAllPosts = (req, res, next) => {
      models.Post.findAll({
-               attributes: ['id', 'title', 'body', 'username', 'userId', 'media', 'createdAt', 'updatedAt'],
+               attributes: ['id', 'title', 'body', 'userId', 'media', 'createdAt', 'updatedAt'],
                order: [
                     ['updatedAt', 'DESC']
                ],
@@ -89,7 +87,7 @@ exports.getOneUserAllPosts = (req, res, next) => {
 
 exports.getAllPost = (req, res, next) => {
      models.Post.findAll({
-               attributes: ['id', 'title', 'body', 'username', 'userId', 'media', 'createdAt', 'updatedAt'],
+               attributes: ['id', 'title', 'body', 'userId', 'media', 'createdAt', 'updatedAt'],
                order: [
                     ['updatedAt', 'DESC']
                ],
@@ -198,7 +196,7 @@ exports.updatePost = (req, res, next) => {
 
 exports.getOnePost = (req, res, next) => {
      models.Post.findOne({
-               attributes: ['id', 'title', 'body', 'username', 'userId', 'media', 'createdAt', 'updatedAt'],
+               attributes: ['id', 'title', 'body', 'userId', 'media', 'createdAt', 'updatedAt'],
                where: {
                     id: req.params.id
                }
@@ -225,7 +223,7 @@ exports.deletePost = (req, res, next) => {
      const userId = decodedToken.userId
 
      models.Post.findOne({
-               attributes: ['id', 'title', 'body', 'username', 'UserId', 'media', 'createdAt', 'updatedAt'],
+               attributes: ['id', 'title', 'body', 'UserId', 'media', 'createdAt', 'updatedAt'],
                where: {
                     id: req.params.id
                }

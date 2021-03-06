@@ -11,7 +11,7 @@
       <div :class="$style.preview">
         <img v-if="media" :src="media" />
       </div>
-      <p :class="$style.updateAt">Dernière modification: {{ updatedAt }}</p>
+      <p :class="$style.updateAt">Modifié le : {{ updatedAt }}</p>
     </router-link>
     <router-link :to="{ name: 'profileMain', params: { id: UserId } }">
       <span :class="$style.username"
@@ -33,7 +33,7 @@
       <div :class="$style.preview">
         <img v-if="media" :src="media" />
       </div>
-      <p :class="$style.updateAt">Dernière modification: {{ updatedAt }}</p>
+      <p :class="$style.updateAt">Modifié le : {{ updatedAt }}</p>
       <router-link :to="{ name: 'profileMain', params: { id: UserId } }">
         <span :class="$style.username"
           >De: <strong> {{ username }} </strong></span

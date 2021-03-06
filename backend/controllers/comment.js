@@ -16,7 +16,7 @@ exports.createComment = (req, res, next) => {
      }
 
      models.Post.findOne({
-          attributes: ['id', 'userId', 'username', 'body'],
+          attributes: ['id', 'userId', 'body'],
           where: { id: postId } 
      })
           .then(post => {
@@ -24,14 +24,13 @@ exports.createComment = (req, res, next) => {
                     return res.status(400).json({ error: 'Une erreur est survenue' })
                }
                models.User.findOne({ 
-                    attributes: ['id', 'username'],
+                    attributes: ['id'],
                     where: { id: userId }
                })
                     .then(user => {
                          models.Comment.create({ 
                               UserId: userId,
                               PostId: post.id,
-                              username: user.username,
                               body: body,
                          })
                               .then(comment => {
@@ -47,7 +46,7 @@ exports.createComment = (req, res, next) => {
 
 exports.getOneComment = (req, res, next) => {
      models.Comment.findOne({
-               attributes: ['id', 'PostId', 'UserId', 'username', 'body', 'createdAt', 'updatedAt'],
+               attributes: ['id', 'PostId', 'UserId', 'body', 'createdAt', 'updatedAt'],
                where: {
                     id: req.params.id
                }
@@ -69,7 +68,7 @@ exports.getOneComment = (req, res, next) => {
 
 exports.getAllComment = (req, res, next) => {
      models.Comment.findAll({
-               attributes: ['id', 'PostId', 'UserId', 'username', 'body', 'createdAt', 'updatedAt'],
+               attributes: ['id', 'PostId', 'UserId', 'body', 'createdAt', 'updatedAt'],
                where: {
                     PostId: req.params.id
                },

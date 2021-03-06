@@ -7,10 +7,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
     });
     comment.associate = models => {
         models.Comment.belongsTo(models.User, { 
