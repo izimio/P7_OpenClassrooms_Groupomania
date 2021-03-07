@@ -44,6 +44,7 @@ $pink: #ffd7d7;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background-color: lighten(blueviolet,40);
+  min-height: 1200px;
 }
   h1 {
     font-family: 'Roboto', Avenir, Helvetica, Arial, sans-serif;
