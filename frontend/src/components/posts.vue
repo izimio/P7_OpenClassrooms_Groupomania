@@ -167,17 +167,24 @@ $bg-red: #501b1d;
     padding: 0.5em;
   }
 }
-@media all and (max-width: 930px) {
+@media all and (max-width: 990px) {
   #post {
     width: 85%;
+      .preview_huge{
+    img{
+      width: 500px;
+      height: 400px;
+    }
+  }
   }
 }
-@media all and (max-width: 550px) {
+@media all and (max-width: 650px) {
   
   #post {
-    .preview {
+    .preview, .preview_huge {
     img {
       width: 250px;
+      height: 300px;
     }
   }
   }

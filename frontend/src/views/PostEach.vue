@@ -218,7 +218,7 @@ export default {
 
 <style lang="scss" module>
 #allPage{
-  min-height: 1100px;
+  padding-bottom: 2em;
 }
 aside {
   h3 {

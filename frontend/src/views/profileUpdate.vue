@@ -127,38 +127,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-      /*
-      if (this.value == 1) {
-        const infosBis = {
-          body: this.conf_body,
-        };
-        fetch(
-          "http://localhost:5000/api/users/update/" + this.$route.params.id,
-          {
-            method: "PUT",
-            headers: new Headers({
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${this.token}`,
-            }),
-            body: JSON.stringify(infosBis),
-          }
-        )
-          .then(async (result_) => {
-            const user = await result_.json();
-            if (!user.error) {
-              this.$router.push({
-                name: "profileMain",
-                params: { id: this.$route.params.id },
-              });
-            } else {
-              this.error = user.error;
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-      */
     },
   },
 };

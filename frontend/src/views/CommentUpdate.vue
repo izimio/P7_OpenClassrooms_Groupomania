@@ -131,7 +131,7 @@ h1 {
 }
 
 #login_page {
-  margin-bottom: 2em;
+  padding-bottom: 2em;
 }
 
 #ban_login {

@@ -172,7 +172,7 @@ h1 {
   font-size: 5em;
 }
 #login_page {
-  margin-bottom: 2em;
+  padding-bottom: 2em;
 }
 #ban_login {
   margin-bottom: 7em;
