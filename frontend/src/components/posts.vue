@@ -30,7 +30,7 @@
       <p :class="$style.body">
         {{ body }}
       </p>
-      <div :class="$style.preview">
+      <div :class="$style.preview_huge">
         <img v-if="media" :src="media" />
       </div>
       <p :class="$style.updateAt">Modifié le : {{ updatedAt }}</p>
@@ -105,10 +105,23 @@ $bg-red: #501b1d;
     display: flex;
     justify-content: center;
     align-items: center;
-  background-color: lighten($bg-red, 40);
+     background-color: lighten($bg-red, 40);
     img {
       width: 400px;
       height: 300px;
+      border-radius: 10%;
+    }
+  }
+
+  .preview_huge{
+    border-radius: 15px 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     background-color: lighten($bg-red, 40);
+    img {
+      width: 700px;
+      height: 500px;
       border-radius: 10%;
     }
   }

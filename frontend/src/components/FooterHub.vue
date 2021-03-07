@@ -33,6 +33,7 @@ $pink: #ffd7d7;
   padding-top: 1em;
   padding-bottom: 1em;
   background-color: $pink;
+  margin-bottom: -5em;
   display: flex;
   align-items: center;
   justify-content: space-around;

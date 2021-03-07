@@ -149,9 +149,10 @@ strong {
   }
   transition: 400ms;
   &:hover {
-    background-color: lighten(red, 15);
+    background-color: lighten(red, 25);
     border-radius: 5px;
     color: white;
+    font-weight: bold;
   }
 }
 @media screen and (max-width: 1170px) {

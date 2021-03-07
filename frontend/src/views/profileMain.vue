@@ -176,6 +176,7 @@ export default {
 
 #profile {
   text-decoration: none;
+  padding-bottom: 2em;
 }
 #fullProfile {
   min-height: 900px;

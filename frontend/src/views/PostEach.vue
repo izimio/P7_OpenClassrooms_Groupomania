@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :id="$style.allPage">
     <NavHub />
     <main>
       <article>
@@ -30,7 +30,7 @@
 
         <!-- Comments -->
         <aside>
-          <h3>Ils ont réagis</h3>
+          <h3>Ils ont réagi</h3>
           <div :id="$style.comment_create_all">
             <label for="com" :id="$style.comment_create_label">
               Commenter
@@ -217,6 +217,9 @@ export default {
 </script>
 
 <style lang="scss" module>
+#allPage{
+  min-height: 1100px;
+}
 aside {
   h3 {
     margin-bottom: 1em;
