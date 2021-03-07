@@ -1,6 +1,6 @@
 <template>
   <main :id="$style.profile">
-    <NavHub />
+    <NavHub  @rerender="refreshComponents" :key="componentKey"/>
     <div :id="$style.fullProfile">
       <section :key="componentKey">
         <InfoProfile
@@ -118,8 +118,46 @@ export default {
       });
   },
   methods: {
-    rerender: function () {
+    refreshComponents: function () {
+      console.log("aaa")
       this.componentKey += 1;
+      fetch("http://localhost:5000/api/users/" + this.$route.params.id, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`,
+      }),
+    })
+      .then(async (result_) => {
+        const response = await result_.json();
+        if (response.error) {
+          return this.$router.push({ path: "/home" });
+        }
+        this.username = response.user.username;
+        this.email = response.user.email;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // Calling for the posts
+    fetch("http://localhost:5000/api/posts/user/" + this.$route.params.id, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`,
+      }),
+    })
+      .then(async (result_) => {
+        const arr = await result_.json();
+        if (arr.error) {
+          this.error = "Oops, une erreur est survenu";
+        } else {
+          this.allPosts = arr.post;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     },
   },
 };

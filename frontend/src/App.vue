@@ -43,6 +43,7 @@ $pink: #ffd7d7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background-color: lighten(blueviolet,40);
 }
   h1 {
     font-family: 'Roboto', Avenir, Helvetica, Arial, sans-serif;

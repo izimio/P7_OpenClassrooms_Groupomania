@@ -65,7 +65,6 @@
               v-if="userId == profileId || role == 1"
               :to="{ name: 'profileDelete', params: { id: id } }"
               title="Supprimer votre compte"
-              @click="forceRerender"
             >
               <i class="gg-trash"></i>
               <span> Supprimer le compte </span>
@@ -88,7 +87,6 @@ export default {
     };
   },
   methods: {
-    forceRerender: function () {},
   },
   created() {
     this.profileId = this.$route.params.id;
@@ -112,7 +110,7 @@ strong {
 #Info_profile {
   margin: 2em 1em 0 1em;
   border-radius: 5px;
-  background-color: lighten(grey, 40);
+  background-color: lighten(yellow, 50);
   padding-bottom: 1em;
   padding-top: 1em;
 }

@@ -7,15 +7,21 @@
     />
     <nav :id="$style.nav">
       <div :id="$style.nav_full">
-        <router-link :id="$style.nav_home" to="/home" title="Direction l'accueil"
+        <router-link
+          :id="$style.nav_home"
+          to="/home"
+          title="Direction l'accueil"
           >Accueil</router-link
-        > |
+        >
+        |
         <router-link
           :id="$style.nav_profil"
           :to="{ name: 'profileMain', params: { id: userId } }"
           title="Direction votre profile"
+          @click="rerender"
           >Profil</router-link
-        > |
+        >
+        |
         <router-link :id="$style.nav_logout" to="/" title="Déconnexion">
           <i class="gg-log-off"></i
         ></router-link>
@@ -45,7 +51,11 @@ export default {
     this.userId = auth.userId;
     this.role = auth.role;
   },
-
+  methods: {
+    rerender() {
+      this.$emit("rerender");
+    },
+  },
 };
 </script>
 
@@ -108,5 +118,4 @@ $bg-red: #501b1d;
     margin-bottom: -1em;
   }
 }
-
 </style>

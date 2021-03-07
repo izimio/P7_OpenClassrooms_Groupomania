@@ -6,26 +6,29 @@
           Attention <strong>/!\</strong> <br />
           Ce changement sera <strong>irréversible</strong>
         </h1>
-        <p :id="$style.ban_login_under"> <u> Supprimer votre compte ? </u></p>
+        <p :id="$style.ban_login_under"><u> Supprimer votre compte ? </u></p>
       </div>
       <form action="" method="post" autocomplete="off" :id="$style.form">
         <div :id="$style.form_each">
           <div id="">
-              <label for="conf_body" :id="$style.label">
-            Entrez vote pseudo pour confirmer la supprésion
-          </label>
-          <input
-            :id="$style.input"
-            type="text"
-            v-model="body"
-            required
-          />
+            <label for="conf_body" :id="$style.label">
+              Entrez vote pseudo pour confirmer la supprésion
+            </label>
+            <input :id="$style.input" type="text" v-model="body" required />
           </div>
         </div>
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_check">
-            <label for="confirm" :id="$style.label"> J'ai conscience que ces changements sont irréversibles et souhaite supprimer définitivement mon compte </label>
-            <input :id="$style.input" type="checkbox" v-model="check" required />
+            <label for="confirm" :id="$style.label">
+              J'ai conscience que ces changements sont irréversibles et souhaite
+              supprimer définitivement mon compte
+            </label>
+            <input
+              :id="$style.input"
+              type="checkbox"
+              v-model="check"
+              required
+            />
           </div>
         </div>
 
@@ -91,9 +94,9 @@ export default {
         return this.$router.push({ path: "/Home" });
       }
 
-    const infos = {
-      body: this.body.trim()
-    }
+      const infos = {
+        body: this.body.trim(),
+      };
 
       console.log(infos);
       fetch("http://localhost:5000/api/users/" + this.$route.params.id, {
@@ -108,10 +111,12 @@ export default {
           const user = await result_.json();
           if (!user.error) {
             this.error = "";
-            if(this.role != 1)
-             return this.$router.push({ path: "/" });
-             else
-             this.$router.push({ name: 'profileMain', params: { id: this.userId } });
+            if (this.role != 1) return this.$router.push({ path: "/" });
+            else
+              this.$router.push({
+                name: "profileMain",
+                params: { id: this.userId },
+              });
           } else {
             this.error = user.error;
           }
@@ -168,7 +173,7 @@ h1 {
   margin-top: 2em;
 }
 #bottom_form {
-  &_check{
+  &_check {
     display: flex;
     justify-content: center;
     width: 30em;
@@ -209,7 +214,7 @@ h1 {
 #label {
   display: block;
   margin-bottom: 1em;
-  &_up{
+  &_up {
     display: block;
   }
 }

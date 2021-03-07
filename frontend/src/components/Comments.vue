@@ -6,7 +6,7 @@
       >
     </router-link>
     <p :class="$style.body">{{ body }}</p>
-    <p :class="$style.up">modifié le : {{ updatedAt }}</p>
+    <p :class="$style.up">Modifié le : {{ updatedAt }}</p>
     <div :class="$style.slots">
       <slot></slot>
     </div>

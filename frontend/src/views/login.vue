@@ -112,7 +112,7 @@ h1 {
 }
 
 #login_page{
-      margin-bottom: 2em;
+      min-height: 1100px;
 }
 
 #ban_login {
