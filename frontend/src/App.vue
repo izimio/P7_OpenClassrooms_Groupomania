@@ -23,6 +23,7 @@ export default {
 @import url('https://css.gg/mail.css');
 @import url('https://css.gg/select.css');
 @import url('https://css.gg/trash.css');
+@import url('https://css.gg/software-upload.css');
 // fonts 
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');

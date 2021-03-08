@@ -32,7 +32,17 @@
           </div>
         </div>
         <div :id="$style.img">
-          <input type="file" @change="onFileChange" name="img" id="file" />
+          <div :id="$style.img_upload">
+            <i class="gg-software-upload"></i>
+            <input
+              type="file"
+              @change="onFileChange"
+              name="img"
+              id="file"
+              :class="$style.inputfile"
+            />
+            <label for="file">Selectionner un média...</label>
+          </div>
           <div :id="$style.preview">
             <img v-if="media" :src="media" />
           </div>
@@ -109,7 +119,7 @@ export default {
       }
       formData.append("body", this.body);
       formData.append("title", this.title);
-      formData.append("userId", this.userId)
+      formData.append("userId", this.userId);
       fetch("http://localhost:5000/api/posts/", {
         method: "POST",
         headers: new Headers({
@@ -227,12 +237,48 @@ textarea {
 
 #img {
   padding: 20px;
+  &_upload {
+    background: lighten($bg-blue, 30);
+    width: 14em;
+    position: absolute;
+    left: 50%;
+    padding: 0.5em;
+    border-radius: 5px;
+    margin-left: -7.5em;
+    display: flex;
+    align-items: center;
+    i {
+      margin-right: 1em;
+    }
+    .inputfile {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+    .inputfile + label + i {
+      font-size: 1.25em;
+      font-weight: 700;
+      color: white;
+      display: inline-block;
+    }
+    &:hover {
+      background: lighten($bg-blue, 20);
+      cursor: pointer;
+    }
+    .inputfile + label {
+      cursor: pointer;
+    }
+  }
 }
 
 #preview {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 3.5em;
 }
 
 #preview img {

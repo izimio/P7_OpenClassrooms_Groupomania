@@ -159,7 +159,7 @@ $bg-blue: #557a95;
   transition: 500ms;
   &:hover {
     background-color: darken(#ffd7d7, 5);
-    text-decoration: underline;
+    border-radius: 15px;
   }
 }
 #allpost {

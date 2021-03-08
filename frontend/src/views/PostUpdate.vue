@@ -32,7 +32,17 @@
           </div>
         </div>
         <div :id="$style.img">
-          <input type="file" @change="onFileChange" id="file" />
+         <div :id="$style.img_upload">
+            <i class="gg-software-upload"></i>
+            <input
+              type="file"
+              @change="onFileChange"
+              name="img"
+              id="file"
+              :class="$style.inputfile"
+            />
+            <label for="file">Selectionner un média...</label>
+          </div>
           <div :id="$style.preview">
             <img v-if="media" :src="media" />
           </div>
@@ -249,8 +259,44 @@ textarea {
 }
 #img {
   padding: 20px;
+    &_upload {
+    background: lighten($bg-blue, 30);
+    width: 14em;
+    position: absolute;
+    left: 50%;
+    padding: 0.5em;
+    border-radius: 5px;
+    margin-left: -7.5em;
+    display: flex;
+    align-items: center;
+    i {
+      margin-right: 1em;
+    }
+    .inputfile {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+    .inputfile + label + i {
+      font-size: 1.25em;
+      font-weight: 700;
+      color: white;
+      display: inline-block;
+    }
+    &:hover {
+      background: lighten($bg-blue, 20);
+      cursor: pointer;
+    }
+    .inputfile + label {
+      cursor: pointer;
+    }
+  }
 }
 #preview {
+  margin-top: 3.5em;
   display: flex;
   justify-content: center;
   align-items: center;

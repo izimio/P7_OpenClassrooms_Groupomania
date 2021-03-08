@@ -10,65 +10,63 @@
         </h2>
         <h2 :id="$style.title" v-else>Découvrez {{ username }}:</h2>
       </div>
-      <div :id="$style.all_profile">
-        <div :id="$style.profile">
-          <div :id="$style.id" v-if="userId == profileId || role == 1">
-            <i class="gg-select"></i>
-            <span :id="$style.id">Utilisateur n°{{ id }}</span>
-          </div>
-          <span v-else
-            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
-          >
-          <span :id="$style.sep" v-if="userId == profileId || role == 1">
-            |
-          </span>
-          <div :id="$style.username">
-            <i class="gg-user"></i>
-            <router-link
-              :id="$style.id"
-              v-if="userId == profileId || role == 1"
-              :to="{ name: 'profileUpdate', params: { value: 1, id: id } }"
-              title="Modifiez votre username"
-              >pseudo : {{ username }}</router-link
-            >
-            <span :id="$style.id" v-else>pseudo : {{ username }}</span>
-          </div>
-          <span :id="$style.sep"> | </span>
-          <div :id="$style.email">
-            <i class="gg-mail"></i>
-            <router-link
-              :id="$style.id"
-              v-if="userId == profileId || role == 1"
-              :to="{ name: 'profileUpdate', params: { value: 2, id: id } }"
-              title="Modifiez votre email"
-              >mail : {{ email }}</router-link
-            >
-            <span v-else>mail : {{ email }}</span>
-          </div>
-          <span :id="$style.sep" v-if="userId == profileId"> | </span>
-          <div :id="$style.password" v-if="id == profileId || role == 1">
-            <router-link
-              :id="$style.id"
-              v-if="userId == profileId || role == 1"
-              :to="{ name: 'profileUpdate', params: { value: 3, id: id } }"
-              title="Modifiez votre mot de passe"
-            >
-              <i class="gg-lock"></i>
-              <span>Mot de passe</span>
-            </router-link>
-          </div>
-          <span :id="$style.sep" v-if="userId == profileId"> | </span>
-          <div :id="$style.delete" v-if="id == profileId || role == 1">
-            <router-link
-              :id="$style.id"
-              v-if="userId == profileId || role == 1"
-              :to="{ name: 'profileDelete', params: { id: id } }"
-              title="Supprimer votre compte"
-            >
-              <i class="gg-trash"></i>
-              <span> Supprimer le compte </span>
-            </router-link>
+      <div :id="$style.container_all_profile">
+        <div :id="$style.all_profile">
+          <div :id="$style.profile">
+            <div :id="$style.id" v-if="userId == profileId || role == 1">
+              <i class="gg-select"></i>
+              <span :id="$style.id">Utilisateur n°{{ id }}</span>
+            </div>
+            <span :id="$style.sep" v-if="userId == profileId || role == 1">
+              |
+            </span>
+            <div :id="$style.username">
+              <i class="gg-user"></i>
+              <router-link
+                :id="$style.id"
+                v-if="userId == profileId || role == 1"
+                :to="{ name: 'profileUpdate', params: { value: 1, id: id } }"
+                title="Modifiez votre username"
+                >pseudo : {{ username }}</router-link
+              >
+              <span :id="$style.id" v-else>pseudo : {{ username }}</span>
+            </div>
+            <span :id="$style.sep"> | </span>
+            <div :id="$style.email">
+              <i class="gg-mail"></i>
+              <router-link
+                :id="$style.id"
+                v-if="userId == profileId || role == 1"
+                :to="{ name: 'profileUpdate', params: { value: 2, id: id } }"
+                title="Modifiez votre email"
+                >mail : {{ email }}</router-link
+              >
+              <span v-else>mail : {{ email }}</span>
+            </div>
+            <span :id="$style.sep" v-if="userId == profileId"> | </span>
+            <div :id="$style.password" v-if="id == profileId || role == 1">
+              <router-link
+                :id="$style.id"
+                v-if="userId == profileId || role == 1"
+                :to="{ name: 'profileUpdate', params: { value: 3, id: id } }"
+                title="Modifiez votre mot de passe"
+              >
+                <i class="gg-lock"></i>
+                <span>Mot de passe</span>
+              </router-link>
+            </div>
+            <span :id="$style.sep" v-if="userId == profileId"> | </span>
+            <div :id="$style.delete" v-if="id == profileId || role == 1">
+              <router-link
+                :id="$style.id"
+                v-if="userId == profileId || role == 1"
+                :to="{ name: 'profileDelete', params: { id: id } }"
+                title="Supprimer votre compte"
+              >
+                <i class="gg-trash"></i>
+                <span> Supprimer le compte </span>
+              </router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -86,8 +84,7 @@ export default {
       userId: null,
     };
   },
-  methods: {
-  },
+  methods: {},
   created() {
     this.profileId = this.$route.params.id;
     const storage = localStorage.getItem("user");
@@ -111,16 +108,22 @@ strong {
   margin: 2em 1em 0 1em;
   border-radius: 5px;
   background-color: lighten(yellow, 50);
-  padding-bottom: 1em;
+  padding-bottom: 3em;
   padding-top: 1em;
 }
 #header_profile {
   margin-bottom: 2em;
 }
-#all_profile {
+#container_all_profile {
   display: flex;
   justify-content: center;
+  #all_profile {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 }
+
 #profile {
   width: 80em;
   display: flex;
@@ -180,6 +183,13 @@ strong {
 @media screen and (max-width: 500px) {
   #profile {
     width: 25em;
+  }
+  #container_all_profile {
+    #all_profile {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 }
 </style>
