@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const models = require('../models')
 const multer = require('multer')
 const fs = require('fs')
+const scandir = require('scandir-native');
 
 const {
      Op
@@ -17,7 +18,9 @@ exports.createPost = (req, res, next) => {
      const title = req.body.title
      const body = req.body.body
      const media = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
-     console.log(media)
+     scandir.scandir('images', (err, entries) => {
+          console.dir(entries[0].name);
+     });
      if (title.length <= 2 || body.body <= 2) {
           return res.status(400).json({
                error: 'Champs manquant ou incorrect'

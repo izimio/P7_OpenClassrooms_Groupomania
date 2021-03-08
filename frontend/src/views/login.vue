@@ -111,12 +111,11 @@ h1 {
   font-size: 5em;
 }
 
-#login_page{
-      min-height: 1100px;
+main{
+    margin-bottom: 2em;
 }
 
 #ban_login {
-  margin-bottom: 7em;
   &_under {
     font-size: 2em;
   }

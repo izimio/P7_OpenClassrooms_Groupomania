@@ -5,11 +5,6 @@
 
 <script>
 export default {
-  methods: {
-    lol() {
-      this.$store.commit("INCREMENT_DAY")
-    }
-  },
 }
 </script>
 
@@ -43,15 +38,14 @@ $pink: #ffd7d7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-color: lighten(blueviolet,40);
-  min-height: auto;
 }
   h1 {
     font-family: 'Roboto', Avenir, Helvetica, Arial, sans-serif;
   }
 
-body{
-  background-color: lighten($bg-color,40);
+html, body{
+    height: auto;
+      background-color: lighten(blueviolet,40);
 }
 #nav {
   padding: 30px;

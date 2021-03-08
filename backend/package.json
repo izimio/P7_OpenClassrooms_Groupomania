@@ -27,6 +27,8 @@
     "mysql2": "^2.2.5",
     "node": "^15.8.0",
     "nodemon": "^2.0.7",
+    "scandir": "^0.1.2",
+    "scandir-native": "^1.0.2",
     "sequelize": "^6.5.0",
     "sequelize-cli": "^6.2.0"
   }
