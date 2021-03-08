@@ -3,11 +3,13 @@
     <NavHub />
     <main>
       <article>
-        <h1 :class="$style.tiltle_posts">Post de {{ allUsers[post.userId - 1] }}</h1>
+        <h1 :class="$style.tiltle_posts">
+          Post de {{ allUsers[post.userId] }}
+        </h1>
         <Posts
           :title="post.title"
           :id="post.id"
-          :username="allUsers[post.userId - 1]"
+          :username="allUsers[post.userId]"
           :body="post.body"
           :media="post.media"
           :createdAt="post.createdAt"
@@ -56,7 +58,7 @@
               :body="comment.body"
               :id="comment.id"
               :postId="comment.PostId"
-              :username="allUsers[comment.UserId - 1]"
+              :username="allUsers[comment.UserId]"
               :updatedAt="comment.updatedAt"
               :userId="comment.UserId"
             >
@@ -116,6 +118,7 @@ export default {
     };
   },
   created() {
+    this.allUsers.push("0");
     const storage = localStorage.getItem("user");
     const auth = JSON.parse(storage);
     if (auth === null) {
@@ -177,9 +180,18 @@ export default {
         if (res.error) {
           console.log(res.error);
         } else {
-          let i = -1;
-          while (res.user[++i]) {
-            this.allUsers.push(res.user[i].username);
+          let i = 0;
+          let j = 0;
+          const objLength = res.user.length;
+          const maxId = res.user[objLength - 1].id;
+
+          while (++i <= maxId) {
+            if (res.user[j].id == i) {
+              this.allUsers.push(res.user[j].username);
+              j++;
+            } else {
+              this.allUsers.push("0");
+            }
           }
         }
       })
@@ -217,7 +229,7 @@ export default {
 </script>
 
 <style lang="scss" module>
-#allPage{
+#allPage {
   padding-bottom: 2em;
 }
 aside {

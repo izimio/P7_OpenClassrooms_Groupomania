@@ -97,9 +97,18 @@ export default {
                 if (res.error) {
                   console.log(res.error);
                 } else {
-                  let i = -1;
-                  while (res.user[++i]) {
-                    this.allUsers.push(res.user[i].username);
+                  let i = 0;
+                  let j = 0;
+                  const objLength = res.user.length;
+                  const maxId = res.user[objLength - 1].id;
+
+                  while (++i <= maxId) {
+                    if (res.user[j].id == i) {
+                      this.allUsers.push(res.user[j].username);
+                      j++;
+                    } else {
+                      this.allUsers.push("0");
+                    }
                   }
                 }
               })
@@ -119,7 +128,6 @@ export default {
 <style lang="scss" module>
 $bg-red: #501b1d;
 $bg-blue: #557a95;
-
 * {
   margin: 0;
   padding: 0;
@@ -134,7 +142,6 @@ $bg-blue: #557a95;
     margin-bottom: 20px;
   }
 }
-
 #fullHome {
   min-height: 900px;
   margin-bottom: 2em;
@@ -155,11 +162,9 @@ $bg-blue: #557a95;
     text-decoration: underline;
   }
 }
-
 #allpost {
   margin-top: 3em;
 }
-
 #nothing {
   margin-top: 5em;
   margin-bottom: 5em;
@@ -172,7 +177,6 @@ $bg-blue: #557a95;
     margin-bottom: 1em;
   }
 }
-
 @media screen and (max-width: 930px) {
   #nothing_smiley {
     font-size: 5em;

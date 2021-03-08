@@ -109,6 +109,7 @@ export default {
       }
       formData.append("body", this.body);
       formData.append("title", this.title);
+      formData.append("userId", this.userId)
       fetch("http://localhost:5000/api/posts/", {
         method: "POST",
         headers: new Headers({
