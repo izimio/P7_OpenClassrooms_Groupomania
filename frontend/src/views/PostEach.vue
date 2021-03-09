@@ -4,12 +4,12 @@
     <main>
       <article>
         <h1 :class="$style.tiltle_posts">
-          Post de {{ allUsers[post.userId] }}
+          Post de {{ username }}
         </h1>
         <Posts
           :title="post.title"
           :id="post.id"
-          :username="allUsers[post.userId]"
+          :username="username"
           :body="post.body"
           :media="post.media"
           :createdAt="post.createdAt"
@@ -58,7 +58,7 @@
               :body="comment.body"
               :id="comment.id"
               :postId="comment.PostId"
-              :username="allUsers[comment.UserId]"
+              :username="comment.User.username"
               :updatedAt="comment.updatedAt"
               :userId="comment.UserId"
             >
@@ -141,6 +141,7 @@ export default {
           return this.$router.push({ path: "/Home" });
         } else {
           this.post = arr.Post;
+          this.username = arr.Post.User.username
         }
       })
       .catch((error) => {
@@ -159,40 +160,7 @@ export default {
         if (arr.error) {
           this.error = "Oops, une erreur est survenu";
         } else {
-          this.comments = arr.comment[0] ? arr.comment : 0;
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    // getting users
-
-    fetch("http://localhost:5000/api/users/", {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`,
-      }),
-    })
-      .then(async (result_) => {
-        const res = await result_.json();
-        if (res.error) {
-          console.log(res.error);
-        } else {
-          let i = 0;
-          let j = 0;
-          const objLength = res.user.length;
-          const maxId = res.user[objLength - 1].id;
-
-          while (++i <= maxId) {
-            if (res.user[j].id == i) {
-              this.allUsers.push(res.user[j].username);
-              j++;
-            } else {
-              this.allUsers.push("0");
-            }
-          }
+          this.comments = arr.comment[0] ? arr.comment : null;
         }
       })
       .catch((error) => {

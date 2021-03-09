@@ -75,6 +75,10 @@ exports.getAllComment = (req, res, next) => {
                order: [
                     ['updatedAt', 'DESC']
                ],
+               include: [{
+                    model: models.User,
+                    attributes: [ 'username'],
+                }]
           })
           .then(comment => {
                if (comment.length == 0) {

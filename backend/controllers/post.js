@@ -65,7 +65,8 @@ exports.getOneUserAllPosts = (req, res, next) => {
                ],
                where: {
                     userId: req.params.id
-               }
+               },
+               
           })
           .then(post => {
                if (!post[0]) {
@@ -91,6 +92,10 @@ exports.getAllPost = (req, res, next) => {
                order: [
                     ['updatedAt', 'DESC']
                ],
+               include: [{
+                    model: models.User,
+                    attributes: [ 'username'],
+                }]
           })
           .then(post => {
                if (post == null) {
@@ -199,7 +204,11 @@ exports.getOnePost = (req, res, next) => {
                attributes: ['id', 'title', 'body', 'userId', 'media', 'createdAt', 'updatedAt'],
                where: {
                     id: req.params.id
-               }
+               },
+               include: [{
+                    model: models.User,
+                    attributes: [ 'username'],
+                }]
           })
           .then(Post => {
                if (Post == null) {

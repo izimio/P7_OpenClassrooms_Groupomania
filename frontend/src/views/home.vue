@@ -8,13 +8,14 @@
           Postez !
         </router-link>
       </section>
+
       <section v-if="allPosts[0]" :id="$style.allpost">
         <Posts
           v-for="(post, index) in allPosts"
           :key="index"
           :title="post.title"
           :id="post.id"
-          :username="allUsers[post.userId - 1]"
+          :username="post.User.username"
           :body="post.body"
           :media="post.media"
           :createdAt="post.createdAt"
@@ -59,7 +60,6 @@ export default {
       error: "",
       email: "",
       allPosts: {},
-      allUsers: [],
     };
   },
   created() {
@@ -84,38 +84,6 @@ export default {
           this.error = "Oops, une erreur est survenu";
         } else {
           this.allPosts = arr.post;
-          if (arr.post[0]) {
-            fetch("http://localhost:5000/api/users/", {
-              method: "GET",
-              headers: new Headers({
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${this.token}`,
-              }),
-            })
-              .then(async (result_) => {
-                const res = await result_.json();
-                if (res.error) {
-                  console.log(res.error);
-                } else {
-                  let i = 0;
-                  let j = 0;
-                  const objLength = res.user.length;
-                  const maxId = res.user[objLength - 1].id;
-
-                  while (++i <= maxId) {
-                    if (res.user[j].id == i) {
-                      this.allUsers.push(res.user[j].username);
-                      j++;
-                    } else {
-                      this.allUsers.push("0");
-                    }
-                  }
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          }
         }
       })
       .catch((error) => {
@@ -179,7 +147,7 @@ $bg-blue: #557a95;
 }
 @media screen and (max-width: 930px) {
   #nothing_smiley {
-    font-size: 5em;
+    font-size: 4em;
   }
 }
 </style>

@@ -216,7 +216,7 @@ export default {
 }
 @media screen and (max-width: 930px) {
   #nothing_smiley {
-    font-size: 5em;
+    font-size: 4em;
   }
 }
 </style>
