@@ -66,6 +66,7 @@ export default {
       role: "",
       error: "",
       check: false,
+      eraseError: 0,
     };
   },
   created() {
@@ -98,7 +99,6 @@ export default {
         body: this.body.trim(),
       };
 
-      console.log(infos);
       fetch("http://localhost:5000/api/users/" + this.$route.params.id, {
         method: "DELETE",
         headers: new Headers({
@@ -111,14 +111,50 @@ export default {
           const user = await result_.json();
           if (!user.error) {
             this.error = "";
-            if (this.role != 1) return this.$router.push({ path: "/" });
-            else
-              this.$router.push({
-                name: "profileMain",
-                params: { id: this.userId },
-              });
+            this.eraseError = 0;
           } else {
             this.error = user.error;
+            this.eraseError = 1;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      fetch("http://localhost:5000/api/posts/user/" + this.$route.params.id, {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
+      })
+        .then(async (result_) => {
+          const arr = await result_.json();
+          if (arr.error) {
+            this.error = "Oops, une erreur est survenu";
+          } else {
+            let tab = [];
+            let i = -1;
+            while (arr.post[++i]) {
+              tab.push(arr.post[i].media);
+            }
+
+            if (tab[0] && this.eraseError == 0) {
+              // appel vers l'API pour erase
+              const allMedias = {
+                body: tab
+              }
+          
+            } else if (!tab[0] && this.eraseError == 1) {
+              if (this.role != 1) {
+                return this.$router.push({ path: "/" });
+              } else {
+                this.$router.push({
+                  name: "profileMain",
+                  params: { id: this.userId },
+                });
+              }
+            }
           }
         })
         .catch((error) => {
