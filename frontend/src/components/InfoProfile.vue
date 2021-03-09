@@ -5,7 +5,7 @@
     <div :id="$style.Info_profile">
       <div :id="$style.header_profile">
         <h2 :id="$style.title" v-if="userId == profileId">
-          Voici vos informations <strong>{{ username }} </strong>, <br />
+          Voici vos informations <span :class="$style.stronger">{{ username }} </span>, <br />
           cliquez dessus pour les modifier
         </h2>
         <h2 :id="$style.title" v-else>Découvrez {{ username }}:</h2>
@@ -100,7 +100,7 @@ export default {
 
 <style lang="scss" module>
 $bg-red: #501b1d;
-strong {
+.stronger {
   color: lighten($bg-red, 30);
   font-weight: bold;
 }

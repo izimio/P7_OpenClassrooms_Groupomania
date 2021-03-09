@@ -104,6 +104,10 @@ $bg-blue: #557a95;
   color: black;
   scroll-behavior: smooth;
 }
+strong{
+  color: lighten($bg-red, 30);
+  font-weight: bold;
+}
 #home {
   padding-top: 50px;
   #title {
