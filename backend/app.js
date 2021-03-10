@@ -31,9 +31,9 @@ app.use(helmet()) // adding http header to secure the ap
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // all the routes
-app.use('/api/users', userRoutes);
-app.use('/api/posts', postRoutes);
-app.use('/api/comments', commentRoutes);
+app.use('/api/users', apiLimiter, userRoutes);
+app.use('/api/posts', apiLimiter, postRoutes);
+app.use('/api/comments', apiLimiter, commentRoutes);
 
 // exporting app
 module.exports = app
