@@ -59,5 +59,6 @@ And that's it !
 Now just enter `npm run dev` inside the console and the project's backend will be on ! 
 --
 
-Last thing, go to a random controller file and restart nodemon by __CTRL + S__ to create all the tables inside your DB
----
+```diff
+- Last thing, go to a random controller file and restart nodemon by __CTRL + S__ to create all the tables inside your DB
+```
