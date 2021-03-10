@@ -102,7 +102,6 @@ export default {
             if (arr.post[i].media != null)
               this.tabMedia.push(arr.post[i].media);
           }
-          console.log(this.tabMedia);
         }
       })
       .catch((error) => {
