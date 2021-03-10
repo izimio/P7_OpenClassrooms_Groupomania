@@ -11,7 +11,7 @@ const commentRoutes = require("./routes/comment")
 
 const app = express()
 
-app.use((req, res, next) => {
+app.use((req, res, next) => { // adding headers to the app
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
@@ -27,13 +27,13 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
-app.use(helmet())
+app.use(helmet()) // adding http header to secure the ap
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+// all the routes
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
-// all the routes
 
 // exporting app
 module.exports = app
