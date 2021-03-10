@@ -120,7 +120,6 @@ export default {
         })
           .then(async (result_) => {
             const user = await result_.json();
-            console.log("user", user);
             if (!user.error) {
               window.localStorage.setItem("user", JSON.stringify(user));
               return this.$router.push({

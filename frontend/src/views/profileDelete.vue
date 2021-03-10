@@ -168,9 +168,9 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-        if (this.role != 1) {
+        if ((this.role != 1) || (this.role == 1 && (this.$route.params.id == this.userId))) {
           return this.$router.push({ path: "/" });
-        } else if (this.role == 1 && this.$route.params.id != this.userId) {
+        } else if (this.role == 1 && (this.$route.params.id != this.userId)) {
           this.$router.push({
             name: "profileMain",
             params: { id: this.userId },

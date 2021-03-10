@@ -44,11 +44,11 @@
               >
               <span v-else>mail : {{ email }}</span>
             </div>
-            <span :id="$style.sep" v-if="userId == profileId"> | </span>
-            <div :id="$style.password" v-if="id == profileId || role == 1">
+            <span :id="$style.sep" v-if="userId == profileId || role"> | </span>
+            <div :id="$style.password" v-if="userId == profileId || role == 1">
               <router-link
-                :id="$style.id"
                 v-if="userId == profileId || role == 1"
+                :id="$style.id"
                 :to="{ name: 'profileUpdate', params: { value: 3, id: id } }"
                 title="Modifiez votre mot de passe"
               >
@@ -56,11 +56,11 @@
                 <span>Mot de passe</span>
               </router-link>
             </div>
-            <span :id="$style.sep" v-if="userId == profileId"> | </span>
-            <div :id="$style.delete" v-if="id == profileId || role == 1">
+            <span :id="$style.sep" v-if="userId == profileId || role"> | </span>
+            <div :id="$style.delete" v-if="userId == profileId || role == 1">
               <router-link
-                :id="$style.id"
                 v-if="userId == profileId || role == 1"
+                :id="$style.id"
                 :to="{ name: 'profileDelete', params: { id: id } }"
                 title="Supprimer votre compte"
               >
