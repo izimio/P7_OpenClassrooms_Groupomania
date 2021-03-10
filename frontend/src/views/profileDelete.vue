@@ -67,6 +67,7 @@ export default {
       error: "",
       check: false,
       eraseError: 0,
+      tabMedia: [],
     };
   },
   created() {
@@ -82,6 +83,28 @@ export default {
     if (this.$route.params.id != this.userId && this.role != true) {
       return this.$router.push({ path: "/Home" });
     }
+
+    fetch("http://localhost:5000/api/posts/user/" + this.$route.params.id, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`,
+      }),
+    })
+      .then(async (result_) => {
+        const arr = await result_.json();
+        if (arr.error) {
+          this.error = "Oops, une erreur est survenu";
+        } else {
+          let i = -1;
+          while (arr.post[++i]) {
+            this.tabMedia.push(arr.post[i].media);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   methods: {
     backward: function () {
@@ -121,45 +144,35 @@ export default {
           console.log(error);
         });
 
-      fetch("http://localhost:5000/api/posts/user/" + this.$route.params.id, {
-        method: "GET",
-        headers: new Headers({
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}`,
-        }),
-      })
-        .then(async (result_) => {
-          const arr = await result_.json();
-          if (arr.error) {
-            this.error = "Oops, une erreur est survenu";
-          } else {
-            let tab = [];
-            let i = -1;
-            while (arr.post[++i]) {
-              tab.push(arr.post[i].media);
-            }
-
-            if (tab[0] && this.eraseError == 0) {
-              // appel vers l'API pour erase
-              const allMedias = {
-                body: tab
-              }
-          
-            } else if (!tab[0] && this.eraseError == 1) {
-              if (this.role != 1) {
-                return this.$router.push({ path: "/" });
-              } else {
-                this.$router.push({
-                  name: "profileMain",
-                  params: { id: this.userId },
-                });
-              }
-            }
-          }
+      // DELETING all thje linked medias
+      if (this.eraseError == 0) {
+        const infos = {
+          body: this.tabMedia,
+        };
+        fetch("http://localhost:5000/api/users/", {
+          method: "POST",
+          headers: new Headers({
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.token}`,
+          }),
+          body: JSON.stringify(infos),
         })
-        .catch((error) => {
-          console.log(error);
-        });
+          .then(async (result_) => {
+            const status = await result_.json();
+            console.log(status);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        if (this.role != 1) {
+          return this.$router.push({ path: "/" });
+        } else if(this.role == 1 && this.$route.params.id != this.userId) {
+          this.$router.push({
+            name: "profileMain",
+            params: { id: this.userId },
+          });
+        }
+      }
     },
   },
 };

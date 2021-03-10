@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const models = require('../models')
+const fs = require('fs')
 const {
      Op
 } = require("sequelize");
@@ -152,9 +153,9 @@ exports.deleteUser = (req, res, next) => {
      const token = req.headers.authorization.split(' ')[1]
      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
      const userId = decodedToken.userId
-     
+
      const elem = req.body.body
-     
+
      models.User.findOne({
                attributes: ['id', 'role', 'username'],
                where: {
@@ -469,26 +470,18 @@ exports.getUser = (req, res, next) => {
           })
 }
 
-exports.getAllUsers = (req, res, next) => {
-     models.User.findAll({
-               order: [
-                    ['id']
-               ],
-          })
-          .then(user => {
-               if (user == null) {
-                    return res.status(404).json({
-                         error: 'Aucun utilisateur'
-                    })
-               }
-               res.status(200).json({
-                    user
-               })
-          })
-          .catch(error => {
-               res.status(400).json({
-                    error: error
-               })
-          })
 
+exports.destroyUserMedias = (req, res, next) => {
+
+     let i = -1;
+     console.log(req.body.body)
+     while (req.body.body[++i]) {
+          if (req.body.body) {
+               const filename = req.body.body[i].split('/images/')[1]; // deleting the linked file
+               fs.unlink(`images/${filename}`, () => {})
+          }
+     }
+     return res.status(200).json({
+          message: "Medias de l'utilisateur supprimé"
+     })
 }
