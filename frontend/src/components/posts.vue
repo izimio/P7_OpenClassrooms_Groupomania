@@ -105,7 +105,7 @@ $bg-red: #501b1d;
     display: flex;
     justify-content: center;
     align-items: center;
-     background-color: lighten($bg-red, 40);
+    background-color: lighten($bg-red, 40);
     img {
       width: 400px;
       height: 300px;
@@ -113,12 +113,12 @@ $bg-red: #501b1d;
     }
   }
 
-  .preview_huge{
+  .preview_huge {
     border-radius: 15px 0 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-     background-color: lighten($bg-red, 40);
+    background-color: lighten($bg-red, 40);
     img {
       width: 700px;
       height: 500px;
@@ -170,23 +170,23 @@ $bg-red: #501b1d;
 @media all and (max-width: 990px) {
   #post {
     width: 85%;
-      .preview_huge{
-    img{
-      width: 500px;
-      height: 400px;
+    .preview_huge {
+      img {
+        width: 500px;
+        height: 400px;
+      }
     }
-  }
   }
 }
 @media all and (max-width: 650px) {
-  
   #post {
-    .preview, .preview_huge {
-    img {
-      width: 250px;
-      height: 300px;
+    .preview,
+    .preview_huge {
+      img {
+        width: 250px;
+        height: 300px;
+      }
     }
-  }
   }
 }
 </style>

@@ -17,8 +17,8 @@
 
 <script>
 export default {
-  name: 'NavUser'
-}
+  name: "NavUser",
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -33,7 +33,7 @@ $secondary-color: #fd2d01;
   justify-content: space-between;
   width: 25em;
   margin: 3em auto;
-  font-family: 'Roboto', Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Avenir, Helvetica, Arial, sans-serif;
   #item_nav_login,
   #item_nav_signup {
     font-size: 1.5em;
@@ -43,7 +43,7 @@ $secondary-color: #fd2d01;
 }
 // Media queries
 
-@media all and (min-width: 2000px){
+@media all and (min-width: 2000px) {
   #nav {
     width: 44.5em;
     #logo {
@@ -52,7 +52,7 @@ $secondary-color: #fd2d01;
     #item_nav_login,
     #item_nav_signup {
       font-size: 3.5em;
-      &:hover{
+      &:hover {
         text-decoration: none;
       }
     }

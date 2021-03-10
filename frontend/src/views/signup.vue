@@ -63,7 +63,8 @@
             v-if="
               email.length >= 5 &&
               password.length >= 6 &&
-              username.length > 3 && password == conf_password
+              username.length > 3 &&
+              password == conf_password
             "
             :id="$style.bottom_form_button_login"
             @click="signup"
@@ -82,7 +83,7 @@
 
 <script>
 // @ is an alias to /src
-import NavUser from '@/components/NavUser.vue'
+import NavUser from "@/components/NavUser.vue";
 export default {
   name: "Signup",
   components: {
@@ -98,59 +99,57 @@ export default {
     };
   },
   created() {
-    localStorage.clear(); //On assure un local storage vide
+    localStorage.clear(); // clearing the local storage
   },
   methods: {
-   signup: function() {
+    signup: function () {
       const user = {
-        email: this.email.trim(), //trim() supprime les espaces inutiles rajouté par l'utilisateur si il y en a
+        // creatinf an object with the infos
+        email: this.email.trim(),
         password: this.password.trim(),
         username: this.username.trim(),
-      }
-      if (
-        this.password === this.conf_password &&
-        this.password.length > 0
-      ) {
-        return fetch('http://localhost:5000/api/users/signup', {
-          method: 'POST', 
+      };
+      if (this.password === this.conf_password && this.password.length > 0) {
+        return fetch("http://localhost:5000/api/users/signup", {
+          // sending the the API
+          method: "POST",
           headers: new Headers({
-            'Content-Type': 'application/json' 
+            "Content-Type": "application/json",
           }),
-          body: JSON.stringify(user) 
+          body: JSON.stringify(user),
         })
           .then(async (result_) => {
-            const user = await result_.json() 
-            console.log('user', user)
+            const user = await result_.json();
+            console.log("user", user);
             if (!user.error) {
-              window.localStorage.setItem('user', JSON.stringify(user)) 
+              window.localStorage.setItem("user", JSON.stringify(user));
               return this.$router.push({
-                path: '/Home',
-              }) 
+                path: "/Home",
+              });
             }
-            this.error = user.error 
+            this.error = user.error;
           })
           .catch((error) => {
-            console.log(error)
-          })
+            console.log(error);
+          });
       }
-      this.error = 'Mot de passe incorrect' 
+      this.error = "Mot de passe incorrect";
     },
   },
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" module>
-
-$bg-red: #501B1D;
-$bg-blue: #557A95;
+$bg-red: #501b1d;
+$bg-blue: #557a95;
 
 h1 {
   font-size: 5em;
 }
 
-#login_page{
-      margin-bottom: 2em;
+#login_page {
+  margin-bottom: 2em;
 }
 
 #ban_login {
@@ -174,24 +173,24 @@ h1 {
   margin-top: 2em;
 }
 
-#form_pass{
+#form_pass {
   display: flex;
   justify-content: center;
 
-  &_input2{
+  &_input2 {
     width: 36em;
     height: 3em;
     &:focus {
-    transform: scale(1.05);
-    box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+      transform: scale(1.05);
+      box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+    }
   }
-  }
-  &_first{
-      margin-top: 2em;
+  &_first {
+    margin-top: 2em;
     margin-right: 1em;
   }
-  &_second{
-      margin-top: 2em;
+  &_second {
+    margin-top: 2em;
     margin-left: 1em;
   }
 }
@@ -239,17 +238,17 @@ h1 {
   #input {
     width: 80%;
   }
-  #form_pass{
+  #form_pass {
     display: flex;
     flex-direction: column;
-    &_input2{
+    &_input2 {
       width: 80%;
     }
-    &_first{
+    &_first {
       margin-right: 0;
     }
-    &_second{
-       margin-left: 0;
+    &_second {
+      margin-left: 0;
     }
   }
 }

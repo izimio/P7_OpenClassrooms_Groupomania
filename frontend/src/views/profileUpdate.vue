@@ -86,6 +86,7 @@ export default {
   },
   methods: {
     backward: function () {
+      // go back to profile
       this.$router.push({ name: "profileMain", params: { id: this.userId } });
     },
     modify: function () {
@@ -97,10 +98,11 @@ export default {
       }
 
       const infos = {
-        value: this.value,
+        value: this.value, // value will be the variable wich will tells the program wich field need to be updated
         body: this.conf_body,
       };
       fetch("http://localhost:5000/api/users/" + this.$route.params.id, {
+        // sending all of this to the API
         method: "PUT",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -112,10 +114,10 @@ export default {
           const user = await result_.json();
           if (!user.error) {
             this.error = "";
-              this.$router.push({
-                name: "profileMain",
-                params: { id: this.$route.params.id },
-              });
+            this.$router.push({
+              name: "profileMain",
+              params: { id: this.$route.params.id },
+            });
           } else {
             this.error = user.error;
           }

@@ -8,7 +8,13 @@
         <div :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="body" :id="$style.label"> Message </label>
-            <textarea :id="$style.input" type="text" v-model="body" required maxlength="250"/>
+            <textarea
+              :id="$style.input"
+              type="text"
+              v-model="body"
+              required
+              maxlength="250"
+            />
           </div>
         </div>
         <p :id="$style.error">{{ error }}</p>
@@ -54,8 +60,8 @@ export default {
     this.token = auth.token;
     this.userId = auth.userId;
     this.role = auth.role;
-
     fetch("http://localhost:5000/api/comments/" + this.$route.params.com_id, {
+      // getting all the previous value for the comment
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -67,7 +73,7 @@ export default {
         if (!res.error) {
           this.body = res.comment.body;
         } else {
-          this.error = res.error
+          this.error = res.error;
         }
         if (res.comment.UserId != this.userId && this.role != true) {
           return this.$router.push({ path: "/Home" });
@@ -79,6 +85,7 @@ export default {
   },
   methods: {
     backward: function () {
+      // go back the the post
       this.$router.push({
         name: "PostEach",
         params: { id: this.$route.params.id },
@@ -92,8 +99,8 @@ export default {
       const infos = {
         body: this.body,
       };
-      console.log(infos);
       fetch("http://localhost:5000/api/comments/" + this.$route.params.com_id, {
+        // modifying the comment
         method: "PUT",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -106,7 +113,7 @@ export default {
           if (!user.error) {
             this.error = "";
             this.$router.push({
-              name: "PostEach",
+              name: "PostEach", // once it's done, go back to the post
               params: { id: this.$route.params.id },
             });
           } else {
@@ -140,7 +147,8 @@ h1 {
     font-size: 2em;
   }
 }
-#input, textarea {
+#input,
+textarea {
   width: 75em;
   height: 3em;
   text-align: center;
@@ -150,7 +158,7 @@ h1 {
   }
 }
 
-textarea{
+textarea {
   min-height: 15em;
 }
 #form_each {

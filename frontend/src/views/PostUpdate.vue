@@ -32,7 +32,7 @@
           </div>
         </div>
         <div :id="$style.img">
-         <div :id="$style.img_upload">
+          <div :id="$style.img_upload">
             <i class="gg-software-upload"></i>
             <input
               type="file"
@@ -126,16 +126,19 @@ export default {
   },
   methods: {
     onFileChange(e) {
+      // showing a preview of the file with a bloblink
       const img = e.target.files[0];
       this.media = URL.createObjectURL(img);
     },
     backward: function () {
+      // go back to the post
       this.$router.push({
         name: "PostEach",
         params: { id: this.$route.params.id },
       });
     },
     modify: function () {
+      // creating a formdata File if the file is changed and send the modification to the post
       let file = document.getElementById("file");
       let formData = new FormData();
       formData.append("body", this.body);
@@ -196,7 +199,8 @@ h1 {
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
 }
-#input, textarea {
+#input,
+textarea {
   text-align: center;
 }
 
@@ -256,7 +260,7 @@ textarea {
 }
 #img {
   padding: 20px;
-    &_upload {
+  &_upload {
     background: lighten($bg-blue, 30);
     width: 14em;
     position: absolute;

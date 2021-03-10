@@ -72,6 +72,7 @@ export default {
     this.userId = auth.userId;
     this.role = auth.role;
     fetch("http://localhost:5000/api/posts/", {
+      // getting all the posts
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -104,7 +105,7 @@ $bg-blue: #557a95;
   color: black;
   scroll-behavior: smooth;
 }
-strong{
+strong {
   color: lighten($bg-red, 30);
   font-weight: bold;
 }

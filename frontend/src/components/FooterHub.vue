@@ -29,7 +29,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" module>
 $pink: #ffd7d7;
-#footer{
+#footer {
   padding-top: 1em;
   padding-bottom: 1em;
   background-color: $pink;
@@ -38,36 +38,36 @@ $pink: #ffd7d7;
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  &_instagram{
+  &_instagram {
     margin-left: 10%;
   }
-  &_twitter{
+  &_twitter {
     margin-left: 10%;
   }
-  &_fb{
+  &_fb {
     margin-left: 10%;
   }
-  ul{
+  ul {
     text-align: start;
   }
-  li{
-    &:hover{
+  li {
+    &:hover {
       text-decoration: underline;
       cursor: pointer;
     }
   }
 }
 @media all and (max-width: 500px) {
-    &_instagram{
+  &_instagram {
     margin-left: 8%;
   }
-  &_twitter{
+  &_twitter {
     margin-left: 8%;
   }
-  &_fb{
+  &_fb {
     margin-left: 8%;
   }
-  ul{
+  ul {
     text-align: start;
     margin-left: 6%;
   }

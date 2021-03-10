@@ -34,9 +34,7 @@
         <p :id="$style.error">{{ error }}</p>
         <div :id="$style.bottom_form">
           <div
-            v-if="
-              email.length >= 5 && password.length >= 7
-            "
+            v-if="email.length >= 5 && password.length >= 7"
             :id="$style.bottom_form_button_login"
             @click="login"
           >
@@ -53,12 +51,11 @@
 
 
 <script>
-import NavUser from '@/components/NavUser.vue'
+import NavUser from "@/components/NavUser.vue";
 export default {
   name: "Login",
   components: {
     NavUser,
-
   },
   data() {
     return {
@@ -68,10 +65,11 @@ export default {
     };
   },
   created() {
-    localStorage.clear(); //On assure un local storage vide
+    localStorage.clear(); //clearing the local storage
   },
   methods: {
     login(event) {
+      // sending all the informations to the api
       event.preventDefault();
       const user = {
         email: this.email.trim(),
@@ -86,7 +84,6 @@ export default {
       })
         .then(async (result_) => {
           const user = await result_.json();
-          console.log("user login", user);
           if (!user.error) {
             localStorage.setItem("user", JSON.stringify(user));
             this.$router.push({ path: "/Home" });
@@ -103,16 +100,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" module>
-
-$bg-red: #501B1D;
-$bg-blue: #557A95;
+$bg-red: #501b1d;
+$bg-blue: #557a95;
 
 h1 {
   font-size: 5em;
 }
 
-main{
-    margin-bottom: 2em;
+main {
+  margin-bottom: 2em;
 }
 
 #ban_login {
@@ -130,8 +126,8 @@ main{
   }
 }
 
-#input{
-    text-align: center;
+#input {
+  text-align: center;
 }
 
 #form_each {

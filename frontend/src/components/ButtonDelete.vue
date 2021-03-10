@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div id="delete-btn-trash" @click="delette">
     <i class="gg-trash"></i>
     <span id="button-send">Supprimer</span>
@@ -21,7 +21,8 @@ export default {
   },
   methods: {
     delette: function () {
-      if (this.value == 0) { // if the user is deleting a post
+      if (this.value == 0) {
+        // if the user is deleting a post
         fetch("http://localhost:5000/api/posts/" + this.$route.params.id, {
           method: "DELETE",
           headers: new Headers({
@@ -40,7 +41,8 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-      } else if (this.value == 1) { // if the user is deleting a comment
+      } else if (this.value == 1) {
+        // if the user is deleting a comment
         fetch("http://localhost:5000/api/comments/" + this.id, {
           method: "DELETE",
           headers: new Headers({
@@ -51,7 +53,7 @@ export default {
           .then(async (result_) => {
             const res = await result_.json();
             if (!res.error) {
-              location.reload()
+              location.reload();
               return this.$router.push({ path: "/Home" });
             } else {
               alert("Un problème est survenue lors de la suppression");

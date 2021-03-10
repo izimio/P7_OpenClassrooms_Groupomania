@@ -85,6 +85,7 @@ export default {
     }
 
     fetch("http://localhost:5000/api/posts/user/" + this.$route.params.id, {
+      // getting all the medias related to the user inside our folder \Images
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -98,8 +99,10 @@ export default {
         } else {
           let i = -1;
           while (arr.post[++i]) {
-            this.tabMedia.push(arr.post[i].media);
+            if (arr.post[i].media != null)
+              this.tabMedia.push(arr.post[i].media);
           }
+          console.log(this.tabMedia);
         }
       })
       .catch((error) => {
@@ -108,9 +111,11 @@ export default {
   },
   methods: {
     backward: function () {
+      // go back to the profile
       this.$router.push({ name: "profileMain", params: { id: this.userId } });
     },
     erase: function () {
+      // Deleting the profile if the infos are correct
       if (this.token === null) {
         return this.$router.push({ path: "/" });
       }
@@ -137,7 +142,7 @@ export default {
             this.eraseError = 0;
           } else {
             this.error = user.error;
-            this.eraseError = 1;
+            this.eraseError = 1; // if there is an error, blocking the following erase
           }
         })
         .catch((error) => {
@@ -166,7 +171,7 @@ export default {
           });
         if (this.role != 1) {
           return this.$router.push({ path: "/" });
-        } else if(this.role == 1 && this.$route.params.id != this.userId) {
+        } else if (this.role == 1 && this.$route.params.id != this.userId) {
           this.$router.push({
             name: "profileMain",
             params: { id: this.userId },

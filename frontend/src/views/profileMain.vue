@@ -1,6 +1,6 @@
 <template>
   <main :id="$style.profile">
-    <NavHub  @rerender="refreshComponents" :key="componentKey"/>
+    <NavHub @rerender="refreshComponents" :key="componentKey" />
     <div :id="$style.fullProfile">
       <section :key="componentKey">
         <InfoProfile
@@ -80,6 +80,7 @@ export default {
     this.userId = auth.userId;
     this.role = auth.role;
     fetch("http://localhost:5000/api/users/" + this.$route.params.id, {
+      // getting the infos
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -99,6 +100,7 @@ export default {
       });
     // Calling for the posts
     fetch("http://localhost:5000/api/posts/user/" + this.$route.params.id, {
+      // getting all the posts related to that profile
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -118,45 +120,47 @@ export default {
       });
   },
   methods: {
+    // method to refresh the component
     refreshComponents: function () {
       this.componentKey += 1;
       fetch("http://localhost:5000/api/users/" + this.$route.params.id, {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`,
-      }),
-    })
-      .then(async (result_) => {
-        const response = await result_.json();
-        if (response.error) {
-          return this.$router.push({ path: "/home" });
-        }
-        this.username = response.user.username;
-        this.email = response.user.email;
+        // getting the profiles infos
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
       })
-      .catch((error) => {
-        console.log(error);
-      });
-    // Calling for the posts
-    fetch("http://localhost:5000/api/posts/user/" + this.$route.params.id, {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`,
-      }),
-    })
-      .then(async (result_) => {
-        const arr = await result_.json();
-        if (arr.error) {
-          this.error = "Oops, une erreur est survenu";
-        } else {
-          this.allPosts = arr.post;
-        }
+        .then(async (result_) => {
+          const response = await result_.json();
+          if (response.error) {
+            return this.$router.push({ path: "/home" });
+          }
+          this.username = response.user.username;
+          this.email = response.user.email;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      fetch("http://localhost:5000/api/posts/user/" + this.$route.params.id, {
+        // getting all the posts related to the profile
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        }),
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then(async (result_) => {
+          const arr = await result_.json();
+          if (arr.error) {
+            this.error = "Oops, une erreur est survenu";
+          } else {
+            this.allPosts = arr.post;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
@@ -181,7 +185,7 @@ export default {
   min-height: 900px;
   margin-bottom: 2em;
 }
-#footHub{
+#footHub {
   margin-top: 2em;
 }
 #content {

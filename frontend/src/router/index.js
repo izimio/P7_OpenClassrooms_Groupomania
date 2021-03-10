@@ -1,8 +1,11 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory
+} from 'vue-router'
 import Login from '../views/login.vue'
 
-const routes = [
-  {
+// creating the path for all ours views
+const routes = [{
     path: '/',
     name: 'Login',
     component: Login
@@ -19,17 +22,17 @@ const routes = [
   },
   {
     path: '/profile/:id(\\d+)',
-    name: 'profileMain', 
+    name: 'profileMain',
     component: () => import('../views/profileMain.vue')
   },
   {
     path: '/profile/:id(\\d+)/update',
-    name: 'profileUpdate', 
+    name: 'profileUpdate',
     component: () => import('../views/profileUpdate.vue')
   },
   {
     path: '/profile/:id(\\d+)/delete',
-    name: 'profileDelete', 
+    name: 'profileDelete',
     component: () => import('../views/profileDelete.vue')
   },
   {

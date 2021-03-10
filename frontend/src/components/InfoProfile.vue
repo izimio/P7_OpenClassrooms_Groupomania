@@ -5,7 +5,8 @@
     <div :id="$style.Info_profile">
       <div :id="$style.header_profile">
         <h2 :id="$style.title" v-if="userId == profileId">
-          Voici vos informations <span :class="$style.stronger">{{ username }} </span>, <br />
+          Voici vos informations
+          <span :class="$style.stronger">{{ username }} </span>, <br />
           cliquez dessus pour les modifier
         </h2>
         <h2 :id="$style.title" v-else>Découvrez {{ username }}:</h2>

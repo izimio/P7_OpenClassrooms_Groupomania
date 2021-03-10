@@ -3,9 +3,7 @@
     <NavHub />
     <main>
       <article>
-        <h1 :class="$style.tiltle_posts">
-          Post de {{ username }}
-        </h1>
+        <h1 :class="$style.tiltle_posts">Post de {{ username }}</h1>
         <Posts
           :title="post.title"
           :id="post.id"
@@ -108,7 +106,6 @@ export default {
     return {
       comments: {},
       post: {},
-      allUsers: [],
       username: "",
       token: "",
       userId: "",
@@ -118,7 +115,6 @@ export default {
     };
   },
   created() {
-    this.allUsers.push("0");
     const storage = localStorage.getItem("user");
     const auth = JSON.parse(storage);
     if (auth === null) {
@@ -128,6 +124,7 @@ export default {
     this.userId = auth.userId;
     this.role = auth.role;
     fetch("http://localhost:5000/api/posts/" + this.$route.params.id, {
+      // getting the wanted post and all of his infos
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -141,7 +138,7 @@ export default {
           return this.$router.push({ path: "/Home" });
         } else {
           this.post = arr.Post;
-          this.username = arr.Post.User.username
+          this.username = arr.Post.User.username;
         }
       })
       .catch((error) => {
@@ -169,6 +166,7 @@ export default {
   },
   methods: {
     postComment: function () {
+      // if the user wants to comment, sending the comment to the api => DB
       const infos = {
         body: this.newCom,
       };

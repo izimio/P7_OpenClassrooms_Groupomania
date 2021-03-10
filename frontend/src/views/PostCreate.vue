@@ -102,16 +102,18 @@ export default {
   },
   methods: {
     onFileChange(e) {
+      // creating a bloblink to preview the file
       const img = e.target.files[0];
       this.media = URL.createObjectURL(img);
     },
     backward: function () {
+      // go back to the home Page
       this.$router.push({
         name: "Home",
       });
     },
     modify: function () {
-      let file = document.getElementById("file");
+      let file = document.getElementById("file"); // creating a formdata file to send the file
 
       let formData = new FormData();
       if (this.media != null) {
