@@ -1,6 +1,6 @@
 <template>
   <main :id="$style.login_page">
-    <section>
+    <article>
       <div :id="$style.ban_login">
         <h1 :id="$style.ban_login_title">
           Attention <strong>/!\</strong> <br />
@@ -49,7 +49,7 @@
           </div>
         </div>
       </form>
-    </section>
+    </article>
   </main>
 </template>
 

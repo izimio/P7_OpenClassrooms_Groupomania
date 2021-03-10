@@ -1,7 +1,7 @@
 <template>
-  <div :id="$style.allPage">
+  <main :id="$style.allPage">
     <NavHub />
-    <main>
+    <div>
       <article>
         <h1 :class="$style.tiltle_posts">Post de {{ username }}</h1>
         <Posts
@@ -82,8 +82,8 @@
         </aside>
       </article>
       <router-view />
-    </main>
-  </div>
+    </div>
+  </main>
 </template>
 
 

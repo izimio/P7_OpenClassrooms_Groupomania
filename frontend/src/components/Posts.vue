@@ -25,7 +25,7 @@
   </article>
 
   <article v-else :id="$style.post">
-    <div :class="$style.fullscren">
+    <section :class="$style.fullscren">
       <h3 :class="$style.title">{{ title }}</h3>
       <p :class="$style.body">
         {{ body }}
@@ -39,7 +39,7 @@
           >De: <strong> {{ username }} </strong></span
         >
       </router-link>
-    </div>
+    </section>
     <router-view />
     <div :class="$style.slots">
       <slot></slot>

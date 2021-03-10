@@ -1,7 +1,7 @@
 <template>
   <main :id="$style.login_page">
     <NavUser />
-    <section>
+    <article>
       <div :id="$style.ban_login">
         <h1 :id="$style.ban_login_title">Vous revoilà !</h1>
         <p :id="$style.ban_login_under">Connectez vous !</p>
@@ -45,7 +45,7 @@
           </div>
         </div>
       </form>
-    </section>
+    </article>
   </main>
 </template>
 

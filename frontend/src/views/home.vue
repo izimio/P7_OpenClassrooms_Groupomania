@@ -1,7 +1,7 @@
 <template>
   <main :id="$style.home">
     <NavHub />
-    <div :id="$style.fullHome">
+    <article :id="$style.fullHome">
       <section>
         <h1 :id="$style.title">Fil d'actualité</h1>
         <router-link to="/post/create" :id="$style.create_post">
@@ -31,7 +31,7 @@
         </h2>
         <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
       </section>
-    </div>
+    </article>
     <div :id="$style.footHub">
       <FooterHub />
     </div>

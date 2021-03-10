@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <article>
     <h1 :id="$style.title" v-if="userId == profileId">Votre profil</h1>
     <h1 v-else :id="$style.title">Profile de {{ username }}</h1>
-    <div :id="$style.Info_profile">
+    <section :id="$style.Info_profile">
       <div :id="$style.header_profile">
         <h2 :id="$style.title" v-if="userId == profileId">
           Voici vos informations
@@ -71,8 +71,8 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+  </article>
 </template>
 <script>
 export default {

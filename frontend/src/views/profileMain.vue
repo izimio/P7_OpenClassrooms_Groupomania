@@ -1,7 +1,7 @@
 <template>
   <main :id="$style.profile">
     <NavHub @rerender="refreshComponents" :key="componentKey" />
-    <div :id="$style.fullProfile">
+    <article :id="$style.fullProfile">
       <section :key="componentKey">
         <InfoProfile
           :id="this.$route.params.id"
@@ -11,7 +11,7 @@
           :profileId="profileId"
         />
       </section>
-      <section v-if="allPosts[0]" :id="$style.content" :key="componentKey">
+      <article v-if="allPosts[0]" :id="$style.content" :key="componentKey">
         <h2 :id="$style.content_title" v-if="userId == profileId">Vos posts</h2>
         <h2 v-else :id="$style.content_title">Il a posté</h2>
         <Posts
@@ -28,15 +28,13 @@
           :num="0"
         />
         <p>{{ error }}</p>
-      </section>
-      <section v-else :id="$style.nothing">
+      </article>
+      <article v-else :id="$style.nothing">
         <h2>Aucun post à afficher</h2>
         <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
-      </section>
-    </div>
-    <div :id="$style.footHub">
+      </article>
+    </article>
       <FooterHub />
-    </div>
     <router-view />
   </main>
 </template>
@@ -184,9 +182,6 @@ export default {
 #fullProfile {
   min-height: 900px;
   margin-bottom: 2em;
-}
-#footHub {
-  margin-top: 2em;
 }
 #content {
   min-height: 500px;

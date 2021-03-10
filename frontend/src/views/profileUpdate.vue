@@ -1,6 +1,6 @@
 <template>
   <main :id="$style.login_page">
-    <section>
+    <article>
       <div :id="$style.ban_login">
         <h1 :id="$style.ban_login_title">Modifiez vos données</h1>
         <p :id="$style.ban_login_under" v-if="value == 1">
@@ -50,7 +50,7 @@
           </div>
         </div>
       </form>
-    </section>
+    </article>
   </main>
 </template>
 

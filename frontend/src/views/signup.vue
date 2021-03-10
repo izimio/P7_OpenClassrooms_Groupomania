@@ -1,7 +1,7 @@
 <template>
   <main :id="$style.login_page">
     <NavUser />
-    <section>
+    <article>
       <div :id="$style.ban_login">
         <h1 :id="$style.ban_login_title">Bienvenue!</h1>
         <p :id="$style.ban_login_under">Inscrivez vous !</p>
@@ -18,7 +18,7 @@
             autofocus
           />
         </div>
-        <div :id="$style.form_each">
+        <section :id="$style.form_each">
           <div :id="$style.bottom_form_first">
             <label for="email" :id="$style.label"> Adresse Email </label>
             <input
@@ -56,9 +56,9 @@
               />
             </div>
           </div>
-        </div>
+        </section>
         <p :id="$style.error">{{ error }}</p>
-        <div :id="$style.bottom_form">
+        <section :id="$style.bottom_form">
           <div
             v-if="
               email.length >= 5 &&
@@ -74,9 +74,9 @@
           <div :id="$style.bottom_form_button_login_block" v-else>
             <p>S'inscire</p>
           </div>
-        </div>
+        </section>
       </form>
-    </section>
+    </article>
   </main>
 </template>
 
