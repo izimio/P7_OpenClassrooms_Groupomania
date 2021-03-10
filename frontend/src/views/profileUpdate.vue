@@ -100,7 +100,6 @@ export default {
         value: this.value,
         body: this.conf_body,
       };
-      console.log(infos);
       fetch("http://localhost:5000/api/users/" + this.$route.params.id, {
         method: "PUT",
         headers: new Headers({
@@ -110,16 +109,13 @@ export default {
         body: JSON.stringify(infos),
       })
         .then(async (result_) => {
-          console.log("aaaa");
           const user = await result_.json();
           if (!user.error) {
             this.error = "";
-            if (this.value != 2) {
               this.$router.push({
                 name: "profileMain",
                 params: { id: this.$route.params.id },
               });
-            }
           } else {
             this.error = user.error;
           }

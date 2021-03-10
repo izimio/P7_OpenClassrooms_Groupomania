@@ -119,7 +119,6 @@ export default {
   },
   methods: {
     refreshComponents: function () {
-      console.log("aaa")
       this.componentKey += 1;
       fetch("http://localhost:5000/api/users/" + this.$route.params.id, {
       method: "GET",

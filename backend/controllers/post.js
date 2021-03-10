@@ -17,7 +17,6 @@ exports.createPost = (req, res, next) => {
      const title = req.body.title
      const body = req.body.body
      const media = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null) // ternary operator to adjust the media with the right value
-     console.log(media)
      if (title.length <= 2 || body.body <= 2) { // checking the length of the post 
           return res.status(400).json({
                error: 'Champs manquant ou incorrect'
@@ -247,7 +246,6 @@ exports.deletePost = (req, res, next) => {
                               message: 'Post supprimé !'
                          }))
                          .catch(error => {
-                              console.log("error la", error)
                               res.status(400).json({
                                    error: 'Un problème est survenue lors de la suppression'
                               })

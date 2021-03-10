@@ -19,9 +19,9 @@ export default {
   },
   methods: {
     update: function () {
-      if (this.value == 0) {
+      if (this.value == 0) { // if the user is updating a post
         this.$router.push({ name: "PostUpdate", params: { id: this.id } });
-      } else if (this.value == 1) {
+      } else if (this.value == 1) { // if the user is updating a comment
         this.$router.push({ name: "CommentUpdate", params: { com_id: this.com_id, id: this.id} });
       }
     },

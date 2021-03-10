@@ -144,9 +144,6 @@ export default {
         formData.append("file", file.files[0]);
       }
       formData.append("imgChange", this.media);
-      for (var value of formData.values()) {
-        console.log(value);
-      }
       fetch("http://localhost:5000/api/posts/" + this.$route.params.id, {
         method: "PUT",
         headers: new Headers({

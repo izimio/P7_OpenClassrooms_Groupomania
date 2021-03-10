@@ -68,7 +68,6 @@ exports.signup = (req, res, next) => {
                                         role: 0
                                    })
                                    .then(user => {
-                                        console.log("user créé", user)
                                         res.status(201).json({
                                              userId: user.id,
                                              role: user.role,
