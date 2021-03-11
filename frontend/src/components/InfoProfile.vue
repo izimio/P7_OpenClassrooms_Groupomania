@@ -116,27 +116,46 @@ $bg-red: #501b1d;
   margin-bottom: 2em;
 }
 #container_all_profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   #all_profile {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
   }
 }
 
 #profile {
   width: 80em;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
   justify-content: space-evenly;
 }
 #username,
 #email,
 #id,
 #password {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
   i {
     margin-right: 1em;
@@ -151,6 +170,8 @@ $bg-red: #501b1d;
   span {
     padding: 0.3em;
   }
+  -webkit-transition: 400ms;
+  -o-transition: 400ms;
   transition: 400ms;
   &:hover {
     background-color: lighten(red, 25);
@@ -163,9 +184,18 @@ $bg-red: #501b1d;
   #profile {
     width: 25em;
     height: 150px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
     justify-content: space-evenly;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
     align-items: flex-start;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
   }
   #password {

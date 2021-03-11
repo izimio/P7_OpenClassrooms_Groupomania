@@ -195,8 +195,11 @@ h1 {
   height: 3em;
   text-align: center;
   &:focus {
-    transform: scale(1.05);
-    box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+    -webkit-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+            transform: scale(1.05);
+    -webkit-box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+            box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
 }
 #input,
@@ -210,7 +213,9 @@ textarea {
   font-weight: bold;
 }
 #form_each {
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-top: 2em;
 }
 #bottom_form {
@@ -223,8 +228,12 @@ textarea {
       cursor: pointer;
     }
   }
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   &_button_login {
     color: darken($bg-blue, 30);
     font-weight: bold;
@@ -268,8 +277,12 @@ textarea {
     padding: 0.5em;
     border-radius: 5px;
     margin-left: -7.5em;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     i {
       margin-right: 1em;
     }
@@ -298,9 +311,15 @@ textarea {
 }
 #preview {
   margin-top: 3.5em;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 #preview img {
   width: 400px;

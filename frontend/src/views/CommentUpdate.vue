@@ -153,7 +153,10 @@ textarea {
   height: 3em;
   text-align: center;
   &:focus {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
     transform: scale(1.05);
+    -webkit-box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
 }
@@ -162,6 +165,8 @@ textarea {
   min-height: 15em;
 }
 #form_each {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   margin-top: 2em;
 }
@@ -175,7 +180,11 @@ textarea {
       cursor: pointer;
     }
   }
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   &_button_login {
     color: darken($bg-blue, 30);

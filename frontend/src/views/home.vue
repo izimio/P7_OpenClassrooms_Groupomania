@@ -129,6 +129,8 @@ strong {
   padding: 0.5em;
   font-size: 2em;
   border-radius: 5px;
+  -webkit-transition: 500ms;
+  -o-transition: 500ms;
   transition: 500ms;
   &:hover {
     background-color: darken(#ffd7d7, 5);
@@ -142,8 +144,15 @@ strong {
   margin-top: 5em;
   margin-bottom: 5em;
   height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   &_smiley {
     font-size: 13em;

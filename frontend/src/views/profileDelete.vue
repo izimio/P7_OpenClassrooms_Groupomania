@@ -24,7 +24,7 @@
               supprimer définitivement mon compte
             </label>
             <input
-              :id="$style.input"
+              :id="$style.input_check"
               type="checkbox"
               v-model="check"
               required
@@ -168,9 +168,12 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-        if ((this.role != 1) || (this.role == 1 && (this.$route.params.id == this.userId))) {
+        if (
+          this.role != 1 ||
+          (this.role == 1 && this.$route.params.id == this.userId)
+        ) {
           return this.$router.push({ path: "/" });
-        } else if (this.role == 1 && (this.$route.params.id != this.userId)) {
+        } else if (this.role == 1 && this.$route.params.id != this.userId) {
           this.$router.push({
             name: "profileMain",
             params: { id: this.userId },
@@ -206,28 +209,43 @@ h1 {
     font-size: 2em;
   }
 }
-#input {
+#input[type="text"] {
   width: 75em;
   height: 3em;
   text-align: center;
   &:focus {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
     transform: scale(1.05);
+    -webkit-box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
 }
 
 #input {
   text-align: center;
+  &_check {
+    width: 75em;
+    height: 3em;
+  }
 }
 
 #form_each {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   margin-top: 2em;
 }
 #bottom_form {
   &_check {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     width: 30em;
   }
@@ -240,7 +258,11 @@ h1 {
       cursor: pointer;
     }
   }
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   &_button_login {
     color: darken($bg-blue, 30);

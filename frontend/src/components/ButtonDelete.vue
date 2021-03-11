@@ -71,11 +71,17 @@ export default {
 <style lang="scss">
 #delete-btn-trash {
   margin-right: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 0.5em;
   background-color: lighten(red, 20);
   border-radius: 5px;
+  -webkit-transition: 500ms;
+  -o-transition: 500ms;
   transition: 500ms;
   cursor: pointer;
   &:hover {

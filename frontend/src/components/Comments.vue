@@ -31,9 +31,18 @@ export default {
   width: 50%;
   position: relative;
   background-color: #f7cac9;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   .username {
     position: absolute;
@@ -41,6 +50,8 @@ export default {
     right: 0px;
     border: 1px solid transparent;
     padding: 0.5em;
+    -webkit-transition: 500ms;
+    -o-transition: 500ms;
     transition: 500ms;
     border-radius: 5px 0 20px;
     &:hover {
@@ -57,8 +68,14 @@ export default {
   .slots {
     margin-top: 1em;
     margin-bottom: 1em;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
   }
 }

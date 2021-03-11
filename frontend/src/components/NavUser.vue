@@ -29,7 +29,11 @@ $secondary-color: #fd2d01;
 }
 
 #nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
   width: 25em;
   margin: 3em auto;

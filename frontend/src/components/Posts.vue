@@ -81,14 +81,24 @@ $bg-red: #501b1d;
   width: 70%;
   margin: 0 auto 50px auto;
   padding-bottom: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   border: solid 1.5px black;
   position: relative;
+  -webkit-transition: 500ms;
+  -o-transition: 500ms;
   transition: 500ms;
   border-radius: 0 0 15px 15px;
   &:hover {
+    -webkit-box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
   .title,
@@ -102,8 +112,14 @@ $bg-red: #501b1d;
   }
   .preview {
     border-radius: 15px 0 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     background-color: lighten($bg-red, 40);
     img {
@@ -115,8 +131,14 @@ $bg-red: #501b1d;
 
   .preview_huge {
     border-radius: 15px 0 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     background-color: lighten($bg-red, 40);
     img {
@@ -127,6 +149,8 @@ $bg-red: #501b1d;
   }
   .link,
   .fullscren {
+    -webkit-transition: 500ms;
+    -o-transition: 500ms;
     transition: 500ms;
     padding-bottom: 1em;
     margin-bottom: 1em;
@@ -135,8 +159,14 @@ $bg-red: #501b1d;
     }
   }
   .slots {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-bottom: 1em;
   }
@@ -151,6 +181,8 @@ $bg-red: #501b1d;
     right: 0px;
     border: 1px solid transparent;
     padding: 0.5em;
+    -webkit-transition: 500ms;
+    -o-transition: 500ms;
     transition: 500ms;
     border-radius: 5px 0 15px;
     &:hover {

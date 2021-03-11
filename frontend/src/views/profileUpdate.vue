@@ -154,8 +154,11 @@ h1 {
   height: 3em;
   text-align: center;
   &:focus {
-    transform: scale(1.05);
-    box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+    -webkit-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+            transform: scale(1.05);
+    -webkit-box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+            box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
 }
 
@@ -164,7 +167,9 @@ h1 {
 }
 
 #form_each {
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-top: 2em;
 }
 #bottom_form {
@@ -177,8 +182,12 @@ h1 {
       cursor: pointer;
     }
   }
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   &_button_login {
     color: darken($bg-blue, 30);
     font-weight: bold;

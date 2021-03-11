@@ -35,8 +35,13 @@ $pink: #ffd7d7;
   background-color: $pink;
   margin-bottom: -5em;
   margin-top: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
   width: 100%;
   &_instagram {

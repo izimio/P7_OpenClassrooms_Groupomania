@@ -61,7 +61,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" module>
-//Variables
 $bg-red: #501b1d;
 #logo {
   height: 150px;
@@ -72,17 +71,28 @@ $bg-red: #501b1d;
 #nav {
   border-bottom: 2px solid black;
   &_full {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
     width: 25em;
   }
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
 
   &_logout {
     padding: 1em;
     border-radius: 50%;
+    -webkit-transition: 400ms;
+    -o-transition: 400ms;
     transition: 400ms;
     &:hover {
       background-color: lighten($bg-red, 60);

@@ -34,7 +34,7 @@
         <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
       </article>
     </article>
-      <FooterHub />
+    <FooterHub />
     <router-view />
   </main>
 </template>
@@ -195,8 +195,15 @@ export default {
   background-color: #ffd7d7;
   margin: 0 auto;
   padding-bottom: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   border: solid 1.5px black;
   line-height: 35px;
@@ -205,8 +212,15 @@ export default {
   margin-top: 5em;
   margin-bottom: 5em;
   height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   &_smiley {
     font-size: 11em;

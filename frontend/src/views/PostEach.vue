@@ -206,7 +206,11 @@ aside {
   }
   #comment_create {
     margin: 0 1em 1em 1em;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     &_button {
       background-color: lighten(blue, 20);
@@ -234,6 +238,7 @@ aside {
       height: 3em;
       text-align: center;
       &:focus {
+        -webkit-box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
         box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
       }
       &:invalid {

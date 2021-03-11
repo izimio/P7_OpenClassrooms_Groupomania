@@ -36,11 +36,17 @@ export default {
 
 <style lang="scss">
 #modify-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   padding: 0.5em;
   background-color: lighten(blue, 30);
   border-radius: 5px;
+  -webkit-transition: 500ms;
+  -o-transition: 500ms;
   transition: 500ms;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   cursor: pointer;
   &:hover {
