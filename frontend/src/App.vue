@@ -45,11 +45,12 @@ h1 {
 html,
 body {
   height: auto;
+  margin: auto;
+  max-width: 2800px;
   background-color: lighten(blueviolet, 40);
 }
-#nav {
+nav {
   padding: 30px;
-
   a {
     font-weight: bold;
     color: #2c3e50;

@@ -34,14 +34,11 @@
         <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
       </article>
     </article>
-    <FooterHub />
-    <router-view />
   </main>
 </template>
 
 <script>
 import NavHub from "@/components/NavHub.vue";
-import FooterHub from "@/components/FooterHub.vue";
 import InfoProfile from "@/components/InfoProfile.vue";
 import Posts from "@/components/Posts.vue";
 
@@ -49,7 +46,6 @@ export default {
   name: "ProfileMain",
   components: {
     NavHub,
-    FooterHub,
     InfoProfile,
     Posts,
   },
@@ -181,7 +177,6 @@ export default {
 }
 #fullProfile {
   min-height: 900px;
-  margin-bottom: 2em;
 }
 #content {
   min-height: 500px;

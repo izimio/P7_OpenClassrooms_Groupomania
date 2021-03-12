@@ -81,7 +81,6 @@
           </div>
         </aside>
       </article>
-      <router-view />
     </div>
   </main>
 </template>

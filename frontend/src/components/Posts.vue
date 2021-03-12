@@ -40,7 +40,6 @@
         >
       </router-link>
     </section>
-    <router-view />
     <div :class="$style.slots">
       <slot></slot>
     </div>

@@ -11,7 +11,6 @@
         >INSCRIPTION</router-link
       >
     </nav>
-    <router-view />
   </header>
 </template>
 

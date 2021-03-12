@@ -95,7 +95,7 @@ export default {
       .then(async (result_) => {
         const arr = await result_.json();
         if (arr.error) {
-          this.error = "Oops, une erreur est survenu";
+          console.log(arr.error)
         } else {
           let i = -1;
           while (arr.post[++i]) {

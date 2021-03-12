@@ -135,6 +135,7 @@ export default {
 $bg-red: #501b1d;
 $bg-blue: #557a95;
 
+
 h1 {
   font-size: 5em;
 }

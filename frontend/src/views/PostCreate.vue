@@ -57,7 +57,7 @@
           <div
             v-if="body.length >= 1 && title.length >= 1"
             :id="$style.bottom_form_button_login"
-            @click="modify"
+            @click="createPost"
           >
             <p>Poster</p>
           </div>
@@ -112,7 +112,7 @@ export default {
         name: "Home",
       });
     },
-    modify: function () {
+    createPost: function () {
       let file = document.getElementById("file"); // creating a formdata file to send the file
 
       let formData = new FormData();
@@ -173,10 +173,10 @@ h1 {
   text-align: center;
   &:focus {
     -webkit-transform: scale(1.05);
-        -ms-transform: scale(1.05);
-            transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
     -webkit-box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
-            box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+    box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
 }
 
@@ -192,8 +192,8 @@ textarea {
 }
 #form_each {
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin-top: 2em;
 }
 #bottom_form {
@@ -210,8 +210,8 @@ textarea {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   &_button_login {
     color: darken($bg-blue, 30);
     font-weight: bold;
@@ -260,8 +260,8 @@ textarea {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     i {
       margin-right: 1em;
     }
@@ -294,11 +294,11 @@ textarea {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   margin-top: 3.5em;
 }
 

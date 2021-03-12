@@ -32,23 +32,17 @@
         <span :id="$style.nothing_smiley">¯\_(ツ)_/¯</span>
       </section>
     </article>
-    <div :id="$style.footHub">
-      <FooterHub />
-    </div>
-    <router-view />
   </main>
 </template>
 
 <script>
 // @ is an alias to /src
 import NavHub from "@/components/NavHub.vue";
-import FooterHub from "@/components/FooterHub.vue";
 import Posts from "@/components/Posts.vue";
 export default {
   name: "Home",
   components: {
     NavHub,
-    FooterHub,
     Posts,
   },
   data() {
@@ -117,10 +111,6 @@ strong {
 }
 #fullHome {
   min-height: 900px;
-  margin-bottom: 2em;
-}
-#footHub {
-  margin-top: 2em;
 }
 #create_post {
   margin: 20px auto;
