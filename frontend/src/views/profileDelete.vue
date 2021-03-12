@@ -1,5 +1,5 @@
 <template>
-  <main :id="$style.login_page">
+  <main :id="$style.delette_page">
     <article>
       <div :id="$style.ban_login">
         <h1 :id="$style.ban_login_title">
@@ -10,11 +10,17 @@
       </div>
       <form action="" method="post" autocomplete="off" :id="$style.form">
         <div :id="$style.form_each">
-          <div id="">
+          <div :id="$style.upper_form">
             <label for="conf_body" :id="$style.label">
-              Entrez vote pseudo pour confirmer la supprésion
+              Confirmer la supprésion
             </label>
-            <input :id="$style.input" type="text" v-model="body" required />
+            <input
+              :id="$style.input"
+              type="text"
+              v-model="body"
+              required
+              placeholder="entrez votre pseudo"
+            />
           </div>
         </div>
         <div :id="$style.form_each">
@@ -95,7 +101,7 @@ export default {
       .then(async (result_) => {
         const arr = await result_.json();
         if (arr.error) {
-          console.log(arr.error)
+          console.log(arr.error);
         } else {
           let i = -1;
           while (arr.post[++i]) {
@@ -199,7 +205,7 @@ h1 {
   font-size: 5em;
 }
 
-#login_page {
+#delette_page {
   margin-bottom: 2em;
 }
 
@@ -239,6 +245,7 @@ h1 {
   justify-content: center;
   margin-top: 2em;
 }
+
 #bottom_form {
   &_check {
     display: -webkit-box;
@@ -247,7 +254,7 @@ h1 {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    width: 30em;
+    width: 20em;
   }
   p {
     margin: 0.5em;
@@ -300,13 +307,12 @@ h1 {
   margin-bottom: 1em;
 }
 // Media queries
-@media all and (max-width: 1200px) {
-  #input {
-    width: 80%;
+@media all and (max-width: 1050px) {
+  #input[type="text"] {
+    width: 50em;
   }
 }
-
-@media all and (max-width: 650px) {
+@media all and (max-width: 680px) {
   h1 {
     font-size: 3em;
   }
@@ -315,6 +321,9 @@ h1 {
     &_under {
       font-size: 1.5em;
     }
+  }
+  #input[type="text"] {
+    width: 20em;
   }
 }
 </style>
