@@ -159,7 +159,7 @@ $bg-red: #501b1d;
   flex-wrap: nowrap;
   i {
     margin-right: 1em;
-    margin-left: 1em;
+    margin-left: 2em;
   }
   &:hover {
     text-decoration: underline;

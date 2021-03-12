@@ -170,10 +170,11 @@ export default {
   color: black;
   scroll-behavior: smooth;
 }
-
+main {
+  margin-bottom: 0em;
+}
 #profile {
   text-decoration: none;
-  padding-bottom: 2em;
 }
 #fullProfile {
   min-height: 900px;

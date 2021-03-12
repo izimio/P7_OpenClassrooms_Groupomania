@@ -50,7 +50,6 @@ body {
   background-color: lighten(blueviolet, 40);
 }
 nav {
-  padding: 30px;
   a {
     font-weight: bold;
     color: #2c3e50;

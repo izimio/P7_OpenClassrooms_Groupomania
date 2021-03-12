@@ -69,6 +69,7 @@ $bg-red: #501b1d;
 
 #nav {
   border-bottom: 2px solid black;
+  padding: 30px;
   &_full {
     display: -webkit-box;
     display: -ms-flexbox;
