@@ -163,17 +163,17 @@ h1 {
   text-align: center;
   &:focus {
     -webkit-transform: scale(1.05);
-        -ms-transform: scale(1.05);
-            transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
     -webkit-box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
-            box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+    box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
 }
 
 #form_each {
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin-top: 2em;
 }
 
@@ -182,18 +182,18 @@ h1 {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 
   &_input2 {
     width: 36em;
     height: 3em;
     &:focus {
       -webkit-transform: scale(1.05);
-          -ms-transform: scale(1.05);
-              transform: scale(1.05);
+      -ms-transform: scale(1.05);
+      transform: scale(1.05);
       -webkit-box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
-              box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+      box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
     }
   }
   &_first {
@@ -214,8 +214,8 @@ h1 {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   &_button_login {
     color: darken($bg-blue, 30);
     font-weight: bold;
@@ -259,8 +259,8 @@ h1 {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     &_input2 {
       width: 80%;
     }
@@ -280,7 +280,6 @@ h1 {
   #ban_login {
     margin-bottom: 4em;
     &_under {
-      margin-top: -1.5em;
       font-size: 1.5em;
     }
   }

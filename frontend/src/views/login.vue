@@ -196,7 +196,6 @@ main {
   #ban_login {
     margin-bottom: 4em;
     &_under {
-      margin-top: -1.5em;
       font-size: 1.5em;
     }
   }
