@@ -121,6 +121,7 @@ $bg-red: #501b1d;
     -ms-flex-align: center;
     align-items: center;
     background-color: lighten($bg-red, 40);
+    padding: 0.5em;
     img {
       width: 400px;
       height: 300px;
@@ -140,6 +141,7 @@ $bg-red: #501b1d;
     -ms-flex-align: center;
     align-items: center;
     background-color: lighten($bg-red, 40);
+    padding: 0.5em;
     img {
       width: 700px;
       height: 500px;
