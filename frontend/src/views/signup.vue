@@ -63,7 +63,7 @@
             v-if="
               email.length >= 5 &&
               password.length >= 6 &&
-              username.length > 3 &&
+              username.length > 3 && username.length <= 19 &&
               password == conf_password
             "
             :id="$style.bottom_form_button_login"

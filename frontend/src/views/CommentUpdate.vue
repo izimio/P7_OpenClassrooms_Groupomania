@@ -17,6 +17,7 @@
             />
           </div>
         </div>
+        <p :id="$style.counter_letters"> {{ body.length }} / 250</p>
         <p :id="$style.error">{{ error }}</p>
         <div :id="$style.bottom_form">
           <div
@@ -161,6 +162,10 @@ textarea {
   }
 }
 
+#counter_letters{
+  margin-top: 1em;
+  font-weight: bold;
+}
 textarea {
   min-height: 15em;
 }

@@ -31,6 +31,7 @@
             />
           </div>
         </div>
+        <p :id="$style.counter_letters"> {{ body.length }} / 250</p>
         <div :id="$style.img">
           <div :id="$style.img_upload">
             <i class="gg-software-upload"></i>
@@ -180,6 +181,10 @@ h1 {
   }
 }
 
+#counter_letters{
+  margin-top: 1em;
+  font-weight: bold;
+}
 #input,
 textarea {
   text-align: center;

@@ -134,7 +134,7 @@ $bg-red: #501b1d;
 }
 
 #profile {
-  width: 80em;
+  width: 100em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
