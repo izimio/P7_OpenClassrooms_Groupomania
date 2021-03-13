@@ -16,6 +16,7 @@
             placeholder="Julien_Delorme"
             required
             autofocus
+            maxlength="19"
           />
         </div>
         <section :id="$style.form_each">
@@ -63,7 +64,7 @@
             v-if="
               email.length >= 5 &&
               password.length >= 6 &&
-              username.length > 3 && username.length <= 19 &&
+              username.length > 3 &&
               password == conf_password
             "
             :id="$style.bottom_form_button_login"
