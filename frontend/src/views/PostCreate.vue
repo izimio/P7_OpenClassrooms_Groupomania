@@ -31,7 +31,7 @@
             />
           </div>
         </div>
-        <p :id="$style.counter_letters"> {{ body.length }} / 250</p>
+        <p :id="$style.counter_letters" v-bind:class="[body.length >= 230 ? $style.danger : $style.safe]">{{ body.length }} / 250</p>
         <div :id="$style.img">
           <div :id="$style.img_upload">
             <i class="gg-software-upload"></i>
@@ -154,6 +154,14 @@ export default {
 $bg-red: #501b1d;
 $bg-blue: #557a95;
 
+.danger {
+  color: red;
+}
+
+.safe {
+  color: black;
+}
+
 h1 {
   font-size: 5em;
 }
@@ -181,7 +189,7 @@ h1 {
   }
 }
 
-#counter_letters{
+#counter_letters {
   margin-top: 1em;
   font-weight: bold;
 }

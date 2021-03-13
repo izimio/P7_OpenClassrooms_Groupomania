@@ -17,7 +17,12 @@
             />
           </div>
         </div>
-        <p :id="$style.counter_letters"> {{ body.length }} / 250</p>
+        <p
+          :id="$style.counter_letters"
+          v-bind:class="[body.length >= 230 ? $style.danger : $style.safe]"
+        >
+          {{ body.length }} / 250
+        </p>
         <p :id="$style.error">{{ error }}</p>
         <div :id="$style.bottom_form">
           <div
@@ -138,6 +143,14 @@ h1 {
   font-size: 5em;
 }
 
+.danger {
+  color: red;
+}
+
+.safe {
+  color: black;
+}
+
 #login_page {
   padding-bottom: 2em;
 }
@@ -162,7 +175,7 @@ textarea {
   }
 }
 
-#counter_letters{
+#counter_letters {
   margin-top: 1em;
   font-weight: bold;
 }

@@ -31,7 +31,7 @@
             />
           </div>
         </div>
-        <p :id="$style.counter_letters"> {{ body.length }} / 250</p>
+        <p :id="$style.counter_letters" v-bind:class="[body.length >= 230 ? $style.danger : $style.safe]">{{ body.length }} / 250</p>
         <div :id="$style.img">
           <div :id="$style.img_upload">
             <i class="gg-software-upload"></i>
@@ -182,6 +182,12 @@ $bg-blue: #557a95;
 h1 {
   font-size: 5em;
 }
+.danger {
+  color: red;
+}
+.safe {
+  color: black;
+}
 #login_page {
   padding-bottom: 2em;
 }
@@ -197,17 +203,17 @@ h1 {
   text-align: center;
   &:focus {
     -webkit-transform: scale(1.05);
-        -ms-transform: scale(1.05);
-            transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
     -webkit-box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
-            box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+    box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
 }
 #input,
 textarea {
   text-align: center;
 }
-#counter_letters{
+#counter_letters {
   margin-top: 1em;
   font-weight: bold;
 }
@@ -218,8 +224,8 @@ textarea {
 }
 #form_each {
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin-top: 2em;
 }
 #bottom_form {
@@ -236,8 +242,8 @@ textarea {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   &_button_login {
     color: darken($bg-blue, 30);
     font-weight: bold;
@@ -285,8 +291,8 @@ textarea {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     i {
       margin-right: 1em;
     }
@@ -319,11 +325,11 @@ textarea {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 #preview img {
   width: 400px;

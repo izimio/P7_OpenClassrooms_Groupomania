@@ -38,6 +38,7 @@ $pink: #ffd7d7;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
 }
+
 h1 {
   font-family: "Roboto", Avenir, Helvetica, Arial, sans-serif;
 }
