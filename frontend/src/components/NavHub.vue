@@ -124,7 +124,7 @@ $bg-red: #501b1d;
   #logo {
     width: 100%;
     margin-left: -1em;
-    height: 100px;
+    height: 80px;
     margin-bottom: -1em;
   }
 }

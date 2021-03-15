@@ -213,13 +213,13 @@ $bg-red: #501b1d;
 }
 @media screen and (max-width: 500px) {
   #profile {
-    width: 25em;
+    width: 20em;
   }
   #container_all_profile {
     #all_profile {
-      width: 100%;
+      width: 95%;
       overflow: hidden;
-      white-space: nowrap;
+      word-break: break-all;
     }
   }
 }
