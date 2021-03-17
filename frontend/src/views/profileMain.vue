@@ -9,6 +9,7 @@
           :email="email"
           :userId="userId"
           :profileId="profileId"
+          :isModerator="isModerator"
         />
       </section>
       <article v-if="allPosts[0]" :id="$style.content" :key="componentKey">
@@ -59,6 +60,7 @@ export default {
       role: "",
       error: "",
       email: "",
+      isModerator: 0,
       allPosts: {},
       componentKey: 0,
     };
@@ -88,6 +90,7 @@ export default {
         }
         this.username = response.user.username;
         this.email = response.user.email;
+        this.isModerator = response.user.role
       })
       .catch((error) => {
         console.log(error);

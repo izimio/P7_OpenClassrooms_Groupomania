@@ -10,6 +10,10 @@
           cliquez dessus pour les modifier
         </h2>
         <h2 :id="$style.title" v-else>Découvrez {{ username }}:</h2>
+        <div :id="$style.header_profile_isModerator" v-if="isModerator == 1">
+          <i class="gg-crown"></i>
+          <span>Modérateur</span>
+        </div>
       </div>
       <div :id="$style.container_all_profile">
         <div :id="$style.all_profile">
@@ -77,7 +81,7 @@
 <script>
 export default {
   name: "InfoProfile",
-  props: ["id", "username", "email", "value"],
+  props: ["id", "username", "email", "value", "isModerator"],
   data() {
     return {
       role: "",
@@ -113,7 +117,20 @@ $bg-red: #501b1d;
   padding-top: 1em;
 }
 #header_profile {
-  margin-bottom: 2em;
+  margin-bottom: 1.5em;
+  &_isModerator {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    span {
+      text-decoration: underline;
+    }
+    i {
+      margin-right: 1em;
+    }
+  }
 }
 #container_all_profile {
   display: -webkit-box;

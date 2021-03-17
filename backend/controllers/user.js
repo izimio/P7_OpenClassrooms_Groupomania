@@ -450,7 +450,7 @@ exports.updateUser = (req, res, next) => {
 
 exports.getUser = (req, res, next) => {
      models.User.findOne({ // getting all the informations linked with a user related to the req.params.id
-               attributes: ['id', 'username', 'email'],
+               attributes: ['id', 'username', 'email', 'role'],
                where: {
                     id: req.params.id
                }
