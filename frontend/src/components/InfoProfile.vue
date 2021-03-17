@@ -36,7 +36,7 @@
               >
               <span :id="$style.id" v-else>pseudo : {{ username }}</span>
             </div>
-            <span :id="$style.sep"> | </span>
+            <span :id="$style.sep" v-if="userId == profileId || role == 1"> | </span>
             <div :id="$style.email">
               <i class="gg-mail"></i>
               <router-link
