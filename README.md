@@ -1,6 +1,6 @@
-# JoshuaBrionne_6_06022021
+# JoshuaBrionne_7_22022021
 ----------------------------------------------------------
-***This is the 6th project from OC's web dev formation***
+***This is the 7th project from OC's web dev formation***
 ===
 
 In this one we learn how to create and organize a backend environment for a social network
